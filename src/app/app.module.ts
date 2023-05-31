@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 /** Environment Configuration */
-
+import { environment } from 'environments/environment';
 /** Main Component */
 import { WebAppComponent } from './web-app.component';
 
@@ -36,12 +36,23 @@ import { ProfileModule } from './profile/profile.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ConfigurationWizardModule } from './configuration-wizard/configuration-wizard.module';
 import {PortalModule} from '@angular/cdk/portal';
-
+import { ApiModule, Configuration, ConfigurationParameters } from 'openapi/typescript_files/index';
 /** Main Routing Module */
 import { AppRoutingModule } from './app-routing.module';
 import { DatePipe, LocationStrategy } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
+
+/* Configuration Factory to make the api base URL */
+
+const configurationFactory = () =>{
+  const configParams: ConfigurationParameters = {
+    basePath: 'https://localhost:8443/fineract-provider/api/v1',
+  };
+  return new Configuration(configParams);
+}
 
 /**
  * App Module
@@ -72,6 +83,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     ClientsModule,
     ReportsModule,
     GroupsModule,
+    ApiModule.forRoot(configurationFactory),
     CentersModule,
     AccountingModule,
     SelfServiceModule,

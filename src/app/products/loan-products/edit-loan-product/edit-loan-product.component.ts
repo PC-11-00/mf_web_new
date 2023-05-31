@@ -14,6 +14,9 @@ import { LoanProductAccountingStepComponent } from '../loan-product-stepper/loan
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 
+/* OpenApi Transcirpt Service*/
+import { LoanProductsService } from 'openapi/typescript_files';
+
 @Component({
   selector: 'mifosx-edit-loan-product',
   templateUrl: './edit-loan-product.component.html',
@@ -39,7 +42,7 @@ export class EditLoanProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: ProductsService,
+              private productsService: LoanProductsService,
               private settingsService: SettingsService,
               private router: Router) {
     this.route.data.subscribe((data: { loanProductAndTemplate: any }) => {

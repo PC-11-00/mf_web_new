@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { LoanProductsService } from 'openapi/typescript_files';
 
 /**
  * Loan products data resolver.
@@ -18,14 +19,14 @@ export class LoanProductsResolver implements Resolve<Object> {
    *
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: LoanProductsService) {}
 
   /**
    * Returns the loan products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getLoanProducts();
+    return this.productsService.retrieveAllLoanProducts();
   }
 
 }

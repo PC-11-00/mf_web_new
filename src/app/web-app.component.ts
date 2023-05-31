@@ -108,6 +108,7 @@ export class WebAppComponent implements OnInit {
         if (title) {
           this.titleService.setTitle(`${this.translateService.instant(title)} | Mifos X`);
         }
+        
       });
 
     // Stores top 100 user activites as local storage object.

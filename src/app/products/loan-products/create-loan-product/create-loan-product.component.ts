@@ -14,6 +14,9 @@ import { LoanProductAccountingStepComponent } from '../loan-product-stepper/loan
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 
+/*OpenApi Generated Service*/
+import { LoanProduct, LoanProductsService } from 'openapi/typescript_files';
+
 @Component({
   selector: 'mifosx-create-loan-product',
   templateUrl: './create-loan-product.component.html',
@@ -27,7 +30,7 @@ export class CreateLoanProductComponent implements OnInit {
   @ViewChild(LoanProductSettingsStepComponent, { static: true }) loanProductSettingsStep: LoanProductSettingsStepComponent;
   @ViewChild(LoanProductChargesStepComponent, { static: true }) loanProductChargesStep: LoanProductChargesStepComponent;
   @ViewChild(LoanProductAccountingStepComponent, { static: true }) loanProductAccountingStep: LoanProductAccountingStepComponent;
-
+  
   loanProductsTemplate: any;
   accountingRuleData = ['None', 'Cash', 'Accrual (periodic)', 'Accrual (upfront)'];
 
@@ -39,7 +42,7 @@ export class CreateLoanProductComponent implements OnInit {
     */
 
   constructor(private route: ActivatedRoute,
-              private productsService: ProductsService,
+              private productsService: LoanProductsService,
               private settingsService: SettingsService,
               private router: Router) {
     this.route.data.subscribe((data: { loanProductsTemplate: any }) => {
