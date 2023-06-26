@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
+import { ClientService, ClientsAddressService } from 'openapi/typescript_files';
 
 /**
  * Clients Assign Staff Component
@@ -31,7 +32,7 @@ export class ClientAssignStaffComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
@@ -60,7 +61,7 @@ export class ClientAssignStaffComponent implements OnInit {
    * Submits the form and assigns staff for the client.
    */
   submit() {
-    this.clientsService.executeClientCommand(this.clientData.id, 'assignStaff', this.clientAssignStaffForm.value)
+    this.clientsService.activate1(this.clientData.id, this.clientAssignStaffForm.value, 'assignStaff')
       .subscribe(() => {
         this.router.navigate(['../../'], { relativeTo: this.route });
       });

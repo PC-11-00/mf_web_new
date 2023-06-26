@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { RecurringDepositsService } from 'app/deposits/recurring-deposits/recurring-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { RecurringDepositAccountTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Edit Transaction component.
@@ -35,7 +36,7 @@ export class EditTransactionComponent implements OnInit {
   /** Flag to enable payment details fields. */
   addPaymentDetailsFlag: Boolean = false;
   /** Recurring deposit account's Id */
-  recurringDepositAccountId: string;
+  recurringDepositAccountId: any;
   /** Transaction Template */
   transactionTemplateData: any;
 
@@ -52,7 +53,7 @@ export class EditTransactionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountTransactionsService,
     private settingsService: SettingsService, ) {
     this.route.data.subscribe((data: { recurringDepositsAccountTransactionTemplate: any }) => {
       this.transactionTemplateData = data.recurringDepositsAccountTransactionTemplate;
@@ -121,7 +122,7 @@ export class EditTransactionComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.recurringDepositsService.executeRecurringDepositsAccountTransactionsCommand(this.recurringDepositAccountId, 'modify', data, this.transactionTemplateData.id)
+    this.recurringDepositsService.handleTransactionCommands(this.recurringDepositAccountId,this.transactionTemplateData.id, data, 'modify' )
       .subscribe(res => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

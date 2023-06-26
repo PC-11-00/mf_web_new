@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { RolesService } from 'openapi/typescript_files';
 
 /**
  * Edit Role Description Component.
@@ -29,7 +30,7 @@ export class EditRoleComponent implements OnInit {
    */
   constructor(
     private formBuilder: FormBuilder,
-    private systemService: SystemService,
+    private rolesService: RolesService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -60,7 +61,7 @@ export class EditRoleComponent implements OnInit {
    * if successful redirects to view updated roles and permissions.
    */
   submit() {
-    this.systemService.updateRole(this.roleForm.value, this.roleData.id).subscribe(() => {
+    this.rolesService.updateRole(this.roleData.id, this.roleForm.value).subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Client Template resolver.
@@ -17,14 +18,14 @@ export class ClientTemplateResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: ClientService) { }
 
     /**
      * Returns the Client Template data.
      * @returns {Observable<any>}
      */
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        return this.clientsService.getClientTemplate();
+        return this.clientsService.retrieveTemplate5();
     }
 
 }

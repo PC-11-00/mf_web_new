@@ -13,6 +13,7 @@ import { SystemService } from 'app/system/system.service';
 /** Custom Components */
 import { ReportParameterDialogComponent } from '../report-parameter-dialog/report-parameter-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { ReportsService } from 'openapi/typescript_files';
 
 /**
  * Edit Report Component.
@@ -64,7 +65,7 @@ export class EditReportComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private systemService: SystemService,
+              private reportsService: ReportsService,
               private dialog: MatDialog) {
     this.route.data.subscribe((data: { report: any, reportTemplate: any }) => {
       this.reportData = data.report;
@@ -203,7 +204,7 @@ export class EditReportComponent implements OnInit {
         return reportParameter;
       });
     }
-    this.systemService.updateReport(this.reportData.id, this.reportForm.value)
+    this.reportsService.updateReport(this.reportData.id, this.reportForm.value)
       .subscribe(() => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

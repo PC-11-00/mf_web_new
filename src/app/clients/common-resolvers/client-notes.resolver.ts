@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { NotesService } from 'openapi/typescript_files';
 
 /**
  * Client Notes resolver.
@@ -17,15 +18,16 @@ export class ClientNotesResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: NotesService) { }
 
     /**
      * Returns the Client's Notes.
      * @returns {Observable<any>}
      */
+    clientId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.paramMap.get('clientId');
-        return this.clientsService.getClientNotes(clientId);
+        this.clientId = route.parent.paramMap.get('clientId');
+        return this.clientsService.retrieveNotesByResource('clients',this.clientId);
     }
 
 }

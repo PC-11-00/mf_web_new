@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { ProvisioningCategoryService } from 'openapi/typescript_files';
 
 /**
  * Provisioning categories data resolver.
@@ -17,14 +18,14 @@ export class ProvisioningCategoriesResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: ProvisioningCategoryService) {}
 
   /**
    * Returns the Provisioning categories data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.accountingService.getProvisioningCategories();
+    return this.accountingService.retrieveAll15();
   }
 
 }

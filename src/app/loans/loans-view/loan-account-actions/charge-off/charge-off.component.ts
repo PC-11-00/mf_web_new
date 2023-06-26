@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-charge-off',
@@ -14,7 +15,7 @@ export class ChargeOffComponent implements OnInit {
   @Input() dataObject: any;
 
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   /** Payment Type Options */
   paymentTypes: any;
   /** Show payment details */
@@ -36,7 +37,7 @@ export class ChargeOffComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanService: LoanTransactionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
@@ -80,7 +81,7 @@ export class ChargeOffComponent implements OnInit {
       locale
     };
     const command = 'charge-off';
-    this.loanService.submitLoanActionButton(this.loanId, data, command)
+    this.loanService.executeLoanTransaction(this.loanId, data, command)
       .subscribe((response: any) => {
         this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });

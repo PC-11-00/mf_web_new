@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
+import { ExternalServicesService } from 'openapi/typescript_files';
 
 /**
  * Edit SMS Configuration Component.
@@ -29,7 +30,7 @@ export class EditSMSComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private externalServicesService: ExternalServicesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { smsConfiguration: any }) => {
@@ -61,8 +62,8 @@ export class EditSMSComponent implements OnInit {
    * if successful redirects to view SMS configuration.
    */
   submit() {
-    this.systemService
-      .updateExternalConfiguration('SMS', this.smsConfigurationForm.value)
+    this.externalServicesService
+      .updateExternalServiceProperties('SMS', this.smsConfigurationForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

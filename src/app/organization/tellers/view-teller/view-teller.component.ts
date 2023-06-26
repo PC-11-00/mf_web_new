@@ -8,6 +8,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * View Teller Component.
@@ -29,7 +30,7 @@ export class ViewTellerComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: OrganizationService,
+  constructor(private organizationService: TellerCashManagementService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {

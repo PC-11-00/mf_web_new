@@ -7,6 +7,7 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-base';
 import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
+import { DelinquencyRangeAndBucketsManagementService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-create-bucket',
@@ -28,7 +29,7 @@ export class CreateBucketComponent implements OnInit {
   displayedColumns: string[] = ['classification', 'minimumAgeDays', 'maximumAgeDays', 'actions'];
 
   constructor(private formBuilder: FormBuilder,
-    private productsService: ProductsService,
+    private productsService: DelinquencyRangeAndBucketsManagementService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog) {

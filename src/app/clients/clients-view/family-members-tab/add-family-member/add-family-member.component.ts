@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClientsService } from '../../../clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ClientFamilyMemberService } from 'openapi/typescript_files';
 
 /**
  * Add Family Member Component
@@ -41,7 +42,7 @@ export class AddFamilyMemberComponent implements OnInit {
               private dateUtils: Dates,
               private router: Router,
               private route: ActivatedRoute,
-              private clientsService: ClientsService,
+              private clientsService: ClientFamilyMemberService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { clientTemplate: any }) => {
       this.addFamilyMemberTemplate = data.clientTemplate.familyMemberOptions;
@@ -90,7 +91,7 @@ export class AddFamilyMemberComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.clientsService.addFamilyMember(this.clientId, data).subscribe(res => {
+    this.clientsService.addClientFamilyMembers(this.clientId, data).subscribe(res => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { ProvisioningEntriesService } from 'openapi/typescript_files';
 
 /**
  * Provisioning entry entries data resolver.
@@ -17,15 +18,16 @@ export class ProvisioningEntryEntriesResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: ProvisioningEntriesService) {}
 
   /**
    * Returns the provisioning entry entries data.
    * @returns {Observable<any>}
    */
+  provisioningEntryId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const provisioningEntryId = route.paramMap.get('id');
-    return this.accountingService.getProvisioningEntryEntries(provisioningEntryId);
+    this.provisioningEntryId = route.paramMap.get('id');
+    return this.accountingService.retrieveProviioningEntries(this.provisioningEntryId);
   }
 
 }

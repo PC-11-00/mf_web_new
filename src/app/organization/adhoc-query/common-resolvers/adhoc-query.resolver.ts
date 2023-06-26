@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
+import { AdhocQueryApiService } from 'openapi/typescript_files';
 
 /**
  * Adhoc Query data resolver.
@@ -17,15 +18,16 @@ export class AdhocQueryResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: AdhocQueryApiService) {}
 
   /**
    * Returns the adhoc query data.
    * @returns {Observable<any>}
    */
+  adhocQueryId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const adhocQueryId = route.paramMap.get('id');
-    return this.organizationService.getAdhocQuery(adhocQueryId);
+    this.adhocQueryId = route.paramMap.get('id');
+    return this.organizationService.retrieveAdHocQuery(this.adhocQueryId);
   }
 
 }

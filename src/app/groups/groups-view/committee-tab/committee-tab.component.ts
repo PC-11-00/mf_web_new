@@ -6,9 +6,10 @@ import { MatTable } from '@angular/material/table';
 
 /** Custom Dialogs */
 import { UnassignRoleDialogComponent } from '../custom-dialogs/unassign-role-dialog/unassign-role-dialog.component';
+import { GroupsService } from 'openapi/typescript_files';
 
 /** Custom Services */
-import { GroupsService } from 'app/groups/groups.service';
+// import { GroupsService } from 'app/groups/groups.service';
 
 /**
  * Groups Committee Tab Component
@@ -61,7 +62,7 @@ export class CommitteeTabComponent {
         const clientIndex = this.groupRolesData.findIndex((client: any) => client.clientId === clientId);
         this.groupRolesData.splice(clientIndex, 1);
         this.rolesTableRef.renderRows();
-        this.groupsService.unAssignRoleCommand(this.groupViewData.id, roleId).subscribe(() => {});
+        this.groupsService.activateOrGenerateCollectionSheet(this.groupViewData.id, {},'unassignRole',roleId).subscribe(() => {});
       }
     });
   }

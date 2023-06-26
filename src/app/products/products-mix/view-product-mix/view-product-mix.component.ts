@@ -9,6 +9,7 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
+import { ProductMixService } from 'openapi/typescript_files';
 
 /**
  * View product mix component.
@@ -46,7 +47,7 @@ export class ViewProductMixComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
-              private productsService: ProductsService,
+              private productsService: ProductMixService,
               private router: Router ) {
     this.route.data.subscribe((data: { productMix: any }) => {
       this.productMixData = data.productMix;

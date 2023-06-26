@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecurringDepositsService } from '../../recurring-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Deposits Recurring Deposits Account Component
@@ -25,7 +26,7 @@ export class DepositRecurringDepositsAccountComponent implements OnInit {
   /** Payment Types */
   paymentTypes: any;
   /** Account Id */
-  accountId: string;
+  accountId: any;
   /** Show payment details */
   showPaymentDetails = false;
   /** Minimum Date allowed. */
@@ -48,7 +49,7 @@ export class DepositRecurringDepositsAccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountService,
     private settingsService: SettingsService
   ) {
     this.route.data.subscribe((data: { recurringDepositsAccountActionData: any }) => {
@@ -107,7 +108,7 @@ export class DepositRecurringDepositsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.recurringDepositsService.executeRecurringDepositsAccountCommand(this.accountId, 'deposit', data).subscribe(() => {
+    this.recurringDepositsService.handleCommands5(this.accountId, data, 'deposit').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { HooksService } from 'openapi/typescript_files';
 
 /**
  * Hooks template data resolver.
@@ -17,14 +18,14 @@ export class HooksTemplateResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private hooksService: HooksService) {}
 
   /**
    * Returns the hooks template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.systemService.getHooksTemplate();
+    return this.hooksService.template3();
   }
 
 }

@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { AuditsService } from 'openapi/typescript_files';
 
 /**
  * Audit Trails custom data source to implement server side filtering, pagination and sorting.
@@ -23,7 +24,7 @@ export class AuditTrailsDataSource implements DataSource<any> {
   /**
    * @param {SystemService} systemService System Service.
    */
-  constructor(private systemService: SystemService) { }
+  constructor(private auditsService: AuditsService) { }
 
   /**
    * Gets audit trails on the basis of provided parameters and emits the value.
@@ -35,7 +36,7 @@ export class AuditTrailsDataSource implements DataSource<any> {
    */
   getAuditTrails(filterBy: any, orderBy: string = '', sortOrder: string = '', pageIndex: number = 0, limit: number = 10) {
     this.auditTrailsSubject.next([]);
-    this.systemService.getAuditTrails(filterBy, orderBy, sortOrder, pageIndex * limit, limit)
+    this.auditsService.retrieveAuditEntries(filterBy.actionName, filterBy.entityName, filterBy.resourceId, filterBy.makerId, filterBy.makerDateTimeFrom, filterBy.makerDateTimeTo, filterBy.checkerId, filterBy.checkerDateTimeFrom, filterBy.checkerDateTimeTo, filterBy.processingResult, filterBy.officeId, filterBy.groupId, filterBy.clientId, filterBy.loanid, filterBy.savingsAccountId, true, pageIndex * limit, limit, orderBy, sortOrder)
       .subscribe((auditTrails: any) => {
         this.recordsSubject.next(auditTrails.totalFilteredRecords);
         this.auditTrailsSubject.next(auditTrails.pageItems);

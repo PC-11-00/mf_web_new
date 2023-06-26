@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ReportsService } from '../reports.service';
+import { MixTaxonomyService } from 'openapi/typescript_files';
 
 /**
  * Mix Taxononmy data resolver.
@@ -17,14 +18,14 @@ export class MixTaxonomyResolver implements Resolve<Object> {
   /**
    * @param {ReportsService} reportsService Reports service.
    */
-  constructor(private reportsService: ReportsService) {}
+  constructor(private mixTaxonomyService: MixTaxonomyService) {}
 
   /**
    * Returns the Mix Taxonomy data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.reportsService.getMixTaxonomyArray();
+    return this.mixTaxonomyService.retrieveAll14();
   }
 
 }

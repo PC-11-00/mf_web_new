@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { ClientIdentifierService } from 'openapi/typescript_files';
 
 /**
  * Client Identifier Template resolver.
@@ -17,14 +18,15 @@ export class ClientIdentifierTemplateResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: ClientIdentifierService) { }
     /**
      * Returns the Client Identities data.
      * @returns {Observable<any>}
      */
+    clientId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.paramMap.get('clientId');
-        return this.clientsService.getClientIdentifierTemplate(clientId);
+        this.clientId = route.parent.paramMap.get('clientId');
+        return this.clientsService.newClientIdentifierDetails(this.clientId);
     }
 }
 

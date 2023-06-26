@@ -4,10 +4,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { CentersService } from 'app/centers/centers.service';
+// import { CentersService } from 'app/centers/centers.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
 
+import { CentersService } from 'openapi/typescript_files';
 /**
  * Close Center Component
  */
@@ -80,7 +81,7 @@ export class CloseCenterComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.centersService.executeCenterActionCommand(this.centerId, 'close', data).subscribe(() => {
+    this.centersService.activate2(this.centerId,data, 'close').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

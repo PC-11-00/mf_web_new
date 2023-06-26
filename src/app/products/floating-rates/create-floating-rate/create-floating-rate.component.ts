@@ -16,6 +16,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { FloatingRatePeriodDialogComponent } from '../floating-rate-period-dialog/floating-rate-period-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { Dates } from 'app/core/utils/dates';
+import { FloatingRatesService } from 'openapi/typescript_files';
 
 /**
  * Create Floating Rate Component.
@@ -56,7 +57,7 @@ export class CreateFloatingRateComponent implements OnInit {
    */
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private productsService: ProductsService,
+              private productsService: FloatingRatesService,
               private route: ActivatedRoute,
               private dateUtils: Dates,
               private dialog: MatDialog,

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
+import { HolidaysService } from 'openapi/typescript_files';
 
 /**
  * Holiday data template resolver.
@@ -17,14 +18,14 @@ export class HolidayTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: HolidaysService) {}
 
   /**
    * Returns the holiday data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getHolidayTemplate();
+    return this.organizationService.retrieveRepaymentScheduleUpdationTyeOptions();
   }
 
 }

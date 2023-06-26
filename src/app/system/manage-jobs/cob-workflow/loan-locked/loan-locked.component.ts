@@ -4,10 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { ErrorDialogComponent } from 'app/shared/error-dialog/error-dialog.component';
 import { SystemService } from 'app/system/system.service';
 import { TasksService } from 'app/tasks/tasks.service';
+import { InlineJobService, LoanAccountLockService, LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loan-locked',
@@ -29,11 +30,11 @@ export class LoanLockedComponent implements OnInit {
   /** Paginator for the table */
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   currentPage = 0;
-  pageSize = 10;
+  pageSize = "10";
   /** Control for enable/disable button */
   allowRunInlineJob = false;
   /** Const for the jobName */
-  jobName: String = 'LOAN_COB';
+  jobName: string = 'LOAN_COB';
 
   /**
    * @param {LoansService} loansService Loans Service
@@ -42,9 +43,9 @@ export class LoanLockedComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
     private router: Router,
+    private loanAccountLockService: LoanAccountLockService,
     private loansService: LoansService,
-    private systemService: SystemService,
-    private tasksService: TasksService,
+    private inlineJobService: InlineJobService,
     private dialog: MatDialog) {
   }
 
@@ -68,8 +69,8 @@ export class LoanLockedComponent implements OnInit {
     }
   }
 
-  getLoansLocked(page: number) {
-    this.tasksService.getAllLoansLocked(page, this.pageSize).subscribe((data: any) => {
+  getLoansLocked(page: any) {
+    this.loanAccountLockService.retrieveLockedAccounts(page, this.pageSize).subscribe((data: any) => {
       this.loans = data.content;
       this.dataSource = new MatTableDataSource(this.loans);
       this.allowRunInlineJob = false;
@@ -114,7 +115,7 @@ export class LoanLockedComponent implements OnInit {
 
   viewLoanAccount(loan: any) {
     const loanId = loan.loanId;
-    this.loansService.getLoanAccountDetails(loanId).subscribe((loanData: any) => {
+    this.loansService.retrieveLoan(loanId).subscribe((loanData: any) => {
       const clientId = loanData.clientId;
       this.router.navigateByUrl(`/clients/${clientId}/loans-accounts/${loanId}/general`);
     });
@@ -129,7 +130,7 @@ export class LoanLockedComponent implements OnInit {
       const payload = {
         loanIds: loanIds
       };
-      this.systemService.runInlineCOB(this.jobName, payload).subscribe((data: any) => {
+      this.inlineJobService.executeInlineJob(this.jobName, payload).subscribe((data: any) => {
         this.getLoansLocked(0);
       });
     }

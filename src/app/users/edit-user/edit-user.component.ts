@@ -2,9 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StaffService, UsersService } from 'openapi/typescript_files';
 
 /** Custom Services */
-import { UsersService } from '../users.service';
+// import { UsersService } from '../users.service';
 
 /**
  * Edit User Component.
@@ -36,6 +37,7 @@ export class EditUserComponent implements OnInit {
    */
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
+              private staffService:StaffService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { user: any, usersTemplate: any }) => {
@@ -73,7 +75,7 @@ export class EditUserComponent implements OnInit {
    */
   officeChanged(officeId: number) {
     this.staffData = [];
-    this.usersService.getStaff(officeId).subscribe((staff: any) => {
+    this.staffService.retrieveAll16(officeId).subscribe((staff: any) => {
       this.staffData = staff;
     });
   }
@@ -84,7 +86,7 @@ export class EditUserComponent implements OnInit {
    */
   submit() {
     const editedUser = this.editUserForm.value;
-    this.usersService.editUser(this.userData.id, editedUser).subscribe((response: any) => {
+    this.usersService.update25(this.userData.id, editedUser).subscribe((response: any) => {
       this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
     });
   }

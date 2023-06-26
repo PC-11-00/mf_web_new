@@ -9,6 +9,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 
 /** Dialog Component */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { ProvisioningCriteriaService } from 'openapi/typescript_files';
 
 /**
  * View Loan Provisioning
@@ -36,7 +37,7 @@ export class ViewLoanProvisioningCriteriaComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: OrganizationService,
+  constructor(private organizationService: ProvisioningCriteriaService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
 import { SavingsService } from 'app/savings/savings.service';
+import { NotesService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-notes-tab',
@@ -10,12 +11,12 @@ import { SavingsService } from 'app/savings/savings.service';
 })
 export class NotesTabComponent implements OnInit {
 
-  entityId: string;
+  entityId: any;
   username: string;
   entityNotes: any;
 
   constructor(private route: ActivatedRoute,
-    private savingsService: SavingsService,
+    private notesService: NotesService,
     private authenticationService: AuthenticationService) {
     const savedCredentials = this.authenticationService.getCredentials();
     this.username = savedCredentials.username;
@@ -29,7 +30,7 @@ export class NotesTabComponent implements OnInit {
   }
 
   addNote(noteContent: any) {
-    this.savingsService.createSavingsNote(this.entityId, noteContent).subscribe((response: any) => {
+    this.notesService.addNewNote('savings',this.entityId, noteContent).subscribe((response: any) => {
       this.entityNotes.push({
         id: response.resourceId,
         createdByUsername: this.username,
@@ -39,14 +40,14 @@ export class NotesTabComponent implements OnInit {
     });
   }
 
-  editNote(noteId: string, noteContent: any, index: number) {
-      this.savingsService.editSavingsNote(this.entityId, noteId, noteContent).subscribe(() => {
+  editNote(noteId: any, noteContent: any, index: number) {
+      this.notesService.updateNote('savings',this.entityId, noteId, noteContent).subscribe(() => {
         this.entityNotes[index].note = noteContent.note;
       });
   }
 
-  deleteNote(noteId: string, index: number) {
-      this.savingsService.deleteSavingsNote(this.entityId, noteId)
+  deleteNote(noteId: any, index: number) {
+      this.notesService.deleteNote('savings',this.entityId, noteId)
         .subscribe(() => {
           this.entityNotes.splice(index, 1);
       });

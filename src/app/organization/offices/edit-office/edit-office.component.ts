@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { OfficesService } from 'openapi/typescript_files';
 
 /**
  * Edit Office component.
@@ -37,7 +38,7 @@ export class EditOfficeComponent implements OnInit {
      * @param {MatDialog} dialog Dialog reference.
      * @param {Dates} dateUtils Date Utils
      */
-    constructor(private organizationService: OrganizationService,
+    constructor(private organizationService: OfficesService,
                 private settingsService: SettingsService,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute,

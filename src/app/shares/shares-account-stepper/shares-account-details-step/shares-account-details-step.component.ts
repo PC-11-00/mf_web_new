@@ -5,6 +5,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Custom Services */
 import { SharesService } from 'app/shares/shares.service';
+import { ShareAccountService } from 'openapi/typescript_files';
 
 /**
  * Shares Account Details Step
@@ -38,7 +39,7 @@ export class SharesAccountDetailsStepComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private sharesService: SharesService,
+              private shareAccountService: ShareAccountService,
               private settingsService: SettingsService) {
     this.createSharesAccountDetailsForm();
   }
@@ -74,8 +75,8 @@ export class SharesAccountDetailsStepComponent implements OnInit {
    */
   buildDependencies() {
     const clientId = this.sharesAccountTemplate.clientId;
-    this.sharesAccountDetailsForm.get('productId').valueChanges.subscribe((productId: string) => {
-      this.sharesService.getSharesAccountTemplate(clientId, productId).subscribe((response: any) => {
+    this.sharesAccountDetailsForm.get('productId').valueChanges.subscribe((productId: any) => {
+      this.shareAccountService.template7('share',clientId, productId).subscribe((response: any) => {
         this.sharesAccountProductTemplate.emit(response);
       });
     });

@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
+import { ReportsService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { ReportsService } from '../reports.service';
+// import { ReportsService } from '../reports.service';
 
 /**
  * Reports data resolver.
@@ -24,7 +25,7 @@ export class ReportsResolver implements Resolve<Object> {
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.reportsService.getReports();
+    return this.reportsService.retrieveReportList();
   }
 
 }

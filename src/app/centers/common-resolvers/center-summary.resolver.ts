@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CentersService } from '../centers.service';
+import { RunReportsService } from 'openapi/typescript_files';
 
 /**
  * Centers data resolver.
@@ -17,7 +18,7 @@ export class CenterSummaryResolver implements Resolve<Object> {
     /**
      * @param {CentersService} CentersService Centers service.
      */
-    constructor(private centersService: CentersService) { }
+    constructor(private runReportsService: RunReportsService) { }
 
     /**
      * Returns the Centers Summary Data.
@@ -25,7 +26,7 @@ export class CenterSummaryResolver implements Resolve<Object> {
      */
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
         const centerId = route.parent.paramMap.get('centerId');
-        return this.centersService.getCenterSummary(centerId);
+        return this.runReportsService.runReport('GroupSummaryCounts');
     }
 
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { ClientChargesService } from 'openapi/typescript_files';
 
 /**
  * Client Charges data resolver.
@@ -17,15 +18,16 @@ export class ClientChargesResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: ClientChargesService) { }
 
     /**
      * Returns the Client Charge data.
      * @returns {Observable<any>}
      */
+    clientId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.paramMap.get('clientId');
-        return this.clientsService.getClientChargesData(clientId);
+        this.clientId = route.parent.paramMap.get('clientId');
+        return this.clientsService.retrieveAllClientCharges(this.clientId);
     }
 
 }

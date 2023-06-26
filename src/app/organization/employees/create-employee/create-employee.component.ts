@@ -13,6 +13,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
+import { StaffService } from 'openapi/typescript_files';
 
 /**
  * Create employee component.
@@ -51,7 +52,7 @@ export class CreateEmployeeComponent implements OnInit, AfterViewInit {
    * @param {MatDialog} dialog MatDialog.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: StaffService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -103,7 +104,7 @@ export class CreateEmployeeComponent implements OnInit, AfterViewInit {
       dateFormat,
       locale
     };
-    this.organizationService.createEmployee(data).subscribe((response: any) => {
+    this.organizationService.create3(data).subscribe((response: any) => {
       if (this.configurationWizardService.showEmployeeForm === true) {
         this.configurationWizardService.showEmployeeForm = false;
         this.openDialog();

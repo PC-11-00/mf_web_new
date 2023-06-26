@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Clients Update Savings Account Component
@@ -31,7 +32,7 @@ export class UpdateClientSavingsAccountComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
@@ -57,7 +58,7 @@ export class UpdateClientSavingsAccountComponent implements OnInit {
    * Submits the form and update savings account for the client.
    */
   submit() {
-    this.clientsService.executeClientCommand(this.clientData.id, 'updateSavingsAccount', this.clientSavingsAccountForm.value)
+    this.clientsService.activate1(this.clientData.id, this.clientSavingsAccountForm.value, 'updateSavingsAccount')
       .subscribe(() => {
         this.router.navigate(['../../'], { relativeTo: this.route });
       });

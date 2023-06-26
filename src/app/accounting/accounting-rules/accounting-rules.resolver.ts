@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { AccountingRulesService } from 'openapi/typescript_files';
 
 /**
  * Accounting rules data resolver.
@@ -17,14 +18,14 @@ export class AccountingRulesResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: AccountingRulesService) {}
 
   /**
    * Returns the accounting rules data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.accountingService.getAccountingRules();
+    return this.accountingService.retrieveAllAccountingRules();
   }
 
 }

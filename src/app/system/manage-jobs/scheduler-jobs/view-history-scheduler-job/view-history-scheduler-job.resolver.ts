@@ -7,6 +7,7 @@ import { Observable, forkJoin } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../../system.service';
+import { SCHEDULERJOBService } from 'openapi/typescript_files';
 
 /**
  * View History Scheduler Jobs data resolver.
@@ -17,15 +18,16 @@ export class ViewHistorySchedulerJobsResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private sCHEDULERJOBService: SCHEDULERJOBService) {}
 
   /**
    * Returns the Scheduler Jobs History data.
    * @returns {Observable<any>}
    */
+  jobId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const jobId = route.paramMap.get('id');
-    return this.systemService.getHistoryScheduler(jobId);
+    this.jobId = route.paramMap.get('id');
+    return this.sCHEDULERJOBService.retrieveHistory(this.jobId);
   }
 
 }

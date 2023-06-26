@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { OfficesService } from 'openapi/typescript_files';
 
 /**
  * Office and template data resolver.
@@ -17,15 +18,16 @@ export class EditOfficeResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: OfficesService) {}
 
   /**
    * Returns the office and template data.
    * @returns {Observable<any>}
    */
+  officeId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const officeId = route.paramMap.get('officeId');
-    return this.organizationService.getOffice(officeId, true);
+    this.officeId = route.paramMap.get('officeId');
+    return this.organizationService.retrieveOfficeTemplate1(this.officeId, true);
   }
 
 }

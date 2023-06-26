@@ -6,7 +6,8 @@ import { Resolve } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 
 /** Custom Services */
-import { SystemService } from '../system.service';
+import { SystemService } from '../../system.service';
+import { SCHEDULERJOBService, SchedulerService } from 'openapi/typescript_files';
 
 /**
  * Manage Scheduler Jobs data resolver.
@@ -17,7 +18,8 @@ export class ManageSchedulerJobsResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private schedulerService: SchedulerService,
+    private sCHEDULERJOBService: SCHEDULERJOBService) { }
 
   /**
    * Returns the manage scheduler jobs data.
@@ -25,8 +27,8 @@ export class ManageSchedulerJobsResolver implements Resolve<Object> {
    */
   resolve() {
     return forkJoin([
-      this.systemService.getJobs(),
-      this.systemService.getScheduler()
+      this.sCHEDULERJOBService.retrieveAll8(),
+      this.schedulerService.retrieveStatus()
     ]);
   }
 

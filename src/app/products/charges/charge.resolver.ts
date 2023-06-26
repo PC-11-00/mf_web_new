@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
+import { ChargesService } from 'openapi/typescript_files';
 
 /**
  * Charge data resolver.
@@ -17,15 +18,16 @@ export class ChargeResolver implements Resolve<Object> {
   /**
    * @param {productsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ChargesService) {}
 
   /**
    * Returns the charge data.
    * @returns {Observable<any>}
    */
+  chargeId : any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const chargeId = route.paramMap.get('id');
-    return this.productsService.getCharge(chargeId);
+    this.chargeId = route.paramMap.get('id');
+    return this.productsService.retrieveCharge(this.chargeId);
   }
 
 }

@@ -11,6 +11,7 @@ import { OrganizationService } from '../organization.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
+import { PaymentTypeService } from 'openapi/typescript_files';
 
 /**
  * Payment Types component.
@@ -40,7 +41,7 @@ export class PaymentTypesComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: OrganizationService,
+  constructor(private organizationService: PaymentTypeService,
               private route: ActivatedRoute,
               private dialog: MatDialog) {
     this.route.data.subscribe(( data: { paymentTypes: any }) => {
@@ -76,13 +77,13 @@ export class PaymentTypesComponent implements OnInit {
    * Deletes the payment type
    * @param {string} paymentTypeId Payment Type ID of payment type to be deleted.
    */
-  deletePaymentType(paymentTypeId: string) {
+  deletePaymentType(paymentTypeId: any) {
     const deletePaymentTypeDialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { deleteContext: `payment type ${paymentTypeId}` }
     });
     deletePaymentTypeDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deletePaymentType(paymentTypeId)
+        this.organizationService.deleteCode1(paymentTypeId)
           .subscribe(() => {
             this.paymentTypesData = this.paymentTypesData.filter((paymentType: any) => paymentType.id !== paymentTypeId);
             this.setPaymentTypes();

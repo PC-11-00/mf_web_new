@@ -13,6 +13,7 @@ import { RecurringDepositsButtonsConfiguration } from './recurring-deposits-butt
 /** Custom Dialogs */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { RecurringDepositConfirmationDialogComponent } from './custom-dialogs/recurring-deposit-confirmation-dialog/recurring-deposit-confirmation-dialog.component';
+import { RecurringDepositAccountService, SavingsAccountService } from 'openapi/typescript_files';
 
 
 /**
@@ -42,10 +43,10 @@ export class RecurringDepositsAccountViewComponent implements OnInit {
    * @param {RecurringDepositsService} recurringDepositsService RecurringDeposits Service
    */
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private recurringDepositsService: RecurringDepositsService,
-              private savingsService: SavingsService,
-              public dialog: MatDialog) {
+    private router: Router,
+    private recurringDepositsService: RecurringDepositAccountService,
+    private savingsService: SavingsAccountService,
+    public dialog: MatDialog) {
     this.route.data.subscribe((data: { recurringDepositsAccountData: any, savingsDatatables: any }) => {
       this.recurringDepositsAccountData = data.recurringDepositsAccountData;
       this.charges = this.recurringDepositsAccountData.charges;
@@ -178,7 +179,7 @@ export class RecurringDepositsAccountViewComponent implements OnInit {
     });
     deleteRecurringDepositsAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.recurringDepositsService.deleteRecurringDepositsAccount(this.recurringDepositsAccountData.id).subscribe(() => {
+        this.recurringDepositsService.delete17(this.recurringDepositsAccountData.id).subscribe(() => {
           this.router.navigate(['../../'], { relativeTo: this.route });
         });
       }
@@ -194,7 +195,7 @@ export class RecurringDepositsAccountViewComponent implements OnInit {
     });
     calculateInterestAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.recurringDepositsService.executeRecurringDepositsAccountCommand(this.recurringDepositsAccountData.id, 'calculateInterest', {}).subscribe(() => {
+        this.recurringDepositsService.handleCommands5(this.recurringDepositsAccountData.id, {}, 'calculateInterest').subscribe(() => {
           this.reload();
         });
       }
@@ -210,7 +211,7 @@ export class RecurringDepositsAccountViewComponent implements OnInit {
     });
     postInterestAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.recurringDepositsService.executeRecurringDepositsAccountCommand(this.recurringDepositsAccountData.id, 'postInterest', {}).subscribe(() => {
+        this.recurringDepositsService.handleCommands5(this.recurringDepositsAccountData.id, {}, 'postInterest').subscribe(() => {
           this.reload();
         });
       }
@@ -222,13 +223,15 @@ export class RecurringDepositsAccountViewComponent implements OnInit {
    * Enables withhold tax for recurring deposits account.
    * Recurring deposits endpoint is not supported so using Savings endpoint.
    */
+  data: any;
   private enableWithHoldTax() {
     const deleteSavingsAccountDialogRef = this.dialog.open(RecurringDepositConfirmationDialogComponent, {
       data: { heading: 'Enable Withhold Tax', dialogContext: `Enable withhold tax for this account ?` }
     });
     deleteSavingsAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountUpdateCommand(this.recurringDepositsAccountData.id, 'updateWithHoldTax', { withHoldTax: true })
+        this.data = { withHoldTax: true };
+        this.savingsService.handleCommands6(this.recurringDepositsAccountData.id, this.data, 'updateWithHoldTax')
           .subscribe(() => {
             this.reload();
           });
@@ -246,7 +249,8 @@ export class RecurringDepositsAccountViewComponent implements OnInit {
     });
     disableWithHoldTaxDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountUpdateCommand(this.recurringDepositsAccountData.id, 'updateWithHoldTax', { withHoldTax: false })
+        this.data = { withHoldTax: false };
+        this.savingsService.handleCommands6(this.recurringDepositsAccountData.id, this.data, 'updateWithHoldTax')
           .subscribe(() => {
             this.reload();
           });

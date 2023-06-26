@@ -8,6 +8,7 @@ import { AccountingService } from '../../accounting.service';
 
 /** Custom Validators */
 import { oneOfTheFieldsIsRequiredValidator } from '../one-of-the-fields-is-required.validator';
+import { AccountingRulesService } from 'openapi/typescript_files';
 
 /**
  * Edit accounting rule component.
@@ -40,7 +41,7 @@ export class EditRuleComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private accountingService: AccountingService,
+              private accountingService: AccountingRulesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: {

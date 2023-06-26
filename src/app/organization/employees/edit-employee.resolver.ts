@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { StaffService } from 'openapi/typescript_files';
 
 /**
  * Employees data resolver.
@@ -17,15 +18,16 @@ export class EditEmployeeResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: StaffService) {}
 
   /**
    * Returns the employees data.
    * @returns {Observable<any>}
    */
+  employeeId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const employeeId  = route.paramMap.get('id');
-    return this.organizationService.getEmployee(employeeId);
+    this.employeeId  = route.paramMap.get('id');
+    return this.organizationService.retrieveOne8(this.employeeId);
   }
 
 }

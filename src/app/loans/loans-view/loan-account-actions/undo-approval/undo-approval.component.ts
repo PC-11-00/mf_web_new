@@ -2,9 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoansService } from 'openapi/typescript_files';
 
 /** Custom Services. */
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 /**
  * Undo Loan component.
  */
@@ -37,7 +38,7 @@ export class UndoApprovalComponent implements OnInit {
    */
   submit() {
     const loanId = this.route.snapshot.params['loanId'];
-    this.loanService.loanActionButtons(loanId, 'undoapproval', { 'note': this.note.value }).subscribe((response: any) => {
+    this.loanService.stateTransitions(loanId, { 'note': this.note.value }, 'undoapproval').subscribe((response: any) => {
       this.router.navigate(['../../general'], {relativeTo: this.route});
     });
   }

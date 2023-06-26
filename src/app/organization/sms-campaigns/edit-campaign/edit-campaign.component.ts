@@ -9,6 +9,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Custom Components */
 import { CampaignMessageStepComponent } from '../sms-campaign-stepper/campaign-message-step/campaign-message-step.component';
+import { DefaultService } from 'openapi/typescript_files';
 
 /**
  * Edit Campaign Component
@@ -41,7 +42,7 @@ export class EditCampaignComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private organizationService: OrganizationService,
+              private organizationService: DefaultService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { smsCampaign: any, smsCampaignTemplate: any }) => {
       this.smsCampaignTemplate = data.smsCampaignTemplate;
@@ -89,7 +90,7 @@ export class EditCampaignComponent {
     if (this.smsCampaign.triggerType.id === 2) {
       smsCampaign.recurrenceStartDate = this.dateUtils.formatDate(new Date(this.smsCampaign.recurrenceStartDate), dateTimeFormat);
     }
-    this.organizationService.updateSmsCampaign(smsCampaign, this.smsCampaign.id).subscribe((response: any) => {
+    this.organizationService.updateCampaign1(smsCampaign, this.smsCampaign.id).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

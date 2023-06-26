@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ReportsService } from 'app/reports/reports.service';
+import { RunReportsService } from 'openapi/typescript_files';
 
 /**
  * Loans Transaction Reciept resolver.
@@ -17,20 +18,24 @@ export class LoansTransactionRecieptResolver implements Resolve<Object> {
   /**
    * @param {ReportsService} reportsService Reports service.
    */
-  constructor(private reportsService: ReportsService) { }
+  constructor(private runReportsService: RunReportsService) { }
 
   /**
    * Returns the Loans Transaction Reciept
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  data:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const transactionId = route.paramMap.get('id');
-    const data = {
+    this.data = {
       'output-type':	'PDF',
-      R_transactionId:	transactionId
+      R_transactionId:	transactionId,
+      'tenantIdentifier':'default',
+      'locale':'en',
+      'dateFormat':'dd MMMM yyyy'
     };
-    return this.reportsService.getPentahoRunReportData('Loan Transaction Receipt', data, 'default', 'en', 'dd MMMM yyyy');
+    return this.runReportsService.runReport('Loan Transaction Receipt', this.data);
   }
 
 }

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-glim-details-step',
@@ -83,8 +84,8 @@ export class GlimDetailsStepComponent implements OnInit {
    */
    buildDependencies() {
     const groupId = this.loansAccountTemplate.group.id;
-    this.loansAccountDetailsForm.get('productId').valueChanges.subscribe((productId: string) => {
-      this.loansService.getLoansAccountTemplateResource(groupId, true, productId).subscribe((response: any) => {
+    this.loansAccountDetailsForm.get('productId').valueChanges.subscribe((productId: any) => {
+      this.loansService.template10(null,groupId, productId,'group',true,true).subscribe((response: any) => {
         this.loansAccountProductTemplate.emit(response);
         this.loanOfficerOptions = response.loanOfficerOptions;
         this.loanPurposeOptions = response.loanPurposeOptions;

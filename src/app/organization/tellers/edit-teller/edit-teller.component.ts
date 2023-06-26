@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * Create teller component.
@@ -42,7 +43,7 @@ export class EditTellerComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: TellerCashManagementService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private router: Router,

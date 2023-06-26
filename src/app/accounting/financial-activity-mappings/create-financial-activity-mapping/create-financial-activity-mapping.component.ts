@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { MappingFinancialActivitiesToAccountsService } from 'openapi/typescript_files';
 
 /**
  * Create financial activity mapping component.
@@ -33,7 +34,7 @@ export class CreateFinancialActivityMappingComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private accountingService: AccountingService,
+              private accountingService: MappingFinancialActivitiesToAccountsService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { financialActivityAccountsTemplate: any }) => {
@@ -86,7 +87,7 @@ export class CreateFinancialActivityMappingComponent implements OnInit {
    * if successful redirects to view created account.
    */
   submit() {
-    this.accountingService.createFinancialActivityAccount(this.financialActivityMappingForm.value)
+    this.accountingService.createGLAccount(this.financialActivityMappingForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../view', response.resourceId], { relativeTo: this.route });
     });

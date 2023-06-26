@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
+import { NotesService } from 'openapi/typescript_files';
 
 /**
  * Notes Tab Component
@@ -19,7 +20,7 @@ import { AuthenticationService } from 'app/core/authentication/authentication.se
 export class NotesTabComponent implements OnInit {
 
   /** Client ID */
-  entityId: string;
+  entityId: any;
   /** Username */
   username: string;
   /** Client Notes */
@@ -31,7 +32,7 @@ export class NotesTabComponent implements OnInit {
    * @param {AuthenticationService} authenticationService Authentication Service
    */
   constructor(private route: ActivatedRoute,
-              private clientsService: ClientsService,
+              private clientsService: NotesService,
               private authenticationService: AuthenticationService) {
     const credentials = this.authenticationService.getCredentials();
     this.username = credentials.username;
@@ -49,8 +50,8 @@ export class NotesTabComponent implements OnInit {
    * @param {any} noteContent Note Content
    * @param {number} index Index
    */
-  editNote(noteId: string, noteContent: any, index: number) {
-    this.clientsService.editClientNote(this.entityId, noteId, noteContent).subscribe(() => {
+  editNote(noteId: number, noteContent: any, index: number) {
+    this.clientsService.updateNote('clients',this.entityId, noteId, noteContent).subscribe(() => {
       this.entityNotes[index].note = noteContent.note;
     });
   }
@@ -60,8 +61,8 @@ export class NotesTabComponent implements OnInit {
    * @param {string} noteId Note Id
    * @param {number} index Index
    */
-  deleteNote(noteId: string, index: number) {
-    this.clientsService.deleteClientNote(this.entityId, noteId)
+  deleteNote(noteId: number, index: number) {
+    this.clientsService.deleteNote('clients',this.entityId, noteId)
       .subscribe(() => {
         this.entityNotes.splice(index, 1);
       });
@@ -71,7 +72,7 @@ export class NotesTabComponent implements OnInit {
    * Creates a client note.
    */
   addNote(noteContent: any) {
-    this.clientsService.createClientNote(this.entityId, noteContent).subscribe((response: any) => {
+    this.clientsService.addNewNote('clients',this.entityId, noteContent).subscribe((response: any) => {
       this.entityNotes.push({
         id: response.resourceId,
         createdByUsername: this.username,

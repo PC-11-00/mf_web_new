@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services. */
 import { OrganizationService } from 'app/organization/organization.service';
+import { EntityDataTableService } from 'openapi/typescript_files';
 
 /**
  * Create Entity Data Table Checks component.
@@ -38,7 +39,7 @@ export class CreateEnityDataTableChecksComponent implements OnInit {
    */
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private organizationService: OrganizationService,
+              private organizationService: EntityDataTableService,
               private router: Router) {
     this.route.data.subscribe((data: {dataTableEntity: any}) => {
       this.createEntityData = data.dataTableEntity;
@@ -110,7 +111,7 @@ export class CreateEnityDataTableChecksComponent implements OnInit {
    * Submits Entity Datble Form.
    */
   submit() {
-    this.organizationService.createEntityDataTableChecks(this.createEntityForm.value).subscribe((response: any) => {
+    this.organizationService.createEntityDatatableCheck(this.createEntityForm.value).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Loan Recovery Repayment Action
@@ -20,7 +21,7 @@ export class RecoveryRepaymentComponent implements OnInit {
 
   @Input() dataObject: any;
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   /** Payment Type Options */
   paymentTypes: any;
   /** Show payment details */
@@ -40,7 +41,7 @@ export class RecoveryRepaymentComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanTransactionsService: LoanTransactionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
@@ -113,7 +114,7 @@ export class RecoveryRepaymentComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loanService.submitLoanActionButton(this.loanId, data, 'recoverypayment')
+    this.loanTransactionsService.executeLoanTransaction(this.loanId, data, 'recoverypayment')
       .subscribe((response: any) => {
         this.router.navigate(['../../general'], { relativeTo: this.route });
       });

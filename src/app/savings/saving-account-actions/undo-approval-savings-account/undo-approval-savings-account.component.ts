@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
+import { SavingsAccountService } from 'openapi/typescript_files';
 
 /**
  * Undo Approval Savings Account Component
@@ -28,7 +29,7 @@ export class UndoApprovalSavingsAccountComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private savingsService: SavingsService,
+              private savingsAccountService: SavingsAccountService,
               private route: ActivatedRoute,
               private router: Router) {
     this.accountId = this.route.snapshot.params['savingAccountId'];
@@ -58,7 +59,7 @@ export class UndoApprovalSavingsAccountComponent implements OnInit {
     const data = {
       ...this.undoApprovalSavingsAccountForm.value,
     };
-    this.savingsService.executeSavingsAccountCommand(this.accountId, 'undoapproval', data).subscribe(() => {
+    this.savingsAccountService.handleCommands6(this.accountId, data, 'undoapproval').subscribe(() => {
       this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });
   }

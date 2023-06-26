@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SavingsService } from '../savings.service';
+import { SavingsChargesService } from 'openapi/typescript_files';
 
 /**
  * Savings Account Charge data resolver.
@@ -17,17 +18,19 @@ export class SavingsAccountChargeResolver implements Resolve<Object> {
   /**
    * @param {SavingsService} SavingsService Savings service.
    */
-  constructor(private savingsService: SavingsService) { }
+  constructor(private savingsChargesService: SavingsChargesService) { }
 
   /**
    * Returns the Savings Account Charge data.
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  savingAccountId: any;
+  chargeId: any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const savingAccountId = route.parent.paramMap.get('savingAccountId');
-    const chargeId = route.paramMap.get('id');
-    return this.savingsService.getSavingsAccountCharge(savingAccountId, chargeId);
+    this.savingAccountId = route.parent.paramMap.get('savingAccountId');
+    this.chargeId = route.paramMap.get('id');
+    return this.savingsChargesService.retrieveSavingsAccountCharge(this.savingAccountId, this.chargeId);
   }
 
 }

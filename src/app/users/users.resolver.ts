@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
+import { UsersService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { UsersService } from './users.service';
+// import { UsersService } from './users.service';
 
 /**
  * Users data resolver.
@@ -24,7 +25,7 @@ export class UsersResolver implements Resolve<Object> {
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.usersService.getUsers();
+    return this.usersService.retrieveAll41();
   }
 
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { DocumentsService } from 'openapi/typescript_files';
 
 /**
  * Client Documents resolver.
@@ -17,15 +18,16 @@ export class ClientDocumentsResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: DocumentsService) { }
 
     /**
      * Returns the Client's Documents data.
      * @returns {Observable<any>}
      */
+    clientId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.paramMap.get('clientId');
-        return this.clientsService.getClientDocuments(clientId);
+        this.clientId = route.parent.paramMap.get('clientId');
+        return this.clientsService.retrieveAllDocuments('clients',this.clientId);
     }
 
 }

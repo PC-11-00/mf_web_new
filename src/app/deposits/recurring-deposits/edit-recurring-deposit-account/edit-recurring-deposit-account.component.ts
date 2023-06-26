@@ -13,6 +13,7 @@ import { RecurringDepositsAccountCurrencyStepComponent } from '../recurring-depo
 import { RecurringDepositsAccountSettingsStepComponent } from '../recurring-deposits-account-stepper/recurring-deposits-account-settings-step/recurring-deposits-account-settings-step.component';
 import { RecurringDepositsAccountChargesStepComponent } from '../recurring-deposits-account-stepper/recurring-deposits-account-charges-step/recurring-deposits-account-charges-step.component';
 import { Dates } from 'app/core/utils/dates';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Edit new recurring deposit account
@@ -39,7 +40,7 @@ export class EditRecurringDepositAccountComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountService,
     private settingsService: SettingsService,
   ) {
     this.route.data.subscribe((data: { recurringDepositsAccountAndTemplate: any }) => {
@@ -140,7 +141,7 @@ export class EditRecurringDepositAccountComponent implements OnInit {
       locale
     };
 
-    this.recurringDepositsService.updateRecurringDepositAccount(this.recurringDepositsAccountAndTemplate.id, recurringDepositAccount).subscribe((response: any) => {
+    this.recurringDepositsService.update18(this.recurringDepositsAccountAndTemplate.id, recurringDepositAccount).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

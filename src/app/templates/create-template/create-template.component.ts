@@ -11,6 +11,7 @@ import { clientParameterLabels, loanParameterLabels, repaymentParameterLabels } 
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
+import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
 
 /**
  * Create Template Component.
@@ -53,7 +54,7 @@ export class CreateTemplateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private templateService: TemplatesService) {
+              private userGeneratedDocumentsService: UserGeneratedDocumentsService) {
     this.route.data.subscribe((data: { createTemplateData: any }) => {
       this.createTemplateData = data.createTemplateData;
     });
@@ -165,7 +166,7 @@ export class CreateTemplateComponent implements OnInit {
       })),
       text: this.getEditorContent()
     };
-    this.templateService.createTemplate(template).subscribe((response: any) => {
+    this.userGeneratedDocumentsService.createTemplate(template).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

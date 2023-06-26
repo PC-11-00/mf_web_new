@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
-import { CentersService } from '../centers.service';
+// import { CentersService } from '../centers.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { CentersService } from 'openapi/typescript_files';
 
 /**
  * Edit Center component.
@@ -93,7 +94,7 @@ export class EditCenterComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.centersService.executeEditCenter(this.centerData.id, data).subscribe(() => {
+    this.centersService.update12(this.centerData.id, data).subscribe(() => {
       this.router.navigate(['../general'], { relativeTo: this.route });
     });
   }

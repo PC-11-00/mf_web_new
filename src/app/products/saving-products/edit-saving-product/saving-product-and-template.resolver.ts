@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+import { SavingsProductService } from 'openapi/typescript_files';
 
 /**
  * Saving product and template data resolver.
@@ -17,15 +18,17 @@ export class SavingProductAndTemplateResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: SavingsProductService) {}
 
   /**
    * Returns the saving product and template data.
    * @returns {Observable<any>}
    */
+
+  productId : any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const productId = route.paramMap.get('productId');
-    return this.productsService.getSavingProduct(productId, true);
+    this.productId = route.paramMap.get('productId');
+    return this.productsService.retrieveOne26(this.productId);
   }
 
 }

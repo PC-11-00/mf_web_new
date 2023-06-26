@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loan-credit-balance-refund',
@@ -14,7 +15,7 @@ export class LoanCreditBalanceRefundComponent implements OnInit {
 
   @Input() dataObject: any;
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   /** Minimum Date allowed. */
   minDate = new Date(2000, 0, 1);
   /** Maximum Date allowed. */
@@ -30,7 +31,7 @@ export class LoanCreditBalanceRefundComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanTransactionsService: LoanTransactionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
@@ -81,7 +82,7 @@ export class LoanCreditBalanceRefundComponent implements OnInit {
       locale
     };
     const command = this.dataObject.type.code.split('.')[1];
-    this.loanService.submitLoanActionButton(this.loanId, data, command)
+    this.loanTransactionsService.executeLoanTransaction(this.loanId, data, command)
       .subscribe((response: any) => {
         this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });

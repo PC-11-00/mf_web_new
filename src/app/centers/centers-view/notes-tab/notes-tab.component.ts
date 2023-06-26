@@ -10,6 +10,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 /** Custom Services */
 import { CentersService } from '../../centers.service';
 import { AuthenticationService } from '../../../core/authentication/authentication.service';
+import { NotesService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-notes-tab',
@@ -17,7 +18,7 @@ import { AuthenticationService } from '../../../core/authentication/authenticati
   styleUrls: ['./notes-tab.component.scss']
 })
 export class NotesTabComponent implements OnInit {
-  centerId: string;
+  centerId: any;
   username: string;
   centerNotes: any;
   noteForm: FormGroup;
@@ -26,7 +27,7 @@ export class NotesTabComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private centersService: CentersService,
+    private notesService: NotesService,
     private authenticationService: AuthenticationService,
     private dialog: MatDialog) {
     const savedCredentials = this.authenticationService.getCredentials();
@@ -48,7 +49,7 @@ export class NotesTabComponent implements OnInit {
   }
 
   submit() {
-    this.centersService.createCenterNote(this.centerId, this.noteForm.value).subscribe((response: any) => {
+    this.notesService.addNewNote('groups',this.centerId, this.noteForm.value).subscribe((response: any) => {
       this.centerNotes.push({
         id: response.resourceId,
         createdByUsername: this.username,
@@ -59,7 +60,7 @@ export class NotesTabComponent implements OnInit {
     });
   }
 
-  editNote(noteId: string, noteContent: string, index: number) {
+  editNote(noteId: any, noteContent: string, index: number) {
     const editNoteDialogRef = this.dialog.open(FormDialogComponent, {
       data: { formfields: [{
                 controlName: 'note',
@@ -77,20 +78,20 @@ export class NotesTabComponent implements OnInit {
     });
     editNoteDialogRef.afterClosed().subscribe((response: any) => {
       if (response.data) {
-        this.centersService.editCenterNote(this.centerId, noteId, response.data.value).subscribe(() => {
+        this.notesService.updateNote('groups',this.centerId, noteId, response.data.value).subscribe(() => {
           this.centerNotes[index].note = response.data.value.note;
         });
       }
     });
   }
 
-  deleteNote(noteId: string, index: number) {
+  deleteNote(noteId: any, index: number) {
     const deleteNoteDialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { deleteContext: `Note id:${noteId}` }
     });
     deleteNoteDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.centersService.deleteCenterNote(this.centerId, noteId)
+        this.notesService.deleteNote('groups',this.centerId, noteId)
           .subscribe(() => {
             this.centerNotes.splice(index, 1);
           });

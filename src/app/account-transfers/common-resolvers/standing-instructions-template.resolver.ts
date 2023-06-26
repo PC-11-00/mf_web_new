@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountTransfersService } from '../account-transfers.service';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * View Standing Instructions resolver.
@@ -14,23 +15,26 @@ import { AccountTransfersService } from '../account-transfers.service';
 @Injectable()
 export class StandingInstructionsTemplateResolver implements Resolve<Object> {
 
-    accountTypeId: string;
+    accountTypeId: any;
 
     /**
      * @param {accountTransfersService} AccountTransfersService Account Transfers service.
      */
-    constructor(private accountTransfersService: AccountTransfersService) { }
+    constructor(private accountTransfersService: StandingInstructionsService) { }
 
     /**
      * Returns the Standing Instructions Data.
      * @param {ActivatedRouteSnapshot} route Route Snapshot
      * @returns {Observable<any>}
      */
+    clientId:any;
+    officeId:any;
+    accountType:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const officeId = route.queryParamMap.get('officeId');
-        const accountType = route.queryParamMap.get('accountType');
-        const clientId = route.parent.paramMap.get('clientId');
-        switch (accountType) {
+        this.officeId = route.queryParamMap.get('officeId');
+        this.accountType = route.queryParamMap.get('accountType');
+        this.clientId = route.parent.paramMap.get('clientId');
+        switch (this.accountType) {
             case 'fromloans':
                 this.accountTypeId = '1';
                 break;
@@ -40,7 +44,7 @@ export class StandingInstructionsTemplateResolver implements Resolve<Object> {
             default:
                 this.accountTypeId = '0';
         }
-        return this.accountTransfersService.getStandingInstructionsTemplate(clientId, officeId, this.accountTypeId);
+        return this.accountTransfersService.template6(this.officeId, this.clientId , this.accountTypeId);
     }
 
 }

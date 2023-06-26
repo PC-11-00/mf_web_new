@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { GroupsService } from '../groups.service';
+import { RunReportsService } from 'openapi/typescript_files';
 
 /**
  * Group Summary resolver.
@@ -17,7 +18,7 @@ export class GroupSummaryResolver implements Resolve<Object> {
   /**
    * @param {GroupsService} GroupsService Groups service.
    */
-  constructor(private groupsService: GroupsService) { }
+  constructor(private runReportsService: RunReportsService) { }
 
   /**
    * Returns the Group Summary data.
@@ -26,7 +27,7 @@ export class GroupSummaryResolver implements Resolve<Object> {
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const groupId = route.parent.paramMap.get('groupId');
-    return this.groupsService.getGroupSummary(groupId);
+    return this.runReportsService.runReport('GroupSummaryCounts');
   }
 
 }

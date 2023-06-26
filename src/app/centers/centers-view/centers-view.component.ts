@@ -7,8 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
 
 /** Custom Services */
-import { CentersService } from '../centers.service';
+// import { CentersService } from '../centers.service';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { CentersService, GroupsService } from 'openapi/typescript_files';
 
 /**
  * Create Center View
@@ -34,7 +35,8 @@ export class CentersViewComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog,
-              public centersService: CentersService) {
+              private centersService: CentersService,
+              private groupsService:GroupsService) {
       this.route.data.subscribe((data: {
         centerViewData: any,
         centerDatatables: any
@@ -102,7 +104,7 @@ export class CentersViewComponent implements OnInit {
     });
     unAssignStaffDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.centersService.executeGroupActionCommand(this.centerViewData.id, 'unassignStaff', { staffId: this.centerViewData.staffId })
+        this.groupsService.unassignLoanOfficer(this.centerViewData.id, { staffId: this.centerViewData.staffId })
           .subscribe(() => {
             this.reload();
           });
@@ -119,7 +121,7 @@ export class CentersViewComponent implements OnInit {
     });
     deleteGroupDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.centersService.deleteCenter(this.centerViewData.id).subscribe(() => {
+        this.centersService.delete11(this.centerViewData.id).subscribe(() => {
           this.router.navigate(['/centers'], { relativeTo: this.route });
         });
       }

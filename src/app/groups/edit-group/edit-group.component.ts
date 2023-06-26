@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
-import { GroupsService } from '../groups.service';
+// import { GroupsService } from '../groups.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { GroupsService } from 'openapi/typescript_files';
 
 /**
  * Edit Group component.
@@ -113,7 +114,7 @@ export class EditGroupComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.groupService.updateGroup(data, this.groupData.id).subscribe((response: any) => {
+    this.groupService.update13(this.groupData.id,data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

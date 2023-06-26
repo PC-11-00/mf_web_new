@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccountingService } from '../accounting.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { JournalEntriesService } from 'openapi/typescript_files';
 /**
  * Frequent Postings component.
  */
@@ -49,7 +50,7 @@ export class FrequentPostingsComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private accountingService: AccountingService,
+              private accountingService: JournalEntriesService,
               private settingsService: SettingsService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
@@ -175,7 +176,7 @@ export class FrequentPostingsComponent implements OnInit {
     if (journalEntry.transactionDate instanceof Date) {
       journalEntry.transactionDate = this.dateUtils.formatDate(journalEntry.transactionDate, this.settingsService.dateFormat);
     }
-    this.accountingService.createJournalEntry(journalEntry).subscribe(response => {
+    this.accountingService.createGLJournalEntry(journalEntry).subscribe(response => {
       this.router.navigate(['../transactions/view', response.transactionId], { relativeTo: this.route });
     });
   }

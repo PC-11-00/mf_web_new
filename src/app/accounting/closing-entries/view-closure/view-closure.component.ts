@@ -8,6 +8,7 @@ import { AccountingService } from '../../accounting.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
+import { AccountingClosureService } from 'openapi/typescript_files';
 
 /**
  * View closure component.
@@ -29,7 +30,7 @@ export class ViewClosureComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private accountingService: AccountingService,
+  constructor(private accountingService: AccountingClosureService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {
@@ -50,7 +51,7 @@ export class ViewClosureComponent implements OnInit {
     });
     deleteAccountingClosureDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.accountingService.deleteAccountingClosure(this.glAccountClosure.id)
+        this.accountingService.deleteGLClosure(this.glAccountClosure.id)
           .subscribe(() => {
             this.router.navigate(['/accounting/closing-entries']);
           });

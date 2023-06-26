@@ -8,6 +8,7 @@ import { ProductsService } from 'app/products/products.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
+import { ChargesService } from 'openapi/typescript_files';
 
 /**
  * View Charge Component.
@@ -29,7 +30,7 @@ export class ViewChargeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private productsService: ProductsService,
+  constructor(private productsService: ChargesService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {

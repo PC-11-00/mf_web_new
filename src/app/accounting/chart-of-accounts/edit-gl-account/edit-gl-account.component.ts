@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { GeneralLedgerAccountService } from 'openapi/typescript_files';
 
 /**
  * Edit gl account component.
@@ -37,7 +38,7 @@ export class EditGlAccountComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private accountingService: AccountingService,
+              private accountingService: GeneralLedgerAccountService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { glAccountAndChartOfAccountsTemplate: any }) => {
@@ -103,7 +104,7 @@ export class EditGlAccountComponent implements OnInit {
    * if successful redirects to view updated account.
    */
   submit() {
-    this.accountingService.updateGlAccount(this.glAccount.id, this.glAccountForm.value)
+    this.accountingService.updateGLAccount1(this.glAccount.id, this.glAccountForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
       });

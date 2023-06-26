@@ -13,6 +13,7 @@ import { CancelDialogComponent } from '../../../shared/cancel-dialog/cancel-dial
 
 /** Survey Models */
 import { Survey, QuestionData, ResponseData } from './../survey.model';
+import { SpmSurveysService } from 'openapi/typescript_files';
 
 /**
  * Edit survey component.
@@ -35,15 +36,15 @@ export class EditSurveyComponent implements OnInit {
    * @param {MatDialog} dialog Dialog reference.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
-              private route: ActivatedRoute,
-              private router: Router,
-              public dialog: MatDialog) {
-                this.createSurveyForm();
-                this.route.data.subscribe((data: { survey: any }) => {
-                  this.prepareSurveyForm(data.survey);
-                });
-              }
+    private spmSurveysService: SpmSurveysService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public dialog: MatDialog) {
+    this.createSurveyForm();
+    this.route.data.subscribe((data: { survey: any }) => {
+      this.prepareSurveyForm(data.survey);
+    });
+  }
 
   /**
    * Fills the survey form.
@@ -56,11 +57,11 @@ export class EditSurveyComponent implements OnInit {
    * and prepares the survey form.
    */
   prepareSurveyForm(survey: Survey) {
-      this.surveyForm.get('key').setValue(survey.key);
-      this.surveyForm.get('name').setValue(survey.name);
-      this.surveyForm.get('countryCode').setValue(survey.countryCode);
-      this.surveyForm.get('description').setValue(survey.description);
-      this.prepareQuestionDatas(this.questionDatas, survey.questionDatas);
+    this.surveyForm.get('key').setValue(survey.key);
+    this.surveyForm.get('name').setValue(survey.name);
+    this.surveyForm.get('countryCode').setValue(survey.countryCode);
+    this.surveyForm.get('description').setValue(survey.description);
+    this.prepareQuestionDatas(this.questionDatas, survey.questionDatas);
   }
 
   /**
@@ -229,11 +230,13 @@ export class EditSurveyComponent implements OnInit {
    * Submits the survey form and creates survey,
    * if successful redirects to surveys.
    */
+  id: any;
   submit() {
     this.surveyForm.patchValue({
       countryCode: this.surveyForm.value.countryCode.toUpperCase()
     });
-    this.systemService.editSurvey(this.route.snapshot.paramMap.get('id'), this.surveyForm.value).subscribe((response: any) => {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.spmSurveysService.editSurvey(this.id, this.surveyForm.value).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

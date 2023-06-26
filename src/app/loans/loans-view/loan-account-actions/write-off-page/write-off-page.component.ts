@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Write Off component.
@@ -39,7 +40,7 @@ export class WriteOffPageComponent implements OnInit {
    */
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private loanService: LoansService,
+              private loanTransactionsService: LoanTransactionsService,
               private dateUtils: Dates,
               private router: Router,
               private settingsService: SettingsService) { }
@@ -78,7 +79,7 @@ export class WriteOffPageComponent implements OnInit {
     };
     const loanId = this.route.snapshot.params['loanId'];
     delete data.amount;
-    this.loanService.submitLoanActionButton(loanId, data, 'writeoff').subscribe((response: any) => {
+    this.loanTransactionsService.executeLoanTransaction(loanId, data, 'writeoff').subscribe((response: any) => {
       this.router.navigate(['../../general'], {relativeTo: this.route});
     });
   }

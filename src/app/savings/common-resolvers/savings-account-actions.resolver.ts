@@ -7,6 +7,7 @@ import { Observable, forkJoin } from 'rxjs';
 
 /** Custom Services */
 import { SavingsService } from '../savings.service';
+import { SavingsAccountService, SavingsAccountTransactionsService, SavingsChargesService } from 'openapi/typescript_files';
 
 /**
  * Savings Account Actions data resolver.
@@ -17,31 +18,34 @@ export class SavingsAccountActionsResolver implements Resolve<Object> {
   /**
    * @param {SavingsService} SavingsService Savings service.
    */
-  constructor(private savingsService: SavingsService) { }
+  constructor(private savingsAccountService: SavingsAccountService,
+    private savingsChargesService: SavingsChargesService,
+    private savingsAccountTransactionsService: SavingsAccountTransactionsService) { }
 
   /**
    * Returns the Savings account actions data.
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  savingAccountId: any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const actionName = route.paramMap.get('name');
-    const savingAccountId = route.paramMap.get('savingAccountId') || route.parent.parent.paramMap.get('savingAccountId');
+    this.savingAccountId = route.paramMap.get('savingAccountId') || route.parent.parent.paramMap.get('savingAccountId');
     switch (actionName) {
       case 'Assign Staff':
-        return this.savingsService.getSavingsAccountAndTemplate(savingAccountId, true);
+        return this.savingsAccountService.retrieveOne25(this.savingAccountId);
       case 'Add Charge':
-        return this.savingsService.getSavingsChargeTemplateResource(savingAccountId);
+        return this.savingsChargesService.retrieveTemplate18(this.savingAccountId);
       case 'Withdrawal':
       case 'Deposit':
-        return this.savingsService.getSavingsTransactionTemplateResource(savingAccountId);
+        return this.savingsAccountTransactionsService.retrieveTemplate19(this.savingAccountId);
       case 'Close':
         return forkJoin([
-          this.savingsService.getSavingsTransactionTemplateResource(savingAccountId),
-          this.savingsService.getSavingsAccountData(savingAccountId)
+          this.savingsAccountTransactionsService.retrieveTemplate19(this.savingAccountId),
+          this.savingsAccountService.retrieveOne25(this.savingAccountId)
         ]);
       case 'Apply Annual Fees':
-        return this.savingsService.getSavingsAccountData(savingAccountId);
+        return this.savingsAccountService.retrieveOne25(this.savingAccountId);
       default:
         return undefined;
     }

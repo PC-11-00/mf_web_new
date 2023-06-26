@@ -13,6 +13,7 @@ import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/conf
 import { TasksService } from '../../tasks.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { BatchAPIService, LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loan-approval',
@@ -54,7 +55,8 @@ export class LoanApprovalComponent {
     private dateUtils: Dates,
     private router: Router,
     private settingsService: SettingsService,
-    private tasksService: TasksService) {
+    private batchAPIService:BatchAPIService,
+    private loansService: LoansService) {
     this.route.data.subscribe((data: { officesData: any, loansData: any }) => {
       this.offices = data.officesData;
       this.loans = data.loansData.pageItems;
@@ -150,7 +152,7 @@ export class LoanApprovalComponent {
       const batchData = { requestId: reqId++, relativeUrl: url, method: 'POST', body: bodyData };
       this.batchRequests.push(batchData);
     });
-    this.tasksService.submitBatchData(this.batchRequests).subscribe((response: any) => {
+    this.batchAPIService.handleBatchRequests(this.batchRequests).subscribe((response: any) => {
       response.forEach((responseEle: any) => {
         if (responseEle.statusCode = '200') {
           approvedAccounts++;
@@ -169,7 +171,7 @@ export class LoanApprovalComponent {
   }
 
   loanResource() {
-    this.tasksService.getAllLoans().subscribe((response: any) => {
+    this.loansService.retrieveAll27('l.loan_status_id in (100,200)',undefined,undefined,1000).subscribe((response: any) => {
       this.loans = response.pageItems;
       this.loans = this.loans.filter((account: any) => {
         return (account.status.waitingForDisbursal === true);

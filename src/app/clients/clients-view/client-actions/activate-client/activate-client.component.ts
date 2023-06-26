@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Activate Client Component
@@ -36,7 +37,7 @@ export class ActivateClientComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -78,7 +79,7 @@ export class ActivateClientComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.clientsService.executeClientCommand(this.clientId, 'activate', data).subscribe(() => {
+    this.clientsService.activate1(this.clientId, data,'activate').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

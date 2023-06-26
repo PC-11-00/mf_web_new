@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CentersService } from 'app/centers/centers.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { CalendarService } from 'openapi/typescript_files';
 
 /**
  * Center Meetings Component
@@ -45,7 +46,7 @@ export class AttachCenterMeetingComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private centersService: CentersService,
+              private centersService: CalendarService,
               private settingsService: SettingsService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
@@ -131,7 +132,7 @@ export class AttachCenterMeetingComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.centersService.createCenterMeeting(this.centerId, data).subscribe((response: any) => {
+    this.centersService.createCalendar('centers',this.centerId, data).subscribe((response: any) => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

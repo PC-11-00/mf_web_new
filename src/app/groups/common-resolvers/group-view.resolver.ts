@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { GroupsService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { GroupsService } from '../groups.service';
+// import { GroupsService } from '../groups.service';
 
 /**
  * Groups data resolver.
@@ -24,9 +25,10 @@ export class GroupViewResolver implements Resolve<Object> {
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  groupId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const groupId = route.paramMap.get('groupId');
-    return this.groupsService.getGroupData(groupId);
+    this.groupId = route.paramMap.get('groupId');
+    return this.groupsService.retrieveOne15(this.groupId);
   }
 
 }

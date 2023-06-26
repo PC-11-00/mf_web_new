@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsAccountService } from 'openapi/typescript_files';
 
 /**
  * Savings Account Details Step
@@ -44,8 +45,8 @@ export class SavingsAccountDetailsStepComponent implements OnInit {
    * @param {SettingsService} settingsService Setting service
    */
   constructor(private formBuilder: FormBuilder,
-              private savingsService: SavingsService,
-              private settingsService: SettingsService) {
+    private savingsAccountService: SavingsAccountService,
+    private settingsService: SettingsService) {
     this.createSavingsAccountDetailsForm();
   }
 
@@ -85,19 +86,35 @@ export class SavingsAccountDetailsStepComponent implements OnInit {
    */
   buildDependencies() {
     const entityId = this.savingsAccountTemplate.clientId || this.savingsAccountTemplate.groupId;
-    this.savingsAccountDetailsForm.get('productId').valueChanges.subscribe((productId: string) => {
-      this.savingsService.getSavingsAccountTemplate(entityId, productId, this.savingsAccountTemplate.groupId ? true : false)
-      .subscribe((response: any) => {
-        this.savingsAccountProductTemplate.emit(response);
-        this.fieldOfficerData = response.fieldOfficerOptions;
-        this.savingsProductSelected = true;
-        if (!this.isFieldOfficerPatched && this.savingsAccountTemplate.fieldOfficerId) {
-          this.savingsAccountDetailsForm.get('fieldOfficerId').patchValue(this.savingsAccountTemplate.fieldOfficerId);
-          this.isFieldOfficerPatched = true;
-        } else {
-          this.savingsAccountDetailsForm.get('fieldOfficerId').patchValue('');
-        }
-      });
+    this.savingsAccountDetailsForm.get('productId').valueChanges.subscribe((productId: any) => {
+      if (this.savingsAccountTemplate.groupId) {
+        this.savingsAccountService.template14(undefined, entityId, productId)
+          .subscribe((response: any) => {
+            this.savingsAccountProductTemplate.emit(response);
+            this.fieldOfficerData = response.fieldOfficerOptions;
+            this.savingsProductSelected = true;
+            if (!this.isFieldOfficerPatched && this.savingsAccountTemplate.fieldOfficerId) {
+              this.savingsAccountDetailsForm.get('fieldOfficerId').patchValue(this.savingsAccountTemplate.fieldOfficerId);
+              this.isFieldOfficerPatched = true;
+            } else {
+              this.savingsAccountDetailsForm.get('fieldOfficerId').patchValue('');
+            }
+          });
+      }
+      else {
+        this.savingsAccountService.template14(entityId, undefined, productId)
+          .subscribe((response: any) => {
+            this.savingsAccountProductTemplate.emit(response);
+            this.fieldOfficerData = response.fieldOfficerOptions;
+            this.savingsProductSelected = true;
+            if (!this.isFieldOfficerPatched && this.savingsAccountTemplate.fieldOfficerId) {
+              this.savingsAccountDetailsForm.get('fieldOfficerId').patchValue(this.savingsAccountTemplate.fieldOfficerId);
+              this.isFieldOfficerPatched = true;
+            } else {
+              this.savingsAccountDetailsForm.get('fieldOfficerId').patchValue('');
+            }
+          });
+      }
     });
   }
 

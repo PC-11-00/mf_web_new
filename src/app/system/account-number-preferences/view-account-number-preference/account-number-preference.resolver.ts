@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { AccountNumberFormatService } from 'openapi/typescript_files';
 
 /**
  * Account Number Preference data resolver.
@@ -17,15 +18,16 @@ export class AccountNumberPreferenceResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private accountNumberFormatService: AccountNumberFormatService) {}
 
   /**
    * Returns the Account Number Preference data.
    * @returns {Observable<any>}
    */
+  accountNumberPreferenceId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const accountNumberPreferenceId = route.paramMap.get('id');
-    return this.systemService.getAccountNumberPreference(accountNumberPreferenceId);
+    this.accountNumberPreferenceId = route.paramMap.get('id');
+    return this.accountNumberFormatService.retrieveOne(this.accountNumberPreferenceId);
   }
 
 }

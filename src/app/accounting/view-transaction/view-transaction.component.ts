@@ -13,6 +13,7 @@ import { AccountingService } from '../accounting.service';
 import { RevertTransactionComponent } from '../revert-transaction/revert-transaction.component';
 import { ViewJournalEntryComponent } from '../view-journal-entry/view-journal-entry.component';
 import { Location } from '@angular/common';
+import { JournalEntriesService } from 'openapi/typescript_files';
 
 /**
  * View transaction component.
@@ -46,7 +47,7 @@ export class ViewTransactionComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private accountingService: AccountingService,
+  constructor(private accountingService: JournalEntriesService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog,
@@ -100,7 +101,7 @@ export class ViewTransactionComponent implements OnInit {
     });
     revertTransactionDialogRef.afterClosed().subscribe((response: any) => {
       if (response.revert) {
-        this.accountingService.revertTransaction(this.transactionId, response.comments).subscribe((reversedTransaction: any) => {
+        this.accountingService.createReversalJournalEntry(this.transactionId, response.comments).subscribe((reversedTransaction: any) => {
           this.dataSource.data[0].reversed = true;
           this.revertTransaction(reversedTransaction.transactionId);
         });

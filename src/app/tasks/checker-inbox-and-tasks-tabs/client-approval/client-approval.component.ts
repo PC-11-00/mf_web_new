@@ -15,6 +15,7 @@ import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicke
 import { TasksService } from '../../tasks.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { BatchAPIService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-client-approval',
@@ -50,7 +51,7 @@ export class ClientApprovalComponent {
     private dateUtils: Dates,
     private router: Router,
     private settingsService: SettingsService,
-    private tasksService: TasksService) {
+    private batchAPIService: BatchAPIService) {
     this.route.data.subscribe((data: { groupedClientData: any }) => {
       this.groupedClients = _.groupBy(data.groupedClientData.pageItems, 'officeName');
       if (Object.keys(this.groupedClients).length) {
@@ -129,7 +130,7 @@ export class ClientApprovalComponent {
       const batchData = { requestId: reqId++, relativeUrl: url, method: 'POST', body: bodyData };
       this.batchRequests.push(batchData);
     });
-    this.tasksService.submitBatchData(this.batchRequests).subscribe((response: any) => {
+    this.batchAPIService.handleBatchRequests(this.batchRequests).subscribe((response: any) => {
       response.forEach((responseEle: any) => {
         if (responseEle.statusCode = '200') {
           activatedAccounts++;

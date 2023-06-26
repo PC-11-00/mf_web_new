@@ -4,7 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { GroupsService } from '../../groups.service';
+// import { GroupsService } from '../../groups.service';
+import { GroupsService } from 'openapi/typescript_files';
 
 /**
  * Groups Add Role Component
@@ -60,7 +61,7 @@ export class AddRoleComponent implements OnInit {
    * Submits the form and assigns the group role.
    */
   submit() {
-    this.groupsService.executeGroupCommand(this.groupAndTemplateData.id, 'assignRole', this.groupsAddRoleForm.value).subscribe(() => {
+    this.groupsService.activateOrGenerateCollectionSheet(this.groupAndTemplateData.id, this.groupsAddRoleForm.value, 'assignRole').subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

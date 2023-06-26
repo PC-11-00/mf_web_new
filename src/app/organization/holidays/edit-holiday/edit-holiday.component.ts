@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { HolidaysService } from 'openapi/typescript_files';
 
 /**
  * Edit Holiday component.
@@ -42,7 +43,7 @@ export class EditHolidayComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dateUtils: Dates,
-              private organizatioService: OrganizationService,
+              private organizatioService: HolidaysService,
               private settingsService: SettingsService,
               private router: Router ) {
     this.route.data.subscribe((data: { holiday: any, holidayTemplate: any }) => {
@@ -123,7 +124,7 @@ export class EditHolidayComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizatioService.updateHoliday(this.holidayData.id, data).subscribe(response => {
+    this.organizatioService.update6(this.holidayData.id, data).subscribe(response => {
       /** TODO Add Redirects to ViewMakerCheckerTask page. */
       this.router.navigate(['../'], { relativeTo: this.route });
     });

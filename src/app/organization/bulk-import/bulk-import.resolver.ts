@@ -10,6 +10,7 @@ import { OrganizationService } from '../organization.service';
 
 /** Custom Imports */
 import { BulkImports } from './view-bulk-import/bulk-imports';
+import { BulkImportService } from 'openapi/typescript_files';
 
 /**
  * Bulk Imports data resolver.
@@ -22,7 +23,7 @@ export class BulkImportResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {
+  constructor(private organizationService: BulkImportService) {
   }
 
   /**
@@ -40,7 +41,7 @@ export class BulkImportResolver implements Resolve<Object> {
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const entity = this.getEntityName(route.params['import-name']);
-    return this.organizationService.getImports(entity);
+    return this.organizationService.retrieveImportDocuments(entity);
   }
 
 }

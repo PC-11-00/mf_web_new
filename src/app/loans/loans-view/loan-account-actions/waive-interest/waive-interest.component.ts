@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoansService } from 'app/loans/loans.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Waive Interest component.
@@ -38,7 +39,7 @@ export class WaiveInterestComponent implements OnInit {
               private router: Router,
               private settingsService: SettingsService,
               private dateUtils: Dates,
-              private loanService: LoansService,
+              private loanTransactionsService: LoanTransactionsService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -74,7 +75,7 @@ export class WaiveInterestComponent implements OnInit {
       locale
     };
     const loanId = this.route.snapshot.params['loanId'];
-    this.loanService.submitLoanActionButton(loanId, data, 'waiveinterest').subscribe((response: any) => {
+    this.loanTransactionsService.executeLoanTransaction(loanId, data, 'waiveinterest').subscribe((response: any) => {
       this.router.navigate(['../../general'], {relativeTo: this.route});
     });
   }

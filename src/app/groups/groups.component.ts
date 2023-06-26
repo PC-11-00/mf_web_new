@@ -10,10 +10,11 @@ import { merge } from 'rxjs';
 import { tap, startWith, map, distinctUntilChanged, debounceTime} from 'rxjs/operators';
 
 /** Custom Services */
-import { GroupsService } from './groups.service';
+// import { GroupsService } from './groups.service';
 
 /** Custom Data Source */
 import { GroupsDataSource } from './groups.datasource';
+import { GroupsService } from 'openapi/typescript_files';
 
 /**
  * Groups component.

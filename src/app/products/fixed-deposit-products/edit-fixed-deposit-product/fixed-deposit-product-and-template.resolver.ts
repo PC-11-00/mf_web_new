@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+import { FixedDepositProductService } from 'openapi/typescript_files';
 
 /**
  * Fixed Deposits Account Template resolver.
@@ -17,16 +18,17 @@ export class FixedDepositProductAndTemplateResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: FixedDepositProductService) { }
 
   /**
    * Returns the Fixed Deposits Product and Template.
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  productId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const productId = route.parent.paramMap.get('productId');
-    return this.productsService.getFixedDepositProductAndTemplate(productId);
+    this.productId = route.parent.paramMap.get('productId');
+    return this.productsService.retrieveOne20(this.productId);
   }
 
 }

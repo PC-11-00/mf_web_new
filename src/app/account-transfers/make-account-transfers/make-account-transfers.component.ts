@@ -4,12 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /** Custom Services */
-import { AccountTransfersService } from '../account-transfers.service';
+// import { AccountTransfersService } from '../account-transfers.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 
-
+import { AccountTransfersService } from 'openapi/typescript_files';
 /**
  * Create account transfers
  */
@@ -116,9 +116,10 @@ export class MakeAccountTransfersComponent implements OnInit, AfterViewInit {
   }
 
   /** Executes on change of various select options */
+  formValue:any;
   changeEvent() {
-    const formValue = this.refineObject(this.makeAccountTransferForm.value);
-    this.accountTransfersService.newAccountTranferResource(this.id, this.accountTypeId, formValue).subscribe((response: any) => {
+    this.formValue = this.refineObject(this.makeAccountTransferForm.value);
+    this.accountTransfersService.template5(this.id, this.accountTypeId, this.formValue).subscribe((response: any) => {
       this.accountTransferTemplateData = response;
       this.toClientTypeData = response.toClientOptions;
       this.setOptions();
@@ -186,7 +187,7 @@ export class MakeAccountTransfersComponent implements OnInit, AfterViewInit {
       fromClientId: this.accountTransferTemplateData.fromClient.id,
       fromOfficeId: this.accountTransferTemplateData.fromClient.officeId
     };
-    this.accountTransfersService.createAccountTransfer(makeAccountTransferData).subscribe(() => {
+    this.accountTransfersService.create4(makeAccountTransferData).subscribe(() => {
       this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });
   }

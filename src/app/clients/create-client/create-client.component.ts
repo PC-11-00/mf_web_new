@@ -13,6 +13,7 @@ import { ClientDatatableStepComponent } from '../client-stepper/client-datatable
 
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Create Client Component.
@@ -50,7 +51,7 @@ export class CreateClientComponent {
    */
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private clientsService: ClientsService,
+    private clientsService: ClientService,
     private settingsService: SettingsService) {
     this.route.data.subscribe((data: { clientTemplate: any, clientAddressFieldConfig: any }) => {
       this.clientTemplate = data.clientTemplate;
@@ -138,7 +139,7 @@ export class CreateClientComponent {
       clientData['datatables'] = datatables;
     }
 
-    this.clientsService.createClient(clientData).subscribe((response: any) => {
+    this.clientsService.create6(clientData).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

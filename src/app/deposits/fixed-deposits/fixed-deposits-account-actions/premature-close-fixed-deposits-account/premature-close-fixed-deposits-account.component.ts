@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FixedDepositsService } from '../../fixed-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { FixedDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Premature Close Fixed Deposits Account Component
@@ -43,7 +44,7 @@ export class PrematureCloseFixedDepositsAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private fixedDepositsService: FixedDepositsService,
+    private fixedDepositsService: FixedDepositAccountService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
     private router: Router,
@@ -92,7 +93,7 @@ export class PrematureCloseFixedDepositsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.fixedDepositsService.executeFixedDepositsAccountCommand(this.accountId, 'calculatePrematureAmount', data)
+    this.fixedDepositsService.handleCommands4(this.accountId, data, 'calculatePrematureAmount')
       .subscribe((response: any) => {
         this.savingsAccountsData = response.savingsAccounts;
         this.onAccountClosureOptions = response.onAccountClosureOptions;
@@ -138,7 +139,7 @@ export class PrematureCloseFixedDepositsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.fixedDepositsService.executeFixedDepositsAccountCommand(this.accountId, 'prematureClose', data).subscribe(() => {
+    this.fixedDepositsService.handleCommands4(this.accountId, data, 'prematureClose').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

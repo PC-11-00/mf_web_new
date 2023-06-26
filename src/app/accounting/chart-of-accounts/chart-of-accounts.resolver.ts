@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { GeneralLedgerAccountService } from 'openapi/typescript_files';
 
 /**
  * Chart of acocunts data resolver.
@@ -17,14 +18,14 @@ export class ChartOfAccountsResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: GeneralLedgerAccountService) {}
 
   /**
    * Returns the chart of accounts data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.accountingService.getChartOfAccounts();
+    return this.accountingService.retrieveAllAccounts();
   }
 
 }

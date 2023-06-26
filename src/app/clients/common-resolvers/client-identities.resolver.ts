@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { ClientIdentifierService, DocumentsService } from 'openapi/typescript_files';
 
 /**
  * Client Identities resolver.
@@ -17,19 +18,21 @@ export class ClientIdentitiesResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: ClientIdentifierService,
+        private documentsService: DocumentsService) { }
     /**
      * Returns the Client Identities data.
      * @returns {Observable<any>}
      */
+    clientId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.paramMap.get('clientId');
+        this.clientId = route.parent.paramMap.get('clientId');
         let identitiesData: any;
-        return this.clientsService.getClientIdentifiers(clientId).pipe(map((identities: any) => {
+        return this.clientsService.retrieveAllClientIdentifiers(this.clientId).pipe(map((identities: any) => {
             identitiesData = identities;
             const docObservable: Observable<any>[] = [];
             identities.forEach((identity: any) => {
-                docObservable.push(this.clientsService.getClientIdentificationDocuments(identity.id));
+                docObservable.push(this.documentsService.retrieveAllDocuments('client_identifiers',identity.id));
             });
             forkJoin(docObservable).subscribe(documents => {
                 documents.forEach((document, index) => {

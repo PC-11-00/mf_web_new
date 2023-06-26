@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
 
 /**
  * Client Screen Reports Component.
@@ -38,7 +39,7 @@ export class ClientScreenReportsComponent implements OnInit {
    * @param {Renderer2} renderer Renderer 2
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: UserGeneratedDocumentsService,
               private route: ActivatedRoute,
               private sanitizer: DomSanitizer,
               private renderer: Renderer2) {
@@ -82,7 +83,7 @@ export class ClientScreenReportsComponent implements OnInit {
    */
   generate() {
     const templateId = this.clientScreenReportForm.get('templateId').value;
-    this.clientsService.retrieveClientReportTemplate(templateId, this.clientId).subscribe((response: any) => {
+    this.clientsService.mergeTemplate(templateId, this.clientId).subscribe((response: any) => {
       this.template = this.sanitizer.sanitize(SecurityContext.HTML, response);
       this.renderer.setProperty(this.screenReportRef.nativeElement, 'innerHTML', this.template);
     });

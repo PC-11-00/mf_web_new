@@ -7,10 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 
 /** Custom Services */
-import { CentersService } from 'app/centers/centers.service';
-import { GroupsService } from 'app/groups/groups.service';
+// import { CentersService } from 'app/centers/centers.service';
+// import { GroupsService } from 'app/groups/groups.service';
 import { MatDialog } from '@angular/material/dialog';
 
+import { CentersService, GroupsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-manage-groups',
@@ -52,7 +53,7 @@ export class ManageGroupsComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.groupChoice.valueChanges.subscribe( (value: string) => {
       if (value.length >= 2) {
-        this.groupsService.getFilteredGroups('name', 'ASC', value, this.centerData.officeId, 'true')
+        this.groupsService.retrieveAll24( this.centerData.officeId,undefined,undefined,value,undefined,undefined,undefined,undefined,'name', 'ASC',true)
           .subscribe((data: any) => {
             this.groupsData = data;
           });
@@ -63,14 +64,17 @@ export class ManageGroupsComponent implements AfterViewInit {
   /**
    * Add group.
    */
+  data:any;
   addGroup() {
     if (this.groupMembers !== null && this.groupMembers !== undefined) {
       if (!this.groupMembers.includes(this.groupChoice.value)) {
-        this.centersService.executeCenterActionCommand(this.centerData.id, 'associateGroups', {groupMembers: [this.groupChoice.value.id]})
+        this.data={groupMembers: [this.groupChoice.value.id]};
+        this.centersService.activate2(this.centerData.id,this.data, 'associateGroups')
           .subscribe(() => { this.groupMembers.push(this.groupChoice.value); });
       }
     } else {
-      this.centersService.executeCenterActionCommand(this.centerData.id, 'associateGroups', {groupMembers: [this.groupChoice.value.id]})
+      this.data={groupMembers: [this.groupChoice.value.id]};
+      this.centersService.activate2(this.centerData.id,this.data, 'associateGroups', )
       .subscribe(() => { this.groupMembers.push(this.groupChoice.value); });
     }
   }
@@ -85,7 +89,8 @@ export class ManageGroupsComponent implements AfterViewInit {
     });
     removeMemberDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.centersService.executeCenterActionCommand(this.centerData.id, 'disassociateGroups', {groupMembers: [group.id]})
+        this.data={groupMembers: [group.id]};
+        this.centersService.activate2(this.centerData.id, this.data,'disassociateGroups')
           .subscribe(() => { this.groupMembers.splice(index, 1); });
       }
     });

@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoansService } from 'openapi/typescript_files';
 
 /**
  * Disburse Loan Option
@@ -20,7 +21,7 @@ export class DisburseComponent implements OnInit {
 
   @Input() dataObject: any;
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   /** Payment Type Options */
   paymentTypes: any;
   /** Show payment details */
@@ -114,7 +115,7 @@ export class DisburseComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loanService.loanActionButtons(this.loanId, 'disburse', data )
+    this.loanService.stateTransitions(this.loanId, data, 'disburse')
       .subscribe((response: any) => {
         this.router.navigate(['../../general'], { relativeTo: this.route });
       });

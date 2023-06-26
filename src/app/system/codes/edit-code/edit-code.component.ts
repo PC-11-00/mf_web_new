@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { CodesService } from 'openapi/typescript_files';
 
 /**
  * Edit Code Component.
@@ -29,9 +30,9 @@ export class EditCodeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private codesService: CodesService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.route.data.subscribe((data: { code: any }) => {
       this.codeData = data.code;
     });
@@ -58,7 +59,7 @@ export class EditCodeComponent implements OnInit {
    * if successful redirects to view updated code.
    */
   submit() {
-    this.systemService.updateCode(this.codeForm.value, this.codeData.id)
+    this.codesService.updateCode(this.codeData.id, this.codeForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
       });

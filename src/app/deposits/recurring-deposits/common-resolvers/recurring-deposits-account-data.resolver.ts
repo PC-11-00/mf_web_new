@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { RecurringDepositsService } from '../recurring-deposits.service';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * RecurringDeposits Account data resolver.
@@ -17,16 +18,17 @@ export class RecurringDepositsAccountDataResolver implements Resolve<Object> {
   /**
    * @param {RecurringDepositsService} RecurringDepositsService RecurringDeposits service.
    */
-  constructor(private recurringDepositsService: RecurringDepositsService) { }
+  constructor(private recurringDepositsService: RecurringDepositAccountService) { }
 
   /**
    * Returns the RecurringDeposits Account data.
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  recurringDepositAccountId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const recurringDepositAccountId = route.parent.paramMap.get('recurringDepositAccountId');
-    return this.recurringDepositsService.getRecurringDepositsAccountData(recurringDepositAccountId);
+    this.recurringDepositAccountId = route.parent.paramMap.get('recurringDepositAccountId');
+    return this.recurringDepositsService.retrieveOne22(this.recurringDepositAccountId);
   }
 
 }

@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
+import { DocumentsService } from 'openapi/typescript_files';
 
 /**
  * View signature dialog component.
@@ -28,7 +29,7 @@ export class ViewSignatureDialogComponent implements OnInit {
    * @param {any} data Documents data
    */
   constructor(public dialogRef: MatDialogRef<ViewSignatureDialogComponent>,
-              private clientsService: ClientsService,
+              private clientsService: DocumentsService,
               private sanitizer: DomSanitizer,
               @Inject(MAT_DIALOG_DATA) public data: { documents: any[], id: string }) {
     const signature = this.data.documents.find((document: any) => document.name === 'clientSignature') || {};
@@ -38,7 +39,7 @@ export class ViewSignatureDialogComponent implements OnInit {
 
   ngOnInit() {
     if (this.signatureId) {
-      this.clientsService.getClientSignatureImage(this.clientId, this.signatureId).subscribe(
+      this.clientsService.downloadFile('clients',this.clientId, this.signatureId).subscribe(
         (base64Image: any) => {
           this.signatureImage = this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
         }, (error: any) => {}

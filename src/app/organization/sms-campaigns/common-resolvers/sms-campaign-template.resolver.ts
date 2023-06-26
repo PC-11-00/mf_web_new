@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { DefaultService } from 'openapi/typescript_files';
 
 /**
  * SMS Campaign Template resolver.
@@ -17,14 +18,14 @@ export class SmsCampaignTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: DefaultService) {}
 
   /**
    * Returns the SMS Campaign Template.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getSmsCampaignTemplate();
+    return this.organizationService.template2();
   }
 
 }

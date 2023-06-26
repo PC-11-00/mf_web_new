@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { RunReportsService } from 'openapi/typescript_files';
 
 /**
  * Client Summary resolver.
@@ -17,7 +18,7 @@ export class ClientSummaryResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: RunReportsService) { }
 
     /**
      * Returns the Client Summary data.
@@ -25,7 +26,7 @@ export class ClientSummaryResolver implements Resolve<Object> {
      */
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
         const clientId = route.parent.paramMap.get('clientId');
-        return this.clientsService.getClientSummary(clientId);
+        return this.clientsService.runReport('ClientSummary');
     }
 
 }

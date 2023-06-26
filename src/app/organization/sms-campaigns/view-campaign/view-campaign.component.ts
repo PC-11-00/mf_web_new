@@ -17,6 +17,7 @@ import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicke
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { DefaultService, SMSService } from 'openapi/typescript_files';
 
 /**
  * View SMS Campaign Component
@@ -85,7 +86,8 @@ export class ViewCampaignComponent implements OnInit {
               public dialog: MatDialog,
               private formBuilder: FormBuilder,
               private dateUtils: Dates,
-              private organizationService: OrganizationService,
+              private organizationService: DefaultService,
+              private smsService: SMSService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { smsCampaign: any }) => {
       this.smsCampaignData = data.smsCampaign;
@@ -125,6 +127,7 @@ export class ViewCampaignComponent implements OnInit {
   /**
    * Closes the SMS Campaign.
    */
+  dataObject:any;
   closeCampaign() {
     const formfields: FormfieldBase[] = [
       new DatepickerBase({
@@ -145,12 +148,12 @@ export class ViewCampaignComponent implements OnInit {
       if (response.data) {
         const locale = this.settingsService.language.code;
         const dateFormat = this.settingsService.dateFormat;
-        const dataObject = {
+        this.dataObject = {
           closureDate: this.dateUtils.formatDate(response.data.value.closureDate, dateFormat),
           dateFormat,
           locale
         };
-        this.organizationService.executeSmsCampaignCommand(this.smsCampaignData.id, dataObject,  'close').subscribe(() => {
+        this.organizationService.handleCommands(this.smsCampaignData.id,'close',this.dataObject).subscribe(() => {
           this.reload();
         });
       }
@@ -185,7 +188,7 @@ export class ViewCampaignComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.organizationService.executeSmsCampaignCommand(this.smsCampaignData.id, dataObject,  'activate').subscribe(() => {
+        this.organizationService.handleCommands(this.smsCampaignData.id,'activate',this.dataObject).subscribe(() => {
           this.reload();
         });
       }
@@ -220,7 +223,7 @@ export class ViewCampaignComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.organizationService.executeSmsCampaignCommand(this.smsCampaignData.id, dataObject,  'reactivate').subscribe(() => {
+        this.organizationService.handleCommands(this.smsCampaignData.id, 'reactivate', this.dataObject).subscribe(() => {
           this.reload();
         });
       }
@@ -236,7 +239,7 @@ export class ViewCampaignComponent implements OnInit {
     });
     deleteSmsCampaignDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteSmsCampaign(this.smsCampaignData.id).subscribe(() => {
+        this.organizationService.delete3(this.smsCampaignData.id).subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }
@@ -275,7 +278,7 @@ export class ViewCampaignComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.getMessagebyStatus(data).subscribe((response: any) => {
+    this.smsService.retrieveAllSmsByStatus(data).subscribe((response: any) => {
       this.dataSource.data = response.pageItems;
       this.messageTableRef.renderRows();
     });

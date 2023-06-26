@@ -13,6 +13,7 @@ import { SystemService } from 'app/system/system.service';
 /** Custom Components */
 import { ReportParameterDialogComponent } from '../report-parameter-dialog/report-parameter-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { ReportsService } from 'openapi/typescript_files';
 
 /**
  * Create Report Component.
@@ -57,7 +58,7 @@ export class CreateReportComponent implements OnInit {
    * @param {MatDialog} dialog Dialog Reference.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private reportsService: ReportsService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
@@ -188,7 +189,7 @@ export class CreateReportComponent implements OnInit {
       reportParameter.parameterName = undefined;
       return reportParameter;
     });
-    this.systemService.createReport(this.reportForm.value)
+    this.reportsService.createReport(this.reportForm.value)
       .subscribe((response: any) => {
         // TODO: Implement Maker Checker Component.
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });

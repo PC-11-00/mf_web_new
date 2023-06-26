@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { RecurringDepositProductService } from 'openapi/typescript_files';
 
 /**
  * Recurring Deposit Products data resolver.
@@ -17,14 +18,14 @@ export class RecurringDepositProductsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: RecurringDepositProductService) {}
 
   /**
    * Returns the recurring deposit products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getRecurringDepositProducts();
+    return this.productsService.retrieveAll32();
   }
 
 }

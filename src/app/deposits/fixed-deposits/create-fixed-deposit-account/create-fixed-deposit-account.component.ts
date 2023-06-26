@@ -13,6 +13,7 @@ import { FixedDepositAccountTermsStepComponent } from '../fixed-deposit-account-
 import { FixedDepositAccountSettingsStepComponent } from '../fixed-deposit-account-stepper/fixed-deposit-account-settings-step/fixed-deposit-account-settings-step.component';
 import { FixedDepositAccountChargesStepComponent } from '../fixed-deposit-account-stepper/fixed-deposit-account-charges-step/fixed-deposit-account-charges-step.component';
 import { Dates } from 'app/core/utils/dates';
+import { FixedDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Create Fixed Deposit Account Component
@@ -51,7 +52,7 @@ export class CreateFixedDepositAccountComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private fixedDepositsService: FixedDepositsService,
+              private fixedDepositsService: FixedDepositAccountService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { fixedDepositsAccountTemplate: any }) => {
       this.fixedDepositsAccountTemplate = data.fixedDepositsAccountTemplate;
@@ -140,7 +141,7 @@ export class CreateFixedDepositAccountComponent {
       monthDayFormat,
       locale
     };
-    this.fixedDepositsService.createFixedDepositAccount(fixedDepositAccount).subscribe((response: any) => {
+    this.fixedDepositsService.submitApplication(fixedDepositAccount).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

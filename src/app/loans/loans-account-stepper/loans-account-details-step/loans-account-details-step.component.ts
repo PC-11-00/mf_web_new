@@ -6,7 +6,8 @@ import { SettingsService } from 'app/settings/settings.service';
 import { TooltipPosition } from '@angular/material/tooltip';
 
 /** Custom Services */
-import { LoansService } from '../../loans.service';
+// import { LoansService } from '../../loans.service';
+import { LoansService } from 'openapi/typescript_files';
 
 /**
  * Loans Account Details Step
@@ -102,18 +103,34 @@ export class LoansAccountDetailsStepComponent implements OnInit {
   buildDependencies() {
     const entityId = (this.loansAccountTemplate.clientId) ? this.loansAccountTemplate.clientId : this.loansAccountTemplate.group.id;
     const isGroup = (this.loansAccountTemplate.clientId) ? false : true;
-    this.loansAccountDetailsForm.get('productId').valueChanges.subscribe((productId: string) => {
-      this.loansService.getLoansAccountTemplateResource(entityId, isGroup, productId).subscribe((response: any) => {
-        this.loansAccountProductTemplate.emit(response);
-        this.loanOfficerOptions = response.loanOfficerOptions;
-        this.loanPurposeOptions = response.loanPurposeOptions;
-        this.fundOptions = response.fundOptions;
-        this.accountLinkingOptions = response.accountLinkingOptions;
-        this.loanProductSelected = true;
-        if (response.createStandingInstructionAtDisbursement) {
-          this.loansAccountDetailsForm.get('createStandingInstructionAtDisbursement').patchValue(response.createStandingInstructionAtDisbursement);
-        }
-      });
+    this.loansAccountDetailsForm.get('productId').valueChanges.subscribe((productId: any) => {
+      if (isGroup) {
+        this.loansService.template10(null, entityId, productId, 'group', true, true).subscribe((response: any) => {
+          this.loansAccountProductTemplate.emit(response);
+          this.loanOfficerOptions = response.loanOfficerOptions;
+          this.loanPurposeOptions = response.loanPurposeOptions;
+          this.fundOptions = response.fundOptions;
+          this.accountLinkingOptions = response.accountLinkingOptions;
+          this.loanProductSelected = true;
+          if (response.createStandingInstructionAtDisbursement) {
+            this.loansAccountDetailsForm.get('createStandingInstructionAtDisbursement').patchValue(response.createStandingInstructionAtDisbursement);
+          }
+        });
+      }
+      else {
+        this.loansService.template10(entityId, null, productId, 'individual', true, true).subscribe((response: any) => {
+          this.loansAccountProductTemplate.emit(response);
+          this.loanOfficerOptions = response.loanOfficerOptions;
+          this.loanPurposeOptions = response.loanPurposeOptions;
+          this.fundOptions = response.fundOptions;
+          this.accountLinkingOptions = response.accountLinkingOptions;
+          this.loanProductSelected = true;
+          if (response.createStandingInstructionAtDisbursement) {
+            this.loansAccountDetailsForm.get('createStandingInstructionAtDisbursement').patchValue(response.createStandingInstructionAtDisbursement);
+          }
+        });
+      }
+
     });
   }
 

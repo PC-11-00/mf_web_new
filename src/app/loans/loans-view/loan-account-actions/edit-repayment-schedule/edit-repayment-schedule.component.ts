@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-base';
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
+import { LoanReschedulingService, LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-edit-repayment-schedule',
@@ -18,7 +19,7 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 export class EditRepaymentScheduleComponent implements OnInit {
 
   /** Loan ID. */
-  loanId: string;
+  loanId: any;
   /** Indicates If the Schedule has been changed */
   wasChanged = false;
   /** Indicates If the Schedule has been validated */
@@ -37,6 +38,7 @@ export class EditRepaymentScheduleComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private loansService: LoansService,
+    private loanReschedulingService: LoanReschedulingService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -51,7 +53,7 @@ export class EditRepaymentScheduleComponent implements OnInit {
   }
 
   getRepaymentSchedule(): void {
-    this.loansService.getLoanAccountResource(this.loanId, 'repaymentSchedule').subscribe((response: any) => {
+    this.loansService.retrieveLoan(this.loanId, null, 'repaymentSchedule').subscribe((response: any) => {
       this.repaymentScheduleDetails = response.repaymentSchedule;
     });
   }
@@ -60,7 +62,7 @@ export class EditRepaymentScheduleComponent implements OnInit {
     const periods: any = [];
     this.repaymentScheduleDetails['periods'].forEach((period: any) => {
       if (period.period) {
-        periods.push({idx: period.period, dueDate: this.dateUtils.formatDate(period.dueDate, this.settingsService.dateFormat) });
+        periods.push({ idx: period.period, dueDate: this.dateUtils.formatDate(period.dueDate, this.settingsService.dateFormat) });
       }
     });
     const formfields: FormfieldBase[] = [
@@ -102,7 +104,7 @@ export class EditRepaymentScheduleComponent implements OnInit {
           if (period.period && fromPeriod <= period.period && toPeriod >= period.period) {
             if (period.totalDueForPeriod !== amount) {
               period.totalDueForPeriod = amount;
-              this.repaymentScheduleChanges[dueDate] = {dueDate: dueDate, installmentAmount: amount};
+              this.repaymentScheduleChanges[dueDate] = { dueDate: dueDate, installmentAmount: amount };
               this.wasChanged = true;
               period['changed'] = true;
             }
@@ -116,11 +118,11 @@ export class EditRepaymentScheduleComponent implements OnInit {
 
   reset(): void {
     const recoverScheduleDialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: { heading: 'Recover Original Schedule', dialogContext: 'Are you sure you want recover the Original Schedule'}
+      data: { heading: 'Recover Original Schedule', dialogContext: 'Are you sure you want recover the Original Schedule' }
     });
     recoverScheduleDialogRef.afterClosed().subscribe((responseConfirmation: any) => {
       if (responseConfirmation.confirm) {
-        this.loansService.applyCommandLoanScheduleVariations(this.loanId, 'deleteVariations', {}).subscribe((response: any) => {
+        this.loanReschedulingService.calculateLoanScheduleOrSubmitVariableSchedule(this.loanId, {}, 'deleteVariations').subscribe((response: any) => {
           this.getRepaymentSchedule();
           this.wasChanged = false;
           this.wasValidated = false;
@@ -130,7 +132,7 @@ export class EditRepaymentScheduleComponent implements OnInit {
   }
 
   validate(): void {
-    this.loansService.applyCommandLoanScheduleVariations(this.loanId, 'calculateLoanSchedule', this.getPayload()).subscribe((response: any) => {
+    this.loanReschedulingService.calculateLoanScheduleOrSubmitVariableSchedule(this.loanId, this.getPayload(), 'calculateLoanSchedule').subscribe((response: any) => {
       this.repaymentScheduleDetails['periods'] = [];
       response['periods'].forEach((period: any) => {
         period['changed'] = true;
@@ -141,7 +143,7 @@ export class EditRepaymentScheduleComponent implements OnInit {
   }
 
   submit(): void {
-    this.loansService.applyCommandLoanScheduleVariations(this.loanId, 'addVariations', this.getPayload()).subscribe((response: any) => {
+    this.loanReschedulingService.calculateLoanScheduleOrSubmitVariableSchedule(this.loanId, this.getPayload(), 'addVariations').subscribe((response: any) => {
       this.router.navigate(['../../repayment-schedule'], { relativeTo: this.route });
     });
   }

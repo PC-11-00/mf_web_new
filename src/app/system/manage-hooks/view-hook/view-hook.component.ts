@@ -8,6 +8,7 @@ import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dial
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { HooksService } from 'openapi/typescript_files';
 
 /**
  * View Hook Component.
@@ -31,7 +32,7 @@ export class ViewHookComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
-              private systemService: SystemService,
+              private hooksService: HooksService,
               private router: Router) {
     this.route.data.subscribe((data: { hook: any }) => {
       this.hookData = data.hook;
@@ -50,7 +51,7 @@ export class ViewHookComponent implements OnInit {
     });
     deleteHookDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.systemService.deleteHook(this.hookData.id)
+        this.hooksService.deleteHook(this.hookData.id)
           .subscribe(() => {
             this.router.navigate(['/system/hooks']);
           });

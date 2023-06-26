@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { TaxGroupService } from 'openapi/typescript_files';
 
 /**
  * tax Group data resolver.
@@ -17,14 +18,15 @@ export class TaxGroupResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: TaxGroupService) {}
 
   /**
    * Returns the tax Group data.
    * @returns {Observable<any>}
    */
+  taxGroupId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const taxGroupId = route.paramMap.get('id');
-    return this.productsService.getTaxGroup(taxGroupId, 'false');
+    this.taxGroupId = route.paramMap.get('id');
+    return this.productsService.retrieveTaxGroup(this.taxGroupId);
   }
 }

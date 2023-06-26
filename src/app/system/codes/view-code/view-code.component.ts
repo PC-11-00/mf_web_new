@@ -9,6 +9,7 @@ import { SystemService } from 'app/system/system.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { CodeValuesService, CodesService } from 'openapi/typescript_files';
 
 /**
  * View Code Component.
@@ -38,7 +39,8 @@ export class ViewCodeComponent implements OnInit {
    * @param {MatDialog} dialog Dialog reference.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private codesService: CodesService,
+              private codeValuesService:CodeValuesService,
               private router: Router,
               private formBuilder: FormBuilder,
               private dialog: MatDialog) {
@@ -111,7 +113,7 @@ export class ViewCodeComponent implements OnInit {
    */
   deleteCodeValue(index: number) {
     const codeValueId = this.codeValuesData[index].id;
-    this.systemService.deleteCodeValue(this.codeData.id, codeValueId)
+    this.codeValuesService.deleteCodeValue(this.codeData.id, codeValueId)
       .subscribe((response: any) => {
         this.codeValuesData.splice(index, 1);
         this.codeValues.removeAt(index);
@@ -134,7 +136,7 @@ export class ViewCodeComponent implements OnInit {
    */
   updateCodeValue(index: number) {
     const updatedCodeValue: { name: string, description: string, position: number, isActive: boolean } = this.codeValues.at(index).value;
-    this.systemService.updateCodeValue(this.codeData.id, this.codeValuesData[index].id, updatedCodeValue)
+    this.codeValuesService.updateCodeValue(this.codeData.id, this.codeValuesData[index].id, updatedCodeValue)
       .subscribe((response: any) => {
         this.codeValues.at(index).disable();
         this.codeValueRowStatus[index] = 'disabled';
@@ -151,7 +153,7 @@ export class ViewCodeComponent implements OnInit {
     });
     deleteCodeDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.systemService.deleteCode(this.codeData.id)
+        this.codesService.deleteCode(this.codeData.id)
           .subscribe(() => {
             this.router.navigate(['/system/codes']);
           });
@@ -177,9 +179,11 @@ export class ViewCodeComponent implements OnInit {
    * Adds the given code value.
    * @param {number} index Index of the row.
    */
+  data:any;
   addCodeValue(index: number) {
     const newCodeValue: { name: string, description: string, position: string, isActive: boolean } = this.codeValues.at(index).value;
-    this.systemService.createCodeValue(this.codeData.id, newCodeValue)
+    this.data = newCodeValue;
+    this.codeValuesService.createCodeValue(this.codeData.id, this.data)
       .subscribe((response: any) => {
         this.codeValues.at(index).disable();
         this.codeValueRowStatus[index] = 'disabled';

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TasksService } from '../tasks.service';
+import { LoansService } from 'openapi/typescript_files';
 
 /**
  * Loans data resolver.
@@ -17,14 +18,14 @@ export class GetLoans implements Resolve<Object> {
     /**
      * @param {TasksService} tasksService Tasks service.
      */
-    constructor(private tasksService: TasksService) { }
+    constructor(private loansService: LoansService) { }
 
     /**
      * Returns all the loans data.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.tasksService.getAllLoans();
+        return this.loansService.retrieveAll27('l.loan_status_id in (100,200)',undefined,undefined,1000);
     }
 
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SharesService } from 'app/shares/shares.service';
+import { ShareAccountService } from 'openapi/typescript_files';
 
 /**
  * Undo Approval Shares Account Component
@@ -23,7 +24,7 @@ export class UndoApprovalSharesAccountComponent {
    * @param {ActivatedRoute} route Activated Route
    * @param {Router} router Router
    */
-  constructor(private sharesService: SharesService,
+  constructor(private shareAccountService: ShareAccountService,
               private route: ActivatedRoute,
               private router: Router) {
     this.accountId = this.route.parent.snapshot.params['shareAccountId'];
@@ -34,7 +35,7 @@ export class UndoApprovalSharesAccountComponent {
    * if successful redirects to the share account.
    */
   submit() {
-    this.sharesService.executeSharesAccountCommand(this.accountId, 'undoapproval', {}).subscribe(() => {
+    this.shareAccountService.handleCommands2('share',this.accountId, {}, 'undoapproval').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

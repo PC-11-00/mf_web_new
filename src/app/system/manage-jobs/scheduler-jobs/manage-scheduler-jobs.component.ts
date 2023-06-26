@@ -16,6 +16,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { NextStepDialogComponent } from '../../../configuration-wizard/next-step-dialog/next-step-dialog.component';
+import { SCHEDULERJOBService, SchedulerService } from 'openapi/typescript_files';
 
 /**
  * Manage scheduler jobs component.
@@ -65,7 +66,8 @@ export class ManageSchedulerJobsComponent implements OnInit, AfterViewInit {
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor(private route: ActivatedRoute,
-    private systemService: SystemService,
+    private sCHEDULERJOBService: SCHEDULERJOBService,
+    private schedulerService:SchedulerService,
     private router: Router,
     private dialog: MatDialog,
     private configurationWizardService: ConfigurationWizardService,
@@ -115,7 +117,7 @@ export class ManageSchedulerJobsComponent implements OnInit, AfterViewInit {
    * Initializes the data source, paginator and sorter for manage scheduler jobs table.
    */
   setJobs() {
-    this.systemService.getJobs()
+    this.sCHEDULERJOBService.retrieveAll8()
       .subscribe((jobData: any) => {
         this.dataSource = new MatTableDataSource(jobData);
         this.dataSource.paginator = this.paginator;
@@ -135,7 +137,7 @@ export class ManageSchedulerJobsComponent implements OnInit, AfterViewInit {
   }
 
   getScheduler() {
-    this.systemService.getScheduler()
+    this.schedulerService.retrieveStatus()
       .subscribe((schedulerData: any) => {
         this.schedulerData = schedulerData;
         this.schedulerActive = this.schedulerData.active;
@@ -143,14 +145,14 @@ export class ManageSchedulerJobsComponent implements OnInit, AfterViewInit {
   }
 
   suspendScheduler(): void {
-    this.systemService.runCommandOnScheduler('stop')
+    this.schedulerService.changeSchedulerStatus('stop')
       .subscribe(() => {
         this.getScheduler();
       });
   }
 
   activateScheduler(): void {
-    this.systemService.runCommandOnScheduler('start')
+    this.schedulerService.changeSchedulerStatus('start')
       .subscribe(() => {
         this.getScheduler();
       });
@@ -158,7 +160,7 @@ export class ManageSchedulerJobsComponent implements OnInit, AfterViewInit {
 
   runSelectedJobs(): void {
     this.selection.selected.forEach((job) => {
-      this.systemService.runSelectedJob(job.jobId);
+      this.sCHEDULERJOBService.executeJob(job.jobId,'executeJob');
     });
   }
 

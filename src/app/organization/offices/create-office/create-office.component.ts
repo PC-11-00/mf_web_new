@@ -14,6 +14,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
+import { OfficesService } from 'openapi/typescript_files';
 
 /**
  * Create Office component.
@@ -52,7 +53,7 @@ export class CreateOfficeComponent implements OnInit, AfterViewInit {
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: OfficesService,
               private settingsService: SettingsService,
               private router: Router,
               private route: ActivatedRoute,

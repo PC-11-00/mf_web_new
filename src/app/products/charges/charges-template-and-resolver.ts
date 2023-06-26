@@ -7,19 +7,21 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { ChargesService } from 'openapi/typescript_files';
 
 @Injectable()
 export class ChargesTemplateAndResolver implements Resolve<Object> {
 
-    constructor(private productsService: ProductsService) { }
+    constructor(private productsService: ChargesService) { }
 
     /**
      * Returns the changes template and data.
      * @returns {Observable<any>}
      */
+    savingProductId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const savingProductId = route.paramMap.get('id');
-        return this.productsService.getCharge(savingProductId, true);
+        this.savingProductId = route.paramMap.get('id');
+        return this.productsService.retrieveNewChargeDetails(this.savingProductId, true);
     }
 
 }

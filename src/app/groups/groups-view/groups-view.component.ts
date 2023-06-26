@@ -8,8 +8,8 @@ import { UnassignStaffDialogComponent } from './custom-dialogs/unassign-staff-di
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 
 /** Custom Services */
-import { GroupsService } from '../groups.service';
-
+// import { GroupsService } from '../groups.service';
+import { GroupsService } from 'openapi/typescript_files';
 /**
  * Groups View Component.
  */
@@ -33,9 +33,9 @@ export class GroupsViewComponent {
    * @param {MatDialog} dialog Dialog
    */
   constructor(private route: ActivatedRoute,
-              private groupsService: GroupsService,
-              private router: Router,
-              public dialog: MatDialog) {
+    private groupsService: GroupsService,
+    private router: Router,
+    public dialog: MatDialog) {
     this.route.data.subscribe((data: { groupViewData: any, groupDatatables: any }) => {
       this.groupViewData = data.groupViewData;
       this.groupDatatables = data.groupDatatables;
@@ -79,7 +79,7 @@ export class GroupsViewComponent {
   get editMeeting() {
     if (this.groupViewData.collectionMeetingCalendar) {
       const entityType = this.groupViewData.collectionMeetingCalendar.entityType.value;
-      if (entityType === 'GROUPS' && this.groupViewData.hierarchy === '.' + this.groupViewData.id + '.' ) {
+      if (entityType === 'GROUPS' && this.groupViewData.hierarchy === '.' + this.groupViewData.id + '.') {
         return true;
       }
     }
@@ -92,18 +92,20 @@ export class GroupsViewComponent {
    */
   reload() {
     const url: string = this.router.url;
-    this.router.navigateByUrl(`/groups`, {skipLocationChange: true})
+    this.router.navigateByUrl(`/groups`, { skipLocationChange: true })
       .then(() => this.router.navigate([url]));
   }
 
   /**
    * Unassign's the group's staff.
    */
+  data: any;
   private unassignStaff() {
     const unAssignStaffDialogRef = this.dialog.open(UnassignStaffDialogComponent);
     unAssignStaffDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.groupsService.executeGroupCommand(this.groupViewData.id, 'unassignStaff', { staffId: this.groupViewData.staffId })
+        this.data = { staffId: this.groupViewData.staffId };
+        this.groupsService.activateOrGenerateCollectionSheet(this.groupViewData.id, this.data, 'unassignStaff')
           .subscribe(() => {
             this.reload();
           });
@@ -120,7 +122,7 @@ export class GroupsViewComponent {
     });
     deleteGroupDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.groupsService.deleteGroup(this.groupViewData.id).subscribe(() => {
+        this.groupsService.delete12(this.groupViewData.id).subscribe(() => {
           this.router.navigate(['/groups'], { relativeTo: this.route });
         });
       }

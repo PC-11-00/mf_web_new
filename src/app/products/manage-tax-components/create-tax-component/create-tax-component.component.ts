@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { TaxComponentsService } from 'openapi/typescript_files';
 
 /**
  * Create Tax Component component.
@@ -45,7 +46,7 @@ export class CreateTaxComponentComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service.
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: ProductsService,
+              private productsService: TaxComponentsService,
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
@@ -129,7 +130,7 @@ export class CreateTaxComponentComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.productsService.createTaxComponent(data).subscribe((response: any) => {
+    this.productsService.createTaxCompoent(data).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

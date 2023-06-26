@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Undo Client Rejection Component
@@ -35,7 +36,7 @@ export class UndoClientRejectionComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -77,7 +78,7 @@ export class UndoClientRejectionComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.clientsService.executeClientCommand(this.clientId, 'undoRejection', data).subscribe(() => {
+    this.clientsService.activate1(this.clientId, data, 'undoRejection').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

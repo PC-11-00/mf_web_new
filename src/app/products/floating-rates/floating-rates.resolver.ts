@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { FloatingRatesService } from 'openapi/typescript_files';
 
 /**
  * Floating Rates data resolver.
@@ -17,14 +18,14 @@ export class FloatingRatesResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: FloatingRatesService) {}
 
   /**
    * Returns the floating rates data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getFloatingRates();
+    return this.productsService.retrieveAll22();
   }
 
 }

@@ -16,6 +16,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { merge } from 'rxjs';
 import { tap, debounceTime, distinctUntilChanged, startWith, map } from 'rxjs/operators';
 import { Dates } from 'app/core/utils/dates';
+import { AuditsService } from 'openapi/typescript_files';
 
 /**
  * Audit Trails Component.
@@ -132,7 +133,7 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private auditsService: AuditsService,
               private dateUtils: Dates,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { auditTrailSearchTemplate: any }) => {
@@ -255,7 +256,7 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
    * Initializes the data source for audit trails table and loads the first page.
    */
   getAuditTrails() {
-    this.dataSource = new AuditTrailsDataSource(this.systemService);
+    this.dataSource = new AuditTrailsDataSource(this.auditsService);
     this.dataSource.getAuditTrails(this.filterAuditTrailsBy, this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
   }
 
@@ -391,7 +392,7 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
     const replacer = (key: any, value: any) => value === undefined ? '' : value;
     const header = ['ID', 'Resource ID', 'Status', 'Office', 'Made On', 'Maker', 'Checked On', 'Checker', 'Entity', 'Action', 'Client'];
     const headerCode = ['id', 'resourceId', 'processingResult', 'officeName', 'madeOnDate', 'maker', 'checkedOnDate', 'checker', 'entityName', 'actionName', 'clientName'];
-    this.systemService.getAuditTrails(this.filterAuditTrailsBy, this.sort.active ? this.sort.active : '', this.sort.direction, 0, -1).subscribe((response: any) => {
+    this.auditsService.retrieveAuditEntries(this.filterAuditTrailsBy['actionName'],this.filterAuditTrailsBy['entityName'],this.filterAuditTrailsBy['resourceId'],this.filterAuditTrailsBy['makerId'],this.filterAuditTrailsBy['makerDateTimeFrom'],this.filterAuditTrailsBy['makerDateTimeTo'],this.filterAuditTrailsBy['checkrId'],this.filterAuditTrailsBy['checkerDateTimeFrom'],this.filterAuditTrailsBy['checkerDateTimeTo'],this.filterAuditTrailsBy['processingResult'],this.filterAuditTrailsBy['officeId'],null,null,null,null,true,0,-1, this.sort.active ? this.sort.active : '', this.sort.direction).subscribe((response: any) => {
       if (response !== undefined) {
         let csv = response.pageItems.map((row: any) => headerCode.map(fieldName => (fieldName === 'madeOnDate' || fieldName === 'checkedOnDate') && (JSON.stringify(row[fieldName], replacer) !== '""')
           ? this.dateUtils.formatDate(JSON.stringify(row[fieldName], replacer), dateFormat)

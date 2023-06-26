@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { PasswordPreferencesService } from 'openapi/typescript_files';
 
 /**
  * Password Preferences Template data resolver.
@@ -17,14 +18,14 @@ export class PasswordPreferencesTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: PasswordPreferencesService) {}
 
   /**
    * Returns the password preferences template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getPasswordPreferencesTemplate();
+    return this.organizationService.template21();
   }
 
 }

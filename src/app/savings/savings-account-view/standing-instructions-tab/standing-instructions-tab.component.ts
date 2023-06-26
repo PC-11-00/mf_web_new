@@ -11,6 +11,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Dialog Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * Savings Standing Instructions Tab
@@ -48,10 +49,10 @@ export class StandingInstructionsTabComponent implements OnInit {
    * @param {SettingsService} settingsService Setting service
    */
   constructor(private route: ActivatedRoute,
-              private savingsService: SavingsService,
-              private dialog: MatDialog,
-              private accountTransfersService: AccountTransfersService,
-              private settingsService: SettingsService) {
+    private StandingInstructionsService: StandingInstructionsService,
+    private dialog: MatDialog,
+    private accountTransfersService: AccountTransfersService,
+    private settingsService: SettingsService) {
     this.route.parent.data.subscribe((data: { savingsAccountData: any }) => {
       this.savingsData = data.savingsAccountData;
     });
@@ -70,7 +71,7 @@ export class StandingInstructionsTabComponent implements OnInit {
     const accountId = this.savingsData.id;
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
-    this.savingsService.getStandingInstructions(clientId, clientName, accountId, locale, dateFormat).subscribe((response: any) => {
+    this.StandingInstructionsService.retrieveAll19(undefined, undefined, undefined, undefined, undefined, undefined, undefined, clientName, clientId, accountId, 2, locale, dateFormat).subscribe((response: any) => {
       this.instructionsData = response.pageItems;
       this.dataSource.data = this.instructionsData;
       this.instructionTableRef.renderRows();
@@ -83,7 +84,7 @@ export class StandingInstructionsTabComponent implements OnInit {
     });
     deleteStandingInstructionDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.accountTransfersService.deleteStandingInstrucions(instructionId)
+        this.StandingInstructionsService.update9(instructionId, 'delete')
           .subscribe(() => { });
       }
     });

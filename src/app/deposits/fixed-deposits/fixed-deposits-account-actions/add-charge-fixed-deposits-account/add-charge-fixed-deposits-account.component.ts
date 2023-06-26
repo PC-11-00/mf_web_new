@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsChargesService } from 'openapi/typescript_files';
 
 /**
  * Add Fixed Deposits Charge component.
@@ -28,7 +29,7 @@ export class AddChargeFixedDepositsAccountComponent implements OnInit {
   /** savings charge options. */
   savingsChargeOptions: any;
   /** savings Id of the savings account. */
-  fixedDepositAccountId: string;
+  fixedDepositAccountId: any;
   /** charge details */
   chargeDetails: any;
 
@@ -46,7 +47,7 @@ export class AddChargeFixedDepositsAccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private savingsService: SavingsService,
+    private savingsService: SavingsChargesService,
     private settingsService: SettingsService
   ) {
     this.route.data.subscribe((data: { fixedDepositsAccountActionData: any }) => {
@@ -66,7 +67,7 @@ export class AddChargeFixedDepositsAccountComponent implements OnInit {
 
   buildDependencies() {
     this.fixedDepositsChargeForm.controls.chargeId.valueChanges.subscribe(chargeId => {
-      this.savingsService.getChargeTemplate(chargeId).subscribe((data: any) => {
+      this.savingsService.retrieveTemplate18(chargeId).subscribe((data: any) => {
         this.chargeDetails = data;
         const chargeTimeType = data.chargeTimeType.id;
         if (data.chargeTimeType.value === 'Withdrawal Fee' || data.chargeTimeType.value === 'Saving No Activity Fee') {
@@ -137,7 +138,7 @@ export class AddChargeFixedDepositsAccountComponent implements OnInit {
         }
       }
     }
-    this.savingsService.createSavingsCharge(this.fixedDepositAccountId, 'charges', savingsCharge).subscribe( () => {
+    this.savingsService.addSavingsAccountCharge(this.fixedDepositAccountId, savingsCharge).subscribe( () => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

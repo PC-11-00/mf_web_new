@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { ClientsService } from 'app/clients/clients.service';
+// import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Accept Client Transfer Component
@@ -34,7 +35,7 @@ export class AcceptClientTransferComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private settingsService: SettingsService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
@@ -76,7 +77,7 @@ export class AcceptClientTransferComponent implements OnInit {
     const data = {
       ...acceptClientTransferFormData,
     };
-    this.clientsService.executeClientCommand(this.clientId, 'acceptTransfer', data).subscribe(() => {
+    this.clientsService.activate1(this.clientId, data, 'acceptTransfer').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

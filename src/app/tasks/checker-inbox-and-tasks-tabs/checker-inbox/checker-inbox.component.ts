@@ -13,6 +13,7 @@ import { SettingsService } from 'app/settings/settings.service';
 /** Dialog Components */
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
 import { Dates } from 'app/core/utils/dates';
+import { MakerCheckerOr4EyeFunctionalityService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-checker-inbox',
@@ -56,7 +57,7 @@ export class CheckerInboxComponent implements OnInit {
     private dialog: MatDialog,
     private dateUtils: Dates,
     private router: Router,
-    private tasksService: TasksService,
+    private makerCheckerOr4EyeFunctionalityService: MakerCheckerOr4EyeFunctionalityService,
     private settingsService: SettingsService,
     private formBuilder: FormBuilder) {
     this.route.data.subscribe((data: { makerCheckerResource: any, makerCheckerTemplate: any }) => {
@@ -94,7 +95,7 @@ export class CheckerInboxComponent implements OnInit {
       makerDateTimeFrom: this.dateUtils.formatDate(this.makerCheckerSearchForm.value.makerDateTimeFrom, dateFormat),
       makerDateTimeto: this.dateUtils.formatDate(this.makerCheckerSearchForm.value.makerDateTimeto, dateFormat)
     };
-    this.tasksService.getMakerCheckerData(makerCheckerSearchParams).subscribe((response: any) => {
+    this.makerCheckerOr4EyeFunctionalityService.retrieveCommands(makerCheckerSearchParams.actionName,makerCheckerSearchParams.entityName,makerCheckerSearchParams.resourceId,makerCheckerSearchParams.makerId,makerCheckerSearchParams.makerDateTimeFrom,makerCheckerSearchParams.makerDateTimeTo,makerCheckerSearchParams.officeId,makerCheckerSearchParams.groupId,makerCheckerSearchParams.clientId,makerCheckerSearchParams.loanid,makerCheckerSearchParams.savingsAccountId).subscribe((response: any) => {
       this.searchData = response;
       if (this.searchData.length === 0) {
         this.noSearchedData = true;
@@ -166,7 +167,7 @@ export class CheckerInboxComponent implements OnInit {
     const listSelectedAccounts = this.selection.selected;
     let approvedAccounts = 0;
     listSelectedAccounts.forEach((element: any) => {
-      this.tasksService.executeMakerCheckerAction(element.id, action).subscribe((response: any) => {
+      this.makerCheckerOr4EyeFunctionalityService.approveMakerCheckerEntry(element.id, action).subscribe((response: any) => {
         approvedAccounts++;
         if (selectedAccounts === approvedAccounts) {
           this.reload();
@@ -180,7 +181,7 @@ export class CheckerInboxComponent implements OnInit {
     const listSelectedAccounts = this.selection.selected;
     let approvedAccounts = 0;
     listSelectedAccounts.forEach((element: any) => {
-      this.tasksService.deleteMakerChecker(element.id).subscribe((response: any) => {
+      this.makerCheckerOr4EyeFunctionalityService.deleteMakerCheckerEntry(element.id).subscribe((response: any) => {
         approvedAccounts++;
         if (selectedAccounts === approvedAccounts) {
           this.reload();

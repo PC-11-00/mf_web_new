@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FixedDepositsService } from '../../fixed-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { FixedDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Close On Maturity Fixed Deposits Account Component
@@ -43,7 +44,7 @@ export class CloseFixedDepositsAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private fixedDepositsService: FixedDepositsService,
+              private fixedDepositsService: FixedDepositAccountService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -109,7 +110,7 @@ export class CloseFixedDepositsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.fixedDepositsService.executeFixedDepositsAccountCommand(this.accountId, 'close', data).subscribe(() => {
+    this.fixedDepositsService.handleCommands4(this.accountId, data, 'close').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

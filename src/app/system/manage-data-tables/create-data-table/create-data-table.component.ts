@@ -22,6 +22,7 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
 import { DatatableColumn } from '../datatable-column.model';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * Create Data Table Component.
@@ -80,7 +81,7 @@ export class CreateDataTableComponent implements OnInit, AfterViewInit {
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private dataTablesService: DataTablesService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog,
@@ -231,7 +232,7 @@ export class CreateDataTableComponent implements OnInit, AfterViewInit {
     if (this.dataTableForm.value.entitySubType == null || this.dataTableForm.value.entitySubType === '') {
       delete payload.entitySubType;
     }
-    this.systemService.createDataTable(payload).subscribe((response: any) => {
+    this.dataTablesService.createDatatable(payload).subscribe((response: any) => {
       if (this.configurationWizardService.showDatatablesForm === true) {
           this.configurationWizardService.showDatatablesForm = false;
           this.openDialog();

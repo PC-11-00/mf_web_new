@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { ReportsService } from 'openapi/typescript_files';
 
 /**
  * Report data resolver.
@@ -17,15 +18,16 @@ export class ReportResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private reportsService: ReportsService) {}
 
   /**
    * Returns the Report data.
    * @returns {Observable<any>}
    */
+  reportId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const reportId = route.paramMap.get('id');
-    return this.systemService.getReport(reportId);
+    this.reportId = route.paramMap.get('id');
+    return this.reportsService.retrieveReport(this.reportId);
   }
 
 }

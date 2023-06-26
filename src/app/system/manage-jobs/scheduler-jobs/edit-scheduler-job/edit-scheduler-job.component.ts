@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
+import { SCHEDULERJOBService, SchedulerService } from 'openapi/typescript_files';
 
 /**
  * Edit scheduler job component.
@@ -29,7 +30,7 @@ export class EditSchedulerJobComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private sCHEDULERJOBService: SCHEDULERJOBService,
               private router: Router,
               private formBuilder: FormBuilder ) {
     this.route.data.subscribe((data: { jobSelected: any }) => {
@@ -59,7 +60,7 @@ export class EditSchedulerJobComponent implements OnInit {
    * Submits the edit job form.
    */
   submit() {
-    this.systemService.updateScheduler(this.jobData.jobId, this.jobForm.value)
+    this.sCHEDULERJOBService.updateJobDetail(this.jobData.jobId, this.jobForm.value)
       .subscribe(() => {
         this.router.navigate(['../'], { relativeTo: this.route });
     });

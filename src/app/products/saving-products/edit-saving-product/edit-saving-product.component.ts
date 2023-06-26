@@ -13,6 +13,7 @@ import { SavingProductAccountingStepComponent } from '../saving-product-stepper/
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsProductService } from 'openapi/typescript_files';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class EditSavingProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: ProductsService,
+              private productsService: SavingsProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { savingProductAndTemplate: any }) => {
@@ -108,7 +109,7 @@ export class EditSavingProductComponent implements OnInit {
       locale: this.settingsService.language.code // locale required for nominalAnnualInterestRate
     };
     delete savingProduct.advancedAccountingRules;
-    this.productsService.updateSavingProduct(this.savingProductAndTemplate.id, savingProduct)
+    this.productsService.update21(this.savingProductAndTemplate.id, savingProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
       });

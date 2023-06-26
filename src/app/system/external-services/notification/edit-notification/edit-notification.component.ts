@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
+import { ExternalServicesService } from 'openapi/typescript_files';
 
 /**
  * Edit Notification Configuration Component.
@@ -29,7 +30,7 @@ export class EditNotificationComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private externalServicesService: ExternalServicesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { notificationConfiguration: any }) => {
@@ -60,8 +61,8 @@ export class EditNotificationComponent implements OnInit {
    * if successful redirects to view Notification configuration.
    */
   submit() {
-    this.systemService
-      .updateExternalConfiguration('NOTIFICATION', this.notificationConfigurationForm.value)
+    this.externalServicesService
+      .updateExternalServiceProperties('NOTIFICATION', this.notificationConfigurationForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

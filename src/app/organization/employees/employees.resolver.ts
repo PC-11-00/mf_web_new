@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { StaffService } from 'openapi/typescript_files';
 
 /**
  * Employees data resolver.
@@ -17,14 +18,14 @@ export class EmployeesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: StaffService) {}
 
   /**
    * Returns the employees data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getEmployees();
+    return this.organizationService.retrieveAll16();
   }
 
 }

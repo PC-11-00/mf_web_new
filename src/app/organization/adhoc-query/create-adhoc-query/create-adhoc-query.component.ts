@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { AdhocQueryApiService } from 'openapi/typescript_files';
 
 /**
  * Create Adhoc Query component.
@@ -31,7 +32,7 @@ export class CreateAdhocQueryComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: AdhocQueryApiService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { adhocQueryTemplate: any }) => {
@@ -81,7 +82,7 @@ export class CreateAdhocQueryComponent implements OnInit {
    * if successful redirects to view adhoc query.
    */
   submit() {
-    this.organizationService.createAdhocQuery(this.adhocQueryForm.value).subscribe((response: any) => {
+    this.organizationService.createAdHocQuery(this.adhocQueryForm.value).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

@@ -14,6 +14,7 @@ import { RecurringDepositProductAccountingStepComponent } from '../recurring-dep
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { RecurringDepositProductService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-create-recurring-deposit-product',
@@ -41,7 +42,7 @@ export class CreateRecurringDepositProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: ProductsService,
+              private productsService: RecurringDepositProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { recurringDepositProductsTemplate: any }) => {
@@ -110,7 +111,7 @@ export class CreateRecurringDepositProductComponent implements OnInit {
       recurringDepositProduct.description = '';
     }
     delete recurringDepositProduct.advancedAccountingRules;
-    this.productsService.createRecurringDepositProduct(recurringDepositProduct)
+    this.productsService.create12(recurringDepositProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });

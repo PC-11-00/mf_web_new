@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { PaymentTypeService } from 'openapi/typescript_files';
 
 /**
  * Payment Types data resolver.
@@ -17,18 +18,19 @@ export class PaymentTypesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: PaymentTypeService) {}
 
   /**
    * Returns the payment types data.
    * @returns {Observable<any>}
    */
+  paymentTypeId:any;
    resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const paymentTypeId = route.paramMap.get('id');
-    if (paymentTypeId) {
-      return this.organizationService.getPaymentType(paymentTypeId);
+    this.paymentTypeId = route.paramMap.get('id');
+    if (this.paymentTypeId) {
+      return this.organizationService.retrieveOnePaymentType(this.paymentTypeId);
     } else {
-      return this.organizationService.getPaymentTypes();
+      return this.organizationService.getAllPaymentTypes();
     }
   }
 

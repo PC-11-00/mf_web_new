@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecurringDepositsService } from '../../recurring-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Premature Close Recurring Deposits Account Component
@@ -37,7 +38,7 @@ export class PrematureCloseRecurringDepositAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
     private router: Router,
@@ -79,7 +80,7 @@ export class PrematureCloseRecurringDepositAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.recurringDepositsService.executeRecurringDepositsAccountCommand(this.accountId, 'prematureClose', data).subscribe(() => {
+    this.recurringDepositsService.handleCommands5(this.accountId, data, 'prematureClose').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

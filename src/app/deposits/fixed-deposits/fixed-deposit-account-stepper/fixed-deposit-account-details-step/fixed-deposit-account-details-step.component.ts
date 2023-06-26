@@ -5,6 +5,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Custom Services */
 import { FixedDepositsService } from '../../fixed-deposits.service';
+import { FixedDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Fixed Deposits Account Details Step
@@ -42,7 +43,7 @@ export class FixedDepositAccountDetailsStepComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private fixedDepositsService: FixedDepositsService,
+              private fixedDepositsService: FixedDepositAccountService,
               private settingsService: SettingsService) {
     this.createFixedDepositsAccountDetailsForm();
   }
@@ -77,8 +78,8 @@ export class FixedDepositAccountDetailsStepComponent implements OnInit {
    */
   buildDependencies() {
     const clientId = this.fixedDepositsAccountTemplate.clientId;
-    this.fixedDepositAccountDetailsForm.get('productId').valueChanges.subscribe((productId: string) => {
-      this.fixedDepositsService.getFixedDepositsAccountTemplate(clientId, productId).subscribe((response: any) => {
+    this.fixedDepositAccountDetailsForm.get('productId').valueChanges.subscribe((productId: any) => {
+      this.fixedDepositsService.template12(clientId, null, productId).subscribe((response: any) => {
         this.fixedDepositsAccountProductTemplate.emit(response);
         this.fieldOfficerData = response.fieldOfficerOptions;
         if (!this.isFieldOfficerPatched && this.fixedDepositsAccountTemplate.fieldOfficerId) {

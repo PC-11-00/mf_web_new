@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { AccountingClosureService } from 'openapi/typescript_files';
 
 /**
  * Edit closure component.
@@ -31,7 +32,7 @@ export class EditClosureComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private accountingService: AccountingService,
+              private accountingService: AccountingClosureService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { glAccountClosure: any }) => {
@@ -74,7 +75,7 @@ export class EditClosureComponent implements OnInit {
    * if successful redirects to view updated closure.
    */
   submit() {
-    this.accountingService.updateAccountingClosure(this.glAccountClosure.id,
+    this.accountingService.updateGLClosure(this.glAccountClosure.id,
       { comments: this.accountingClosureForm.value.comments })
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });

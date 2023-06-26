@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { ClientsService } from '../clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Edit Client Component
@@ -58,7 +59,7 @@ export class EditClientComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private dateUtils: Dates,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { clientDataAndTemplate: any }) => {
@@ -184,7 +185,7 @@ export class EditClientComponent implements OnInit {
     } else {
       clientData.clientNonPersonDetails = {};
     }
-    this.clientsService.updateClient(this.clientDataAndTemplate.id, clientData).subscribe(() => {
+    this.clientsService.update10(this.clientDataAndTemplate.id, clientData).subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

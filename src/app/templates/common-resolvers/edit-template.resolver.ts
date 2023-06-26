@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
+import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
 
 /**
  * Edit Template data resolver.
@@ -17,15 +18,16 @@ export class EditTemplateResolver implements Resolve<Object> {
   /**
    * @param {TemplatesService} templatesService Templates service.
    */
-  constructor(private templatesService: TemplatesService) {}
+  constructor(private userGeneratedDocumentsService: UserGeneratedDocumentsService) {}
 
   /**
    * Returns the template data.
    * @returns {Observable<any>}
    */
+  templateId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const templateId = route.paramMap.get('id');
-    return this.templatesService.getEditTemplateData(templateId);
+    this.templateId = route.paramMap.get('id');
+    return this.userGeneratedDocumentsService.getTemplateByTemplate(this.templateId);
   }
 
 }

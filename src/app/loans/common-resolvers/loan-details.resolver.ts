@@ -6,8 +6,8 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
-
+// import { LoansService } from '../loans.service';
+import { LoansService } from 'openapi/typescript_files';
 /**
  * Clients data resolver.
  */
@@ -23,9 +23,10 @@ export class LoanDetailsResolver implements Resolve<Object> {
      * Returns the Loans with Association data.
      * @returns {Observable<any>}
      */
+    loanId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-      const loanId = route.paramMap.get('loanId') || route.parent.paramMap.get('loanId');
-      return this.loansService.getLoanAccountAssociationDetails(loanId);
+      this.loanId = route.paramMap.get('loanId') || route.parent.paramMap.get('loanId');
+      return this.loansService.retrieveLoan(this.loanId,null,'all','guarantors,futureSchedule');
     }
 
 }

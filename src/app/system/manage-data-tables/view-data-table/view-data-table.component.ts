@@ -11,6 +11,7 @@ import { SystemService } from '../../system.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * View Data Table Component
@@ -44,7 +45,7 @@ export class ViewDataTableComponent implements OnInit {
    * @param {MatDialog} dialog Dialog reference.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private dataTablesService: DataTablesService,
               private router: Router,
               private dialog: MatDialog) {
     this.route.data.subscribe((data: { dataTable: any }) => {
@@ -80,7 +81,7 @@ export class ViewDataTableComponent implements OnInit {
     });
     deleteDataTableDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.systemService.deleteDataTable(this.dataTableData.registeredTableName)
+        this.dataTablesService.deleteDatatable(this.dataTableData.registeredTableName)
           .subscribe(() => {
             this.router.navigate(['/system/data-tables'], { relativeTo: this.route });
           });

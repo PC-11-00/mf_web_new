@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { SystemService } from '../system.service';
+import { ExternalEventConfigurationService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-manage-external-events',
@@ -29,7 +30,7 @@ export class ManageExternalEventsComponent implements OnInit {
    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
-    private systemService: SystemService) {
+    private externalEventConfigurationService: ExternalEventConfigurationService) {
     this.route.data.subscribe((data: { events: any }) => {
       this.eventsData = data.events.externalEventConfiguration;
     });
@@ -71,7 +72,7 @@ export class ManageExternalEventsComponent implements OnInit {
       externalEventConfigurations: this.externalEventConfigurations
     };
 
-    this.systemService.putExternalEventConfiguration(payload).subscribe(() => {
+    this.externalEventConfigurationService.updateExternalEventConfigurationsDetails(payload).subscribe(() => {
       this.existAnyUpdate = false;
     });
   }

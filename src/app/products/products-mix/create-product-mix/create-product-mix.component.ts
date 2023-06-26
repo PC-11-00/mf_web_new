@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+import { ProductMixService } from 'openapi/typescript_files';
 
 /**
  * Create Product mix component.
@@ -33,7 +34,7 @@ export class CreateProductMixComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: ProductsService,
+              private productsService: ProductMixService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe(( data: { productsMixTemplate: any }) => {
@@ -67,7 +68,7 @@ export class CreateProductMixComponent implements OnInit {
     this.productMixForm.get('productId').valueChanges.subscribe(productId => {
       this.productData = undefined;
       this.productMixForm.get('restrictedProducts').reset();
-      this.productsService.getProductMixTemplate(productId).subscribe((productMixTemplateData: any) => {
+      this.productsService.retrieveTemplate12(productId).subscribe((productMixTemplateData: any) => {
         const restrictedProductsData = productMixTemplateData.restrictedProducts;
         this.productData = [...restrictedProductsData, ...productMixTemplateData.allowedProducts];
         this.productMixForm.get('restrictedProducts').setValue([...restrictedProductsData.map((restrictedProduct: any) => restrictedProduct.id)]);
@@ -80,13 +81,15 @@ export class CreateProductMixComponent implements OnInit {
    * Submits the product mix form and creates product mix,
    * if successful redirects to products mix.
    */
+  productMixId:any;
+  productMix: any;
   submit() {
-    const productMix = {
+    this.productMix = {
       restrictedProducts: this.productMixForm.value.restrictedProducts
     };
-    const productMixId = this.productMixForm.value.productId;
-    this.productsService.createProductMix(productMix, productMixId).subscribe((response: any) => {
-      this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
+    this.productMixId = this.productMixForm.value.productId;
+    this.productsService.createProductMix(this.productMixId,this.productMix).subscribe((response: any) => {
+      this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
 }

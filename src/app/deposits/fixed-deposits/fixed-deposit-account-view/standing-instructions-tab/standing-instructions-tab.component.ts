@@ -11,6 +11,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Dialog Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * Fixed Deposits Standing Instructions Tab
@@ -51,9 +52,9 @@ export class StandingInstructionsTabComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private route: ActivatedRoute,
-              private fixedDepositsService: FixedDepositsService,
+              // private fixedDepositsService: StandingInstructionsService,
               private dialog: MatDialog,
-              private accountTransfersService: AccountTransfersService,
+              private standingInstructionsService: StandingInstructionsService,
               private settingsService: SettingsService) {
     this.route.parent.data.subscribe((data: { fixedDepositsAccountData: any }) => {
       this.fixedDepositsData = data.fixedDepositsAccountData;
@@ -73,7 +74,7 @@ export class StandingInstructionsTabComponent implements OnInit {
     const accountId = this.fixedDepositsData.id;
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
-    this.fixedDepositsService.getStandingInstructions(clientId, clientName, accountId, locale, dateFormat).subscribe((response: any) => {
+    this.standingInstructionsService.retrieveAll19(null,null,null,null,null,null,null,clientName,clientId , accountId,2, locale, dateFormat).subscribe((response: any) => {
       this.instructionsData = response.pageItems;
       this.dataSource.data = this.instructionsData;
       this.instructionTableRef.renderRows();
@@ -90,7 +91,7 @@ export class StandingInstructionsTabComponent implements OnInit {
     });
     deleteStandingInstructionDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.accountTransfersService.deleteStandingInstrucions(instructionId)
+        this.standingInstructionsService.update9(instructionId,'delete')
           .subscribe(() => { });
       }
     });

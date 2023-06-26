@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { UsersService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { UsersService } from './users.service';
+// import { UsersService } from './users.service';
 
 /**
  * User data resolver.
@@ -23,8 +24,9 @@ export class UserResolver implements Resolve<Object> {
    * Returns the user data.
    * @returns {Observable<any>}
    */
+  userId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const userId = route.paramMap.get('id');
-    return this.usersService.getUser(userId);
+    this.userId = route.paramMap.get('id');
+    return this.usersService.retrieveOne30(this.userId);
   }
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom services */
 import { ProductsService } from '../products.service';
+import { CollateralManagementService } from 'openapi/typescript_files';
 
 /**
  * Collaterals Template Resolver
@@ -16,7 +17,7 @@ export class CollateralTemplateResolver implements Resolve<Object> {
     /**
      * @param {ProductsService} productsService products Service
      */
-    constructor(private productsService: ProductsService) {}
+    constructor(private productsService: CollateralManagementService) {}
 
     /**
      * Returns the product Data.

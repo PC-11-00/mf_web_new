@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom services. */
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoansService } from 'openapi/typescript_files';
 
 /**
  * Reject Loan component.
@@ -74,7 +75,7 @@ export class RejectLoanComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loanService.loanActionButtons(this.loanId, 'reject', data).subscribe((response: any) => {
+    this.loanService.stateTransitions(this.loanId, data, 'reject').subscribe((response: any) => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

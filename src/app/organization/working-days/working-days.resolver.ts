@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { WorkingDaysService } from 'openapi/typescript_files';
 
 /**
  * Working Days data resolver.
@@ -17,14 +18,14 @@ export class WorkingDaysResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: WorkingDaysService) {}
 
   /**
    * Returns the working days data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getWorkingDays();
+    return this.organizationService.retrieveAll17();
   }
 
 }

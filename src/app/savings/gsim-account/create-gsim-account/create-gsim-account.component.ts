@@ -11,6 +11,7 @@ import { SavingsAccountChargesStepComponent } from '../../savings-account-steppe
 import { SavingsService } from '../../savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { SavingsAccountService } from 'openapi/typescript_files';
 
 /**
  * Create GSIM Account Component
@@ -47,13 +48,13 @@ export class CreateGsimAccountComponent implements OnInit {
    * @param {SavingsService} savingsService Savings Service
    * @param {SettingsService} settingsService Settings Service
    */
-   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private dateUtils: Dates,
-              private savingsService: SavingsService,
-              private settingsService: SettingsService
-              ) {
-      this.route.data.subscribe((data: { savingsAccountTemplate: any, groupsData: any }) => {
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private dateUtils: Dates,
+    private savingsAccountService: SavingsAccountService,
+    private settingsService: SettingsService
+  ) {
+    this.route.data.subscribe((data: { savingsAccountTemplate: any, groupsData: any }) => {
       this.savingsAccountTemplate = data.savingsAccountTemplate;
       this.dataSource = data.groupsData.activeClientMembers;
     });
@@ -66,7 +67,7 @@ export class CreateGsimAccountComponent implements OnInit {
    * Sets savings account product template.
    * @param {any} $event API response
    */
-   setTemplate($event: any) {
+  setTemplate($event: any) {
     this.savingsAccountProductTemplate = $event;
   }
 
@@ -87,7 +88,7 @@ export class CreateGsimAccountComponent implements OnInit {
   /**
    * Retrieves savings account terms form.
    */
-   get activeClientMembers() {
+  get activeClientMembers() {
     return this.dataSource;
   }
 
@@ -144,7 +145,7 @@ export class CreateGsimAccountComponent implements OnInit {
     const memberSelected = this.selectedMembers.selectedMembers;
     for (let index = 0; index < 1; index++) {
       requestData.push(
-        this.setData( memberSelected[ index ] ),
+        this.setData(memberSelected[index]),
       );
     }
     return requestData;
@@ -153,12 +154,13 @@ export class CreateGsimAccountComponent implements OnInit {
   /**
    * Creates a new GSIM account.
    */
+  gsimData: any;
   submit() {
     const data = this.buildRequestData();
-    const gsimData = {
+    this.gsimData = {
       clientArray: data,
     };
-    this.savingsService.createGsimAcccount(gsimData).subscribe((response: any) => {
+    this.savingsAccountService.submitGSIMApplication(this.gsimData).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

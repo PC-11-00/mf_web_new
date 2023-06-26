@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { GroupsService } from '../groups.service';
+import { NotesService } from 'openapi/typescript_files';
 
 /**
  * Group Notes data resolver.
@@ -17,16 +18,17 @@ export class GroupNotesResolver implements Resolve<Object> {
   /**
    * @param {GroupsService} GroupsService Groups service.
    */
-  constructor(private groupsService: GroupsService) { }
+  constructor(private notesService: NotesService) { }
 
   /**
    * Returns the Group's Notes data.
    * @param {ActivatedRouteSnapshot} route Route Snapshot.
    * @returns {Observable<any>}
    */
+  groupId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const groupId = route.parent.paramMap.get('groupId');
-    return this.groupsService.getGroupNotes(groupId);
+    this.groupId = route.parent.paramMap.get('groupId');
+    return this.notesService.retrieveNotesByResource('groups',this.groupId);
   }
 
 }

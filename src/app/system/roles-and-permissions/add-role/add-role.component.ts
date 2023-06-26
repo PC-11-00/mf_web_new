@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { RolesService } from 'openapi/typescript_files';
 
 /**
  * Add Role Component.
@@ -26,7 +27,7 @@ export class AddRoleComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private rolesService: RolesService,
               private route: ActivatedRoute,
               private router: Router) { }
 
@@ -52,7 +53,7 @@ export class AddRoleComponent implements OnInit {
    * if successful redirects back to roles and permission.
    */
   submit() {
-    this.systemService.createRole(this.roleForm.value)
+    this.rolesService.createRole(this.roleForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
     });

@@ -9,6 +9,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 /** Custom Components. */
 import { ConfirmationDialogComponent } from '../../../shared/confirmation-dialog/confirmation-dialog.component';
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
+import { HolidaysService } from 'openapi/typescript_files';
 
 /**
  * View Holidays component.
@@ -30,7 +31,7 @@ export class ViewHolidaysComponent {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private organizationService: OrganizationService) {
+    private organizationService: HolidaysService) {
     this.route.data.subscribe((data: { holidays: any }) => {
       this.holidayData = data.holidays;
     });
@@ -45,7 +46,7 @@ export class ViewHolidaysComponent {
     });
     deleteHolidayDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteHoliday(this.holidayData.id)
+        this.organizationService.delete7(this.holidayData.id)
           .subscribe(() => {
             this.router.navigate(['../'], { relativeTo: this.route });
           });
@@ -62,7 +63,7 @@ export class ViewHolidaysComponent {
     });
     unAssignStaffDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.organizationService.activateHoliday(this.holidayData.id)
+        this.organizationService.handleCommands1(this.holidayData.id,null)
           .subscribe(() => {
             this.router.navigate(['/organization/holidays']);
           });

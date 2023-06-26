@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
+import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
 
 /**
  * Create Template data resolver.
@@ -17,14 +18,14 @@ export class CreateTemplateResolver implements Resolve<Object> {
   /**
    * @param {TemplatesService} templatesService Templates service.
    */
-  constructor(private templatesService: TemplatesService) {}
+  constructor(private userGeneratedDocumentsService: UserGeneratedDocumentsService) {}
 
   /**
    * Returns the template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.templatesService.getCreateTemplateData();
+    return this.userGeneratedDocumentsService.template20();
   }
 
 }

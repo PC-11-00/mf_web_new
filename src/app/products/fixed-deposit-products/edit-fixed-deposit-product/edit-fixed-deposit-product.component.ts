@@ -14,6 +14,7 @@ import { FixedDepositProductAccountingStepComponent } from '../fixed-deposit-pro
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { FixedDepositProductService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-edit-fixed-deposit-product',
@@ -41,7 +42,7 @@ export class EditFixedDepositProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: ProductsService,
+              private productsService: FixedDepositProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { fixedDepositProductAndTemplate: any }) => {
@@ -118,7 +119,7 @@ export class EditFixedDepositProductComponent implements OnInit {
       fixedDepositProduct.description = '';
     }
     delete fixedDepositProduct.advancedAccountingRules;
-    this.productsService.updateFixedDepositProduct(this.fixedDepositProductsTemplate.id, fixedDepositProduct)
+    this.productsService.update17(this.fixedDepositProductsTemplate.id, fixedDepositProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

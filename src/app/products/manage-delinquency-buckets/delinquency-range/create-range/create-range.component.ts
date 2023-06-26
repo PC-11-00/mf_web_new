@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { DelinquencyRangeAndBucketsManagementService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-create-range',
@@ -15,7 +16,7 @@ export class CreateRangeComponent implements OnInit {
   delinquencyRangeForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private productsService: ProductsService,
+    private productsService: DelinquencyRangeAndBucketsManagementService,
     private route: ActivatedRoute,
     private router: Router,
     private settingsService: SettingsService) {

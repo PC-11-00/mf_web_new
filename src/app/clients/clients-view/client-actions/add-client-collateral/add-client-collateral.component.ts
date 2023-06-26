@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientCollateralManagement, ClientCollateralManagementService, CollateralManagementService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-add-client-collateral',
@@ -37,8 +38,8 @@ export class AddClientCollateralComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private productsService: ProductsService,
-    private clientsService: ClientsService,
+    private productsService: CollateralManagementService,
+    private clientsService: ClientCollateralManagementService,
     private settingsService: SettingsService,
     ) {
       this.route.data.subscribe((data: { clientActionData: any }) => {
@@ -107,7 +108,7 @@ export class AddClientCollateralComponent implements OnInit {
       quantity,
       locale
     };
-    this.clientsService.createClientCollateral(this.clientId, clientCollateral).subscribe(() => {
+    this.clientsService.addCollateral(this.clientId, clientCollateral).subscribe(() => {
       this.router.navigate(['../../'], {relativeTo: this.route});
     });
   }

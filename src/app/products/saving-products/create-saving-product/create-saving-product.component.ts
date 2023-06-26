@@ -13,6 +13,7 @@ import { SavingProductAccountingStepComponent } from '../saving-product-stepper/
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsProductService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-create-saving-product',
@@ -39,7 +40,7 @@ export class CreateSavingProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: ProductsService,
+              private productsService: SavingsProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { savingProductsTemplate: any }) => {
@@ -99,7 +100,7 @@ export class CreateSavingProductComponent implements OnInit {
       locale: this.settingsService.language.code // locale required for nominalAnnualInterestRate
     };
     delete savingProduct.advancedAccountingRules;
-    this.productsService.createSavingProduct(savingProduct)
+    this.productsService.create13(savingProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });

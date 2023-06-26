@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { CodesService } from 'openapi/typescript_files';
 
 /**
  * Code data resolver.
@@ -17,15 +18,16 @@ export class CodeResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private codesService: CodesService) {}
 
   /**
    * Returns the Code data.
    * @returns {Observable<any>}
    */
+  id:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const id = route.paramMap.get('id');
-    return this.systemService.getCode(id);
+    this.id = route.paramMap.get('id');
+    return this.codesService.retrieveCode(this.id);
   }
 
 }

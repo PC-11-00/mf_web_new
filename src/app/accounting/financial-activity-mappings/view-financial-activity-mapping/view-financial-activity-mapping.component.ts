@@ -8,6 +8,7 @@ import { AccountingService } from '../../accounting.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
+import { MappingFinancialActivitiesToAccountsService } from 'openapi/typescript_files';
 
 /**
  * View financial activity mapping component.
@@ -31,7 +32,7 @@ export class ViewFinancialActivityMappingComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private accountingService: AccountingService,
+  constructor(private accountingService: MappingFinancialActivitiesToAccountsService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {
@@ -53,7 +54,7 @@ export class ViewFinancialActivityMappingComponent implements OnInit {
     });
     deleteFinancialActivityAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.accountingService.deleteFinancialActivityAccount(this.financialActivityAccountId)
+        this.accountingService.deleteGLAccount(this.financialActivityAccountId)
           .subscribe(() => {
             this.router.navigate(['/accounting/financial-activity-mappings']);
           });

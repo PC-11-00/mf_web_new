@@ -5,6 +5,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Custom Services */
 import { RecurringDepositsService } from '../../recurring-deposits.service';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Recurring Deposits Account Details Step
@@ -42,7 +43,7 @@ export class RecurringDepositsAccountDetailsStepComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountService,
     private settingsService: SettingsService) {
     this.createRecurringDepositsAccountDetailsForm();
   }
@@ -77,8 +78,8 @@ export class RecurringDepositsAccountDetailsStepComponent implements OnInit {
    */
   buildDependencies() {
     const clientId = this.recurringDepositsAccountTemplate.clientId;
-    this.recurringDepositAccountDetailsForm.get('productId').valueChanges.subscribe((productId: string) => {
-      this.recurringDepositsService.getRecurringDepositsAccountTemplate(clientId, productId).subscribe((response: any) => {
+    this.recurringDepositAccountDetailsForm.get('productId').valueChanges.subscribe((productId: any) => {
+      this.recurringDepositsService.template13(clientId,null, productId).subscribe((response: any) => {
         this.recurringDepositsAccountProductTemplate.emit(response);
         this.fieldOfficerData = response.fieldOfficerOptions;
         if (!this.isFieldOfficerPatched && this.recurringDepositsAccountTemplate.fieldOfficerId) {

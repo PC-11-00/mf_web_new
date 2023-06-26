@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientChargesService } from 'openapi/typescript_files';
 
 /**
  * Client Pay Charge component.
@@ -34,7 +35,7 @@ export class ClientPayChargesComponent implements OnInit {
      * @param {SettingsService} settingsService Setting service
      */
   constructor(
-    private clientsService: ClientsService,
+    private clientsService: ClientChargesService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -76,7 +77,7 @@ export class ClientPayChargesComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.clientsService.payClientCharge(this.transactionData.clientId, this.transactionData.id, data).subscribe(() => {
+    this.clientsService.payOrWaiveClientCharge(this.transactionData.clientId, this.transactionData.id, data,'paycharge').subscribe(() => {
       this.router.navigate(['../../..', 'general'], { relativeTo: this.route });
     });
   }

@@ -14,6 +14,7 @@ import { OfficeItemNode } from './office-item.class';
 import { OfficeItemFlatNode } from './office-flat-item.class';
 import { ChecklistDatabase } from './checklist-db.class';
 import { CreateHoliday } from './create-holiday.service';
+import { HolidaysService } from 'openapi/typescript_files';
 
 /**
  * Create Holiday component.
@@ -76,7 +77,7 @@ export class CreateHolidayComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dateUtils: Dates,
-              private organizationService: OrganizationService,
+              private organizationService: HolidaysService,
               private settings: SettingsService,
               private router: Router,
               private _database: ChecklistDatabase,
@@ -302,7 +303,7 @@ export class CreateHolidayComponent implements OnInit {
       locale,
       offices
     };
-    this.organizationService.createHoliday(data).subscribe((response: any) => {
+    this.organizationService.createNewHoliday(data).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

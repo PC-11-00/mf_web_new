@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { CentersService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { CentersService } from '../centers.service';
+// import { CentersService } from '../centers.service';
 
 /**
  * Centers data resolver.
@@ -23,9 +24,10 @@ export class SavingsAccountResolver implements Resolve<Object> {
      * Returns the Center Savings Account data.
      * @returns {Observable<any>}
      */
+    centerId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const centerId = route.parent.paramMap.get('centerId');
-        return this.centersService.getSavingsAccountDetails(centerId);
+        this.centerId = route.parent.paramMap.get('centerId');
+        return this.centersService.retrieveGroupAccount(this.centerId);
     }
 
 }

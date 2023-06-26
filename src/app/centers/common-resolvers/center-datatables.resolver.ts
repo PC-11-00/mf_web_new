@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CentersService } from '../centers.service';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * center datatables resolver.
@@ -17,14 +18,14 @@ export class CenterDatatablesResolver implements Resolve<Object> {
     /**
      * @param {centersService} centersService centers service.
      */
-    constructor(private centersService: CentersService) { }
+    constructor(private dataTablesService: DataTablesService) { }
 
     /**
      * Returns the center datatables.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.centersService.getcenterDatatables();
+        return this.dataTablesService.getDatatables();
     }
 
 }

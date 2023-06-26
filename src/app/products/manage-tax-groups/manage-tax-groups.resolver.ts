@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { TaxGroupService } from 'openapi/typescript_files';
 
 /**
  * Manage Tax Groups data resolver.
@@ -17,14 +18,14 @@ export class ManageTaxGroupsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: TaxGroupService) {}
 
   /**
    * Returns the tax groups data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getTaxGroups();
+    return this.productsService.retrieveAllTaxGroups();
   }
 
 }

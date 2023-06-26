@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { RescheduleLoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loan-reschedule',
@@ -37,7 +38,7 @@ export class LoanRescheduleComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private rescheduleLoansService: RescheduleLoansService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
@@ -88,7 +89,7 @@ export class LoanRescheduleComponent implements OnInit {
       locale
     };
     data.loanId = this.loanId;
-    this.loanService.submitRescheduleData(data).subscribe((response: any) => {
+    this.rescheduleLoansService.createLoanRescheduleRequest(data).subscribe((response: any) => {
 
       // TODO: needs to be updated
       // mentioned in Community App:

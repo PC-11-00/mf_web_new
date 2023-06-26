@@ -15,6 +15,7 @@ import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicke
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { Dates } from 'app/core/utils/dates';
+import { TaxGroupService } from 'openapi/typescript_files';
 
 /**
  * Edit Tax Group component.
@@ -53,7 +54,7 @@ export class EditTaxGroupComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service.
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: ProductsService,
+              private productsService: TaxGroupService,
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,

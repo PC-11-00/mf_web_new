@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { SpmSurveysService } from 'openapi/typescript_files';
 
 /**
  * System data resolver.
@@ -17,15 +18,16 @@ export class SurveyResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private spmSurveysService: SpmSurveysService) {}
 
   /**
    * Returns the Survey data.
    * @returns {Observable<any>}
    */
+  surveyId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const surveyId = route.paramMap.get('id');
-    return this.systemService.getSurvey(surveyId);
+    this.surveyId = route.paramMap.get('id');
+    return this.spmSurveysService.findSurvey(this.surveyId);
   }
 
 }

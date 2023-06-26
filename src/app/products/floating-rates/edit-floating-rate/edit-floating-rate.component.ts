@@ -16,6 +16,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { FloatingRatePeriodDialogComponent } from '../floating-rate-period-dialog/floating-rate-period-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { Dates } from 'app/core/utils/dates';
+import { FloatingRatesService } from 'openapi/typescript_files';
 
 /**
  * Edit Floating Rate Component.
@@ -61,7 +62,7 @@ export class EditFloatingRateComponent implements OnInit {
    */
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private productsService: ProductsService,
+              private productsService: FloatingRatesService,
               private route: ActivatedRoute,
               private dateUtils: Dates,
               private dialog: MatDialog,
@@ -170,6 +171,7 @@ export class EditFloatingRateComponent implements OnInit {
    * Submits the floating rate form and creates floating rate,
    * if successful redirects to view created floating rate.
    */
+  floatingRateId: any;
   submit() {
     this.floatingRatePeriodsData.map(floatingRatePeriod => {
       floatingRatePeriod.modifiedOn = undefined;
@@ -183,7 +185,8 @@ export class EditFloatingRateComponent implements OnInit {
       floatingRatePeriod.fromDate = this.dateUtils.formatDate(floatingRatePeriod.fromDate, this.dateFormat);
     });
     this.floatingRateForm.value.ratePeriods = this.floatingRatePeriodsData.length > 0 ? this.floatingRatePeriodsData : undefined;
-    this.productsService.updateFloatingRate(this.route.snapshot.paramMap.get('id'), this.floatingRateForm.value)
+    this.floatingRateId =this.route.snapshot.paramMap.get('id');
+    this.productsService.updateFloatingRate(this.floatingRateId,this.floatingRateForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
       });

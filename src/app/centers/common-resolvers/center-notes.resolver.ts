@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CentersService } from '../centers.service';
+import { NotesService } from 'openapi/typescript_files';
 
 /**
  * Centers notes data resolver.
@@ -17,15 +18,16 @@ export class CenterNotesResolver implements Resolve<Object> {
     /**
      * @param {CentersService} CentersService Centers service.
      */
-    constructor(private centersService: CentersService) { }
+    constructor(private notesService: NotesService) { }
 
     /**
      * Returns the Centers Notes Data.
      * @returns {Observable<any>}
      */
+    centerId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const centerId = route.parent.paramMap.get('centerId');
-        return this.centersService.getCenterNotes(centerId);
+        this.centerId = route.parent.paramMap.get('centerId');
+        return this.notesService.retrieveNotesByResource('groups',this.centerId);
     }
 
 }

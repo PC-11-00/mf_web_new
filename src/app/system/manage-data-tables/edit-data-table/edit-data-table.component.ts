@@ -17,6 +17,7 @@ import { appTableData, entitySubTypeData } from '../app-table-data';
 import { ColumnDialogComponent } from '../column-dialog/column-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { DatatableColumn } from '../datatable-column.model';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * Edit Data Table Component.
@@ -80,7 +81,7 @@ export class EditDataTableComponent implements OnInit {
    * @param {FormBuilder} formBuilder Form Builder.
    * @param {MatDialog} dialog Dialog Reference.
    */
-  constructor(private systemService: SystemService,
+  constructor(private dataTablesService: DataTablesService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -336,7 +337,7 @@ export class EditDataTableComponent implements OnInit {
     if (!this.dataTableChangesData.dropColumns || this.dataTableChangesData.dropColumns.length === 0) {
       this.dataTableChangesData.dropColumns = undefined;
     }
-    this.systemService.updateDataTable(this.dataTableChangesData, this.dataTableData.registeredTableName)
+    this.dataTablesService.updateDatatable( this.dataTableData.registeredTableName,this.dataTableChangesData)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

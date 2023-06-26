@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../../system.service';
+import { SCHEDULERJOBService } from 'openapi/typescript_files';
 
 /**
  * Selected Scheduler Jobs data resolver.
@@ -17,15 +18,16 @@ export class ViewSchedulerJobResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private sCHEDULERJOBService: SCHEDULERJOBService) {}
 
   /**
    * Returns the selected scheduler job data.
    * @returns {Observable<any>}
    */
+  jobId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const jobId = route.paramMap.get('id');
-    return this.systemService.getSelectedJob(jobId);
+    this.jobId = route.paramMap.get('id');
+    return this.sCHEDULERJOBService.retrieveOne5(this.jobId);
   }
 
 }

@@ -8,6 +8,7 @@ import { AccountingService } from '../../accounting.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
+import { AccountingRulesService } from 'openapi/typescript_files';
 
 /**
  * View accounting rule component.
@@ -29,7 +30,7 @@ export class ViewRuleComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private accountingService: AccountingService,
+  constructor(private accountingService: AccountingRulesService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {

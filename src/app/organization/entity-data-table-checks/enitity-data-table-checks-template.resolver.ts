@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { EntityDataTableService } from 'openapi/typescript_files';
 
 /**
  * Entity Data Table Checks data resolver.
@@ -17,14 +18,14 @@ export class EntityDataTableChecksTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: EntityDataTableService) {}
 
   /**
    * Returns the Entity Data Table Checks data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getEntityDataTableChecksTemplate();
+    return this.organizationService.getTemplate();
   }
 
 }

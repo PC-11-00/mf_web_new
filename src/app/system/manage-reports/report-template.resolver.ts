@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { ReportsService } from 'openapi/typescript_files';
 
 /**
  * Report Template data resolver.
@@ -17,14 +18,14 @@ export class ReportTemplateResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private reportsService: ReportsService) {}
 
   /**
    * Returns the Report Template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.systemService.getReportTemplate();
+    return this.reportsService.retrieveOfficeTemplate();
   }
 
 }

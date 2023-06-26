@@ -14,6 +14,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
+import { CurrencyService } from 'openapi/typescript_files';
 
 /**
  * Manage Currencies component.
@@ -46,7 +47,7 @@ export class ManageCurrenciesComponent implements OnInit, AfterViewInit {
    */
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private organizationservice: OrganizationService,
+              private organizationservice: CurrencyService,
               public dialog: MatDialog,
               private router: Router,
               private configurationWizardService: ConfigurationWizardService,
@@ -73,12 +74,13 @@ export class ManageCurrenciesComponent implements OnInit, AfterViewInit {
   /**
    * Adds a new currency to the list.
    */
+  selectedCurrencyCodes:any;
   addCurrency() {
     const newCurrency = this.currencyForm.value.currency;
-    const selectedCurrencyCodes: any[] = this.selectedCurrencies.map(currency => currency.code);
-    if (!selectedCurrencyCodes.includes(newCurrency.code)) {
-      selectedCurrencyCodes.push(newCurrency.code);
-      this.organizationservice.updateCurrencies(selectedCurrencyCodes)
+    this.selectedCurrencyCodes= this.selectedCurrencies.map(currency => currency.code);
+    if (!this.selectedCurrencyCodes.includes(newCurrency.code)) {
+      this.selectedCurrencyCodes.push(newCurrency.code);
+      this.organizationservice.updateCurrencies(this.selectedCurrencyCodes)
         .subscribe((response: any) => {
           this.selectedCurrencies.push(newCurrency);
           this.formRef.resetForm();
@@ -96,14 +98,14 @@ export class ManageCurrenciesComponent implements OnInit, AfterViewInit {
    * @param {number} index Index
    */
   deleteCurrency(currencyCode: string, index: number) {
-    const selectedCurrencyCodes: any[] = this.selectedCurrencies.map(currency => currency.code);
-    selectedCurrencyCodes.splice(index, 1);
+    this.selectedCurrencyCodes = this.selectedCurrencies.map(currency => currency.code);
+    this.selectedCurrencyCodes.splice(index, 1);
     const deleteCurrencyDialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { deleteContext: `currency: ${currencyCode}` }
     });
     deleteCurrencyDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationservice.updateCurrencies(selectedCurrencyCodes)
+        this.organizationservice.updateCurrencies(this.selectedCurrencyCodes)
           .subscribe(() => {
             this.selectedCurrencies.splice(index, 1);
             this.formRef.resetForm();

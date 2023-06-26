@@ -6,8 +6,8 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
-
+// import { LoansService } from '../loans.service';
+import { LoansService } from 'openapi/typescript_files';
 /**
  * Loan accounts template data resolver.
  */
@@ -22,9 +22,16 @@ export class LoansAccountTemplateResolver implements Resolve<Object> {
      * Returns the loan account template data.
      * @returns {Observable<any>}
      */
+    entityId: any;
+    isGroup: any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const entityId = route.parent.parent.paramMap.get('clientId') || route.parent.parent.paramMap.get('groupId');
-        const isGroup = (route.parent.parent.paramMap.get('groupId')) ? true : false;
-        return this.loansService.getLoansAccountTemplateResource(entityId, isGroup);
+        this.entityId = route.parent.parent.paramMap.get('clientId') || route.parent.parent.paramMap.get('groupId');
+        this.isGroup = (route.parent.parent.paramMap.get('groupId')) ? true : false;
+        if (this.isGroup) {
+            return this.loansService.template10(null, this.entityId, null, 'group', true, true);
+        }
+        else {
+            return this.loansService.template10(this.entityId, null, null, 'individual', true, true);
+        }
     }
 }

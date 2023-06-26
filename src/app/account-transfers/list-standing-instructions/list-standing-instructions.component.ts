@@ -12,6 +12,7 @@ import { AccountTransfersService } from '../account-transfers.service';
 /** Dialog Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { SettingsService } from 'app/settings/settings.service';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * Lists all the standing intructions of particular ID
@@ -66,7 +67,7 @@ export class ListStandingInstructionsComponent implements OnInit {
    * @param {AccountTransfersService} accountTransfersService Account Transfers Service
    */
   constructor(private route: ActivatedRoute,
-    private accountTransfersService: AccountTransfersService,
+    private accountTransfersService: StandingInstructionsService,
     private settingsService: SettingsService,
     private dialog: MatDialog) {
     this.route.data.subscribe((data: { standingIntructionsTemplate: any }) => {
@@ -105,10 +106,11 @@ export class ListStandingInstructionsComponent implements OnInit {
   /**
    * Retrieves standing instructions and initializes instructions table.
    */
+  searchData:any;
   getStandingInstructions() {
     const dateFormat = this.settingsService.dateFormat;
     const locale = this.settingsService.language.code;
-    const searchData = {
+    this.searchData = {
       clientId : this.standingIntructionsTemplateData.fromClient.id || this.fromClientId.value,
       clientName: this.standingIntructionsTemplateData.fromClient.displayName || this.clientNameControl.value,
       locale,
@@ -119,7 +121,7 @@ export class ListStandingInstructionsComponent implements OnInit {
       fromAccountId: this.fromAccountId.value,
       fromTransferType: this.transferType.value
     };
-    this.accountTransfersService.getStandingInstructions(searchData).subscribe((response: any) => {
+    this.accountTransfersService.retrieveAll19(this.searchData).subscribe((response: any) => {
       this.instructionsData = response.pageItems;
       this.dataSource.data = this.instructionsData;
       this.instructionTableRef.renderRows();
@@ -133,7 +135,7 @@ export class ListStandingInstructionsComponent implements OnInit {
     });
     deleteStandingInstructionDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.accountTransfersService.deleteStandingInstrucions(instructionId)
+        this.accountTransfersService.update9(instructionId,'delete')
           .subscribe(() => {});
       }
     });

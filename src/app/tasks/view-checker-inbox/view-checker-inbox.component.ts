@@ -9,6 +9,7 @@ import { TasksService } from '../tasks.service';
 
 /** Dialog Components */
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
+import { MakerCheckerOr4EyeFunctionalityService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-view-checker-inbox',
@@ -34,7 +35,7 @@ export class ViewCheckerInboxComponent {
   constructor(private route: ActivatedRoute,
     private dialog: MatDialog,
     private router: Router,
-    private tasksService: TasksService) {
+    private makerCheckerOr4EyeFunctionalityService: MakerCheckerOr4EyeFunctionalityService) {
     this.route.data.subscribe((data: { checkerInboxDetail: any }) => {
       this.checkerInboxDetail = data.checkerInboxDetail;
       this.jsondata = JSON.parse(this.checkerInboxDetail.commandAsJson);
@@ -52,7 +53,7 @@ export class ViewCheckerInboxComponent {
     });
     approveCheckerDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.tasksService.executeMakerCheckerAction(this.checkerInboxDetail.id, 'approve').subscribe((res: any) => {
+        this.makerCheckerOr4EyeFunctionalityService.approveMakerCheckerEntry(this.checkerInboxDetail.id, 'approve').subscribe((res: any) => {
           this.router.navigate(['../../'], { relativeTo: this.route });
         });
       }
@@ -68,7 +69,7 @@ export class ViewCheckerInboxComponent {
     });
     rejectCheckerDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.tasksService.executeMakerCheckerAction(this.checkerInboxDetail.id, 'reject').subscribe((res: any) => {
+        this.makerCheckerOr4EyeFunctionalityService.approveMakerCheckerEntry(this.checkerInboxDetail.id, 'reject').subscribe((res: any) => {
           this.router.navigate(['../../'], { relativeTo: this.route });
         });
       }
@@ -84,7 +85,7 @@ export class ViewCheckerInboxComponent {
     });
     deleteCheckerDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.tasksService.deleteMakerChecker(this.checkerInboxDetail.id).subscribe((res: any) => {
+        this.makerCheckerOr4EyeFunctionalityService.deleteMakerCheckerEntry(this.checkerInboxDetail.id).subscribe((res: any) => {
           this.router.navigate(['../../'], { relativeTo: this.route });
         });
       }

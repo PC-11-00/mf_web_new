@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { GroupsService } from 'app/groups/groups.service';
-
+// import { GroupsService } from 'app/groups/groups.service';
+import { GroupsService } from 'openapi/typescript_files';
 /**
  * Groups Assign Staff Component
  */
@@ -57,7 +57,7 @@ export class GroupAssignStaffComponent implements OnInit {
    * Submits the form and assigns staff for the group.
    */
   submit() {
-    this.groupsService.executeGroupCommand(this.groupData.id, 'assignStaff', this.groupAssignStaffForm.value)
+    this.groupsService.activateOrGenerateCollectionSheet(this.groupData.id, this.groupAssignStaffForm.value, 'assignStaff')
       .subscribe(() => {
         this.router.navigate(['../../'], { relativeTo: this.route });
       });

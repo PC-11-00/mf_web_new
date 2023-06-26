@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { ChargesService } from 'openapi/typescript_files';
 
 
 /**
@@ -53,7 +54,7 @@ export class EditChargeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {SettingsService} settingsService Settings Service
    */
-  constructor(private productsService: ProductsService,
+  constructor(private productsService: ChargesService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,

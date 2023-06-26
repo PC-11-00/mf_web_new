@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 /** Custom Services */
 import { LoansService } from '../../loans.service';
 import { AuthenticationService } from '../../../core/authentication/authentication.service';
+import { NotesService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-notes-tab',
@@ -14,12 +15,12 @@ import { AuthenticationService } from '../../../core/authentication/authenticati
 })
 export class NotesTabComponent implements OnInit {
 
-  entityId: string;
+  entityId: any;
   username: string;
   entityNotes: any;
 
   constructor(private route: ActivatedRoute,
-    private loansService: LoansService,
+    private notesService: NotesService,
     private authenticationService: AuthenticationService) {
     const savedCredentials = this.authenticationService.getCredentials();
     this.username = savedCredentials.username;
@@ -32,7 +33,7 @@ export class NotesTabComponent implements OnInit {
   ngOnInit() { }
 
   addNote(noteContent: any) {
-    this.loansService.createLoanNote(this.entityId, noteContent).subscribe((response: any) => {
+    this.notesService.addNewNote('loans',this.entityId, noteContent).subscribe((response: any) => {
       this.entityNotes.push({
         id: response.resourceId,
         createdByUsername: this.username,
@@ -42,14 +43,14 @@ export class NotesTabComponent implements OnInit {
     });
   }
 
-  editNote(noteId: string, noteContent: any, index: number) {
-    this.loansService.editLoanNote(this.entityId, noteId, noteContent).subscribe(() => {
+  editNote(noteId: any, noteContent: any, index: number) {
+    this.notesService.updateNote('loans',this.entityId, noteId, noteContent).subscribe(() => {
       this.entityNotes[index].note = noteContent.note;
     });
   }
 
-  deleteNote(noteId: string, index: number) {
-    this.loansService.deleteLoanNote(this.entityId, noteId)
+  deleteNote(noteId: any, index: number) {
+    this.notesService.deleteNote('loans',this.entityId, noteId)
       .subscribe(() => {
         this.entityNotes.splice(index, 1);
     });

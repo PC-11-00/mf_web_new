@@ -11,6 +11,7 @@ import { SharesAccountChargesStepComponent } from '../shares-account-stepper/sha
 import { SharesService } from '../shares.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ShareAccountService } from 'openapi/typescript_files';
 
 /**
  * Create Shares Account Component
@@ -45,7 +46,7 @@ export class CreateSharesAccountComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private sharesService: SharesService,
+              private shareAccountService: ShareAccountService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { sharesAccountTemplate: any }) => {
       this.sharesAccountTemplate = data.sharesAccountTemplate;
@@ -112,7 +113,7 @@ export class CreateSharesAccountComponent {
       dateFormat,
       locale
     };
-    this.sharesService.createSharesAccount(sharesAccount).subscribe((response: any) => {
+    this.shareAccountService.createAccount('share',sharesAccount).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

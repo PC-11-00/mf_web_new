@@ -13,6 +13,7 @@ import { RejectShareDialogComponent } from './reject-share-dialog/reject-share-d
 /** Custom Serices */
 import { SharesService } from 'app/shares/shares.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { ShareAccountService } from 'openapi/typescript_files';
 
 /**
  * Reject shares component.
@@ -49,7 +50,7 @@ export class RejectSharesComponent implements OnInit {
    * @param {MatDialog} dialog Mat Dialog
    * @param {SettingsService} settingsService Settings Service.
    */
-  constructor(private sharesService: SharesService,
+  constructor(private shareAccountService: ShareAccountService,
               private route: ActivatedRoute,
               public dialog: MatDialog,
               private settingsService: SettingsService) {
@@ -81,6 +82,7 @@ export class RejectSharesComponent implements OnInit {
    * Rejects a share
    * @param {any} id Share Id
    */
+  data:any;
   reject(id: any) {
     const rejectSharesDialogRef = this.dialog.open(RejectShareDialogComponent, {
       data: { shareId: id }
@@ -89,12 +91,12 @@ export class RejectSharesComponent implements OnInit {
       if (response.reject) {
         const locale = this.settingsService.language.code;
         const dateFormat = this.settingsService.dateFormat;
-        const data = {
+        this.data = {
           requestedShares: [{id}],
           dateFormat,
           locale
         };
-        this.sharesService.executeSharesAccountCommand(this.accountId, 'rejectadditionalshares', data).subscribe(() => {
+        this.shareAccountService.handleCommands2('share',this.accountId, this.data, 'rejectadditionalshares').subscribe(() => {
           const share = this.sharesData.find(element => element.id === id);
           const index = this.sharesData.indexOf(share);
           this.sharesData.splice(index, 1);

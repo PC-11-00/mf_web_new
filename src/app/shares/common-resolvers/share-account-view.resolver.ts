@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SharesService } from '../shares.service';
+import { ShareAccountService } from 'openapi/typescript_files';
 
 /**
  * Shares Account data resolver.
@@ -17,16 +18,17 @@ export class SharesAccountViewResolver implements Resolve<Object> {
   /**
    * @param {SharesService} SharesService Shares service.
    */
-  constructor(private sharesService: SharesService) { }
+  constructor(private shareAccountService: ShareAccountService) { }
 
   /**
    * Returns the Shares Account data.
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  shareAccountId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const shareAccountId = route.paramMap.get('shareAccountId');
-    return this.sharesService.getSharesAccountData(shareAccountId, false);
+    this.shareAccountId = route.paramMap.get('shareAccountId');
+    return this.shareAccountService.retrieveAccount(this.shareAccountId, 'share');
   }
 
 }

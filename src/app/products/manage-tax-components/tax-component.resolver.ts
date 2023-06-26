@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { TaxComponentsService } from 'openapi/typescript_files';
 
 /**
  * tax Component data resolver.
@@ -17,14 +18,15 @@ export class TaxComponentResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: TaxComponentsService) {}
 
   /**
    * Returns the tax Component data.
    * @returns {Observable<any>}
    */
+  taxComponentId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const taxComponentId = route.paramMap.get('id');
-    return this.productsService.getTaxComponent(taxComponentId);
+    this.taxComponentId = route.paramMap.get('id');
+    return this.productsService.retrieveTaxComponent(this.taxComponentId);
   }
 }

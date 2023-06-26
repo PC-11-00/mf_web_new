@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * Manage data tables data resolver.
@@ -17,14 +18,14 @@ export class ManageDataTablesResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private dataTablesService: DataTablesService) {}
 
   /**
    * Returns the manage data tables data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.systemService.getDataTables();
+    return this.dataTablesService.getDatatables();
   }
 
 }

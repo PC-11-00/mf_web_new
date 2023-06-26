@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
+import { PaymentTypeService } from 'openapi/typescript_files';
 
 /**
  * Edit Payment Type component.
@@ -29,7 +30,7 @@ export class EditPaymentTypeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: PaymentTypeService,
               private router: Router,
               private route: ActivatedRoute) {
     this.route.data.subscribe(( data: { paymentType: any }) => {

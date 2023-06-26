@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SavingsService } from '../savings.service';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * Saving Accounts Datatables data resolver.
@@ -17,14 +18,14 @@ export class SavingsDatatablesResolver implements Resolve<Object> {
   /**
    * @param {SavingsService} SavingsService Savings service.
    */
-  constructor(private savingsService: SavingsService) { }
+  constructor(private dataTablesService: DataTablesService) { }
 
   /**
    * Returns the Saving Account's Datatables data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.savingsService.getSavingsDatatables();
+    return this.dataTablesService.getDatatables('m_savings_account');
   }
 
 }

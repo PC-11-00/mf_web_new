@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharesService } from 'app/shares/shares.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ShareAccountService } from 'openapi/typescript_files';
 
 /**
  * Reject Shares Account Component
@@ -36,7 +37,7 @@ export class RejectSharesAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private sharesService: SharesService,
+              private ShareAccountService: ShareAccountService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -79,7 +80,7 @@ export class RejectSharesAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.sharesService.executeSharesAccountCommand(this.accountId, 'reject', data).subscribe(() => {
+    this.ShareAccountService.handleCommands2('share',this.accountId, data, 'reject').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-assign-loan-officer',
@@ -16,7 +17,7 @@ export class AssignLoanOfficerComponent implements OnInit {
 
   @Input() dataObject: any;
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   loanOfficers: any[];
   /** Minimum Date allowed. */
   minDate = new Date(2000, 0, 1);
@@ -74,7 +75,7 @@ export class AssignLoanOfficerComponent implements OnInit {
       locale
     };
     data.fromLoanOfficerId = this.dataObject.loanOfficerId || '';
-    this.loanService.loanActionButtons(this.loanId, 'assignLoanOfficer', data)
+    this.loanService.stateTransitions(this.loanId, data,'assignLoanOfficer')
       .subscribe((response: any) => {
         this.router.navigate([`../../general`], { relativeTo: this.route });
     });

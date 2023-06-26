@@ -13,6 +13,7 @@ import { ConfigurationWizardService } from '../../configuration-wizard/configura
 
 /** Custom Dialog Component */
 import { NextStepDialogComponent } from '../../configuration-wizard/next-step-dialog/next-step-dialog.component';
+import { JournalEntriesService } from 'openapi/typescript_files';
 /**
  * Create Journal Entry component.
  */
@@ -54,7 +55,7 @@ export class CreateJournalEntryComponent implements OnInit, AfterViewInit {
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor(private formBuilder: FormBuilder,
-    private accountingService: AccountingService,
+    private accountingService: JournalEntriesService,
     private settingsService: SettingsService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
@@ -160,7 +161,7 @@ export class CreateJournalEntryComponent implements OnInit, AfterViewInit {
     if (journalEntry.transactionDate) {
       journalEntry.transactionDate = this.dateUtils.formatDate(journalEntry.transactionDate, this.settingsService.dateFormat);
     }
-    this.accountingService.createJournalEntry(journalEntry).subscribe(response => {
+    this.accountingService.createGLJournalEntry(journalEntry).subscribe(response => {
       this.router.navigate(['../transactions/view', response.transactionId], { relativeTo: this.route });
     });
   }

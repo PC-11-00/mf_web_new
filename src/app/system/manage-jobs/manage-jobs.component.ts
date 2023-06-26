@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SystemService } from '../system.service';
+import { LoanCOBCatchUpService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-manage-jobs',
@@ -11,14 +12,14 @@ export class ManageJobsComponent implements OnInit {
   /** Process running flag */
   isCatchUpRunning = true;
 
-  constructor(private systemService: SystemService) { }
+  constructor(private loanCOBCatchUpService: LoanCOBCatchUpService) { }
 
   ngOnInit(): void {
   }
 
   onJobTabChange(event: MatTabChangeEvent) {
     if (event.index === 2) {
-      this.systemService.getCOBCatchUpStatus().subscribe((response: any) => {
+      this.loanCOBCatchUpService.isCatchUpRunning().subscribe((response: any) => {
         this.isCatchUpRunning = response.isCatchUpRunning;
       });
     }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoansService } from 'app/loans/loans.service';
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoanChargesService, PaymentTypeService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-adjust-loan-charge',
@@ -12,8 +13,8 @@ import { SettingsService } from 'app/settings/settings.service';
 })
 export class AdjustLoanChargeComponent implements OnInit {
   /** Loan Id */
-  loanId: string;
-  chargeId: string;
+  loanId: any;
+  chargeId: any;
 
   /** Payment Type Options */
   paymentTypes: any = [];
@@ -37,18 +38,18 @@ export class AdjustLoanChargeComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanChargesService: LoanChargesService,
     private route: ActivatedRoute,
     private router: Router,
     private settingsService: SettingsService,
-    private organizationService: OrganizationService) {
-      this.loanId = this.route.snapshot.params['loanId'];
-      this.chargeId = this.route.snapshot.params['id'];
-      this.route.data.subscribe((data: { loansAccountCharge: any, loanDetailsData: any }) => {
-        this.chargeData = data.loansAccountCharge;
-        this.loanDetailsData = data.loanDetailsData;
-      });
-    }
+    private paymentTypeService: PaymentTypeService) {
+    this.loanId = this.route.snapshot.params['loanId'];
+    this.chargeId = this.route.snapshot.params['id'];
+    this.route.data.subscribe((data: { loansAccountCharge: any, loanDetailsData: any }) => {
+      this.chargeData = data.loansAccountCharge;
+      this.loanDetailsData = data.loanDetailsData;
+    });
+  }
 
   /**
    * Creates the repayment loan form
@@ -73,7 +74,7 @@ export class AdjustLoanChargeComponent implements OnInit {
   }
 
   setRepaymentLoanDetails() {
-    this.organizationService.getPaymentTypes().subscribe((paymentTypes: any) => {
+    this.paymentTypeService.getAllPaymentTypes().subscribe((paymentTypes: any) => {
       this.paymentTypes = paymentTypes;
     });
   }
@@ -106,11 +107,10 @@ export class AdjustLoanChargeComponent implements OnInit {
       ...adjustLoanChargeFormData,
       locale
     };
-    const command = 'adjustment';
-    this.loanService.executeLoansAccountChargesCommand(this.loanId, command, data, this.chargeId)
+    this.loanChargesService.executeLoanCharge2(this.loanId, this.chargeId, data, 'adjustment')
       .subscribe((response: any) => {
         this.router.navigate(['../..'], { relativeTo: this.route });
-    });
+      });
   }
 
 }

@@ -11,6 +11,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Dialog Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * Recurring Deposits Standing Instructions Tab
@@ -39,10 +40,10 @@ export class StandingInstructionsTabComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    */
   constructor(private route: ActivatedRoute,
-    private recurringDepositsService: RecurringDepositsService,
+    private standingInstructionsService: StandingInstructionsService,
     private dialog: MatDialog,
     private accountTransfersService: AccountTransfersService,
-    private settingsService: SettingsService, ) {
+    private settingsService: SettingsService,) {
     this.route.parent.data.subscribe((data: { recurringDepositsAccountData: any }) => {
       this.recurringDepositsData = data.recurringDepositsAccountData;
     });
@@ -61,7 +62,7 @@ export class StandingInstructionsTabComponent implements OnInit {
     const accountId = this.recurringDepositsData.id;
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
-    this.recurringDepositsService.getStandingInstructions(clientId, clientName, accountId, locale, dateFormat).subscribe((response: any) => {
+    this.standingInstructionsService.retrieveAll19(null, null, null, null, null, null, null, clientName, clientId, accountId, 2, locale, dateFormat).subscribe((response: any) => {
       this.instructionsData = response.pageItems;
       this.dataSource.data = this.instructionsData;
       this.instructionTableRef.renderRows();
@@ -74,7 +75,7 @@ export class StandingInstructionsTabComponent implements OnInit {
     });
     deleteStandingInstructionDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.accountTransfersService.deleteStandingInstrucions(instructionId)
+        this.standingInstructionsService.update9(instructionId,'delete')
           .subscribe(() => { });
       }
     });

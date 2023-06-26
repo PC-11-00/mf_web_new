@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services. */
 import { ClientsService } from 'app/clients/clients.service';
+import { ClientChargesService } from 'openapi/typescript_files';
 
 /**
  * General Tab component.
@@ -68,7 +69,8 @@ export class GeneralTabComponent {
    */
   constructor(
     private route: ActivatedRoute,
-    private clientService: ClientsService,
+    private clientService: ClientChargesService
+    ,
     private router: Router
   ) {
     this.route.data.subscribe((data: { clientAccountsData: any, clientChargesData: any, clientSummary: any, clientCollateralData: any }) => {
@@ -123,9 +125,10 @@ export class GeneralTabComponent {
    * @param chargeId Selected Charge Id.
    * @param clientId Selected Client Id.
    */
-  waiveCharge(chargeId: string, clientId: string) {
-    const charge = { clientId: clientId.toString(), resourceType: chargeId};
-    this.clientService.waiveClientCharge(charge).subscribe(() => {
+  charge:any;
+  waiveCharge(chargeId: any, clientId: any) {
+    this.charge = { clientId: clientId.toString(), resourceType: chargeId};
+    this.clientService.payOrWaiveClientCharge(clientId,chargeId,this.charge,'waive').subscribe(() => {
       this.getChargeData(clientId);
     });
   }
@@ -134,8 +137,8 @@ export class GeneralTabComponent {
    * Get Charge Data.
    * @param clientId Selected Client Id.
    */
-  getChargeData(clientId: string) {
-    this.clientService.getClientChargesData(clientId).subscribe((data: any) => {
+  getChargeData(clientId: any) {
+    this.clientService.retrieveAllClientCharges(clientId).subscribe((data: any) => {
       this.upcomingCharges = data.pageItems;
     });
   }

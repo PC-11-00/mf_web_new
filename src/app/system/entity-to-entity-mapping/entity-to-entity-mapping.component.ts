@@ -18,6 +18,7 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { Dates } from 'app/core/utils/dates';
+import { ChargesService, FineractEntityService, LoanProductsService, OfficesService, RolesService, SavingsProductService } from 'openapi/typescript_files';
 
 /**
  * Entity to Entity Mapping Component
@@ -81,7 +82,12 @@ export class EntityToEntityMappingComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private systemService: SystemService,
+    private fineractEntityService: FineractEntityService,
+    private officesService:OfficesService,
+    private loanProductsService:LoanProductsService,
+    private savingsProductService:SavingsProductService,
+    private rolesService:RolesService,
+    private chargesService:ChargesService,
     private dateUtils: Dates,
     private dialog: MatDialog,
     private settingsService: SettingsService) {
@@ -130,51 +136,51 @@ export class EntityToEntityMappingComponent implements OnInit {
     switch (this.retrieveById) {
 
       case 1:
-        this.systemService.getOffices().subscribe((response: any) => {
+        this.officesService.retrieveOffices().subscribe((response: any) => {
           this.firstEntityData = response;
           this.firstMappingEntity = 'Office';
         });
-        this.systemService.getLoanProducts().subscribe((response: any) => {
+        this.loanProductsService.retrieveAllLoanProducts().subscribe((response: any) => {
           this.secondEntityData = response;
           this.secondMappingEntity = 'Loan Products';
         });
         break;
       case 2:
-        this.systemService.getOffices().subscribe((response: any) => {
+        this.officesService.retrieveOffices().subscribe((response: any) => {
           this.firstEntityData = response;
           this.firstMappingEntity = 'Office';
         });
-        this.systemService.getSavingProducts().subscribe((response: any) => {
+        this.savingsProductService.retrieveAll34().subscribe((response: any) => {
           this.secondEntityData = response;
           this.secondMappingEntity = 'Saving Products';
         });
         break;
       case 3:
-        this.systemService.getOffices().subscribe((response: any) => {
+        this.officesService.retrieveOffices().subscribe((response: any) => {
           this.firstEntityData = response;
           this.firstMappingEntity = 'Office';
         });
-        this.systemService.getCharges().subscribe((response: any) => {
+        this.chargesService.retrieveAllCharges().subscribe((response: any) => {
           this.secondEntityData = response;
           this.secondMappingEntity = 'Charges';
         });
         break;
       case 4:
-        this.systemService.getRoles().subscribe((response: any) => {
+        this.rolesService.retrieveAllRoles().subscribe((response: any) => {
           this.firstEntityData = response;
           this.firstMappingEntity = 'Role';
         });
-        this.systemService.getLoanProducts().subscribe((response: any) => {
+        this.loanProductsService.retrieveAllLoanProducts().subscribe((response: any) => {
           this.secondEntityData = response;
           this.secondMappingEntity = 'Loan Products';
         });
         break;
       case 5:
-        this.systemService.getRoles().subscribe((response: any) => {
+        this.rolesService.retrieveAllRoles().subscribe((response: any) => {
           this.firstEntityData = response;
           this.firstMappingEntity = 'Role';
         });
-        this.systemService.getSavingProducts().subscribe((response: any) => {
+        this.savingsProductService.retrieveAll34().subscribe((response: any) => {
           this.secondEntityData = response;
           this.secondMappingEntity = 'Saving Products';
         });
@@ -198,7 +204,7 @@ export class EntityToEntityMappingComponent implements OnInit {
 
     this.selectedFromId = this.filterPreference.mappingFirstParamId;
     this.selectedToId = this.filterPreference.mappingSecondParamId;
-    this.systemService.getEntitytoEntityData(this.retrieveById, this.selectedFromId, this.selectedToId).subscribe((response: any) => {
+    this.fineractEntityService.getEntityToEntityMappings(this.retrieveById, this.selectedFromId, this.selectedToId).subscribe((response: any) => {
       this.entityMappingsListData = new MatTableDataSource(response);
       this.entityMappingsListData.paginator = this.paginator;
       this.entityMappingsListData.sort = this.sort;
@@ -260,7 +266,7 @@ export class EntityToEntityMappingComponent implements OnInit {
     this.relId = selectedType;
     this.mapIdToEdit = selectedMap;
     this.fetchRelatedData(this.relId);
-    this.systemService.getMapIdData(selectedMap).subscribe((response: any) => {
+    this.fineractEntityService.retrieveOne4(selectedMap).subscribe((response: any) => {
       this.entityMap = response;
     });
     const formfields: FormfieldBase[] = [
@@ -326,7 +332,7 @@ export class EntityToEntityMappingComponent implements OnInit {
 
     newMappingData.dateFormat = dateFormat;
     newMappingData.locale = this.settingsService.language.code;
-    this.systemService.createMapping(this.relId, newMappingData).subscribe((response: any) => {
+    this.fineractEntityService.createMap(this.relId, newMappingData).subscribe((response: any) => {
       this.showFilteredData();
     });
   }
@@ -347,7 +353,7 @@ export class EntityToEntityMappingComponent implements OnInit {
 
     newMappingData.dateFormat = dateFormat;
     newMappingData.locale = this.settingsService.language.code;
-    this.systemService.editMapping(this.mapIdToEdit, newMappingData).subscribe((response: any) => {
+    this.fineractEntityService.updateMap(this.mapIdToEdit, newMappingData).subscribe((response: any) => {
       this.showFilteredData();
     });
   }
@@ -362,7 +368,7 @@ export class EntityToEntityMappingComponent implements OnInit {
     });
     deleteNoteDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.systemService.deleteMapping(id)
+        this.fineractEntityService.delete4(id)
           .subscribe(() => {
             this.showFilteredData();
           });

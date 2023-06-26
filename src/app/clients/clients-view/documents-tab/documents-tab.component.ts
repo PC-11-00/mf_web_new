@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
+import { DocumentsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-documents-tab',
@@ -12,11 +13,11 @@ import { ClientsService } from '../../clients.service';
 })
 export class DocumentsTabComponent implements OnInit {
   entityDocuments: any;
-  entityId: string;
+  entityId: any;
   entityType = 'clients';
 
   constructor(private route: ActivatedRoute,
-    private clientsService: ClientsService,
+    private clientsService: DocumentsService,
     public dialog: MatDialog) {
     this.route.data.subscribe((data: { clientDocuments: any }) => {
       this.entityDocuments = data.clientDocuments;
@@ -27,19 +28,19 @@ export class DocumentsTabComponent implements OnInit {
   ngOnInit() {
   }
 
-  downloadDocument(documentId: string) {
-    this.clientsService.downloadClientDocument(this.entityId, documentId).subscribe(res => {
+  downloadDocument(documentId: any) {
+    this.clientsService.downloadFile(this.entityType,this.entityId, documentId).subscribe(res => {
       const url = window.URL.createObjectURL(res);
       window.open(url);
     });
   }
 
-  deleteDocument(documentId: string) {
-    this.clientsService.deleteClientDocument(this.entityId, documentId).subscribe(res => {});
+  deleteDocument(documentId: any) {
+    this.clientsService.deleteDocument(this.entityType,this.entityId, documentId).subscribe(res => {});
   }
 
-  uploadDocument(formData: FormData): any {
-    return this.clientsService.uploadClientDocument(this.entityId, formData);
+  uploadDocument(formData: any) {
+    return this.clientsService.createDocument(this.entityType,this.entityId, formData);
   }
 
 }

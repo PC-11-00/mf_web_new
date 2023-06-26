@@ -1,11 +1,12 @@
 /** Angular Imports */
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { CentersService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable, BehaviorSubject } from 'rxjs';
 
 /** Custom Services */
-import { CentersService } from './centers.service';
+// import { CentersService } from './centers.service';
 
 /**
  * Centers custom data source to implement server side filtering, pagination and sorting.
@@ -35,7 +36,7 @@ export class CentersDataSource implements DataSource<any> {
    */
   getCenters(filterBy: any, orderBy: string = '', sortOrder: string = '', pageIndex: number = 0, limit: number = 10, centerActive: boolean = true) {
     this.centersSubject.next([]);
-    this.centersService.getCenters(filterBy, orderBy, sortOrder, pageIndex * limit, limit)
+    this.centersService.retrieveAll23(filterBy.officeId,filterBy.staffId,filterBy.externalId,filterBy.name,filterBy.underHierarchy,true,pageIndex * limit,limit,orderBy,sortOrder)
       .subscribe((centers: any) => {
         centers.pageItems = (centerActive) ? (centers.pageItems.filter((center: any) => center.active)) : centers.pageItems;
         this.recordsSubject.next(centers.totalFilteredRecords);

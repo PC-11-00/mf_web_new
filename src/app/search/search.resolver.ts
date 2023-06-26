@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SearchService } from './search.service';
+import { SearchAPIService } from 'openapi/typescript_files';
 
 /**
  * Search Results data resolver.
@@ -17,7 +18,7 @@ export class SearchResolver implements Resolve<Object> {
   /**
    * @param {SearchService} searchService Notifications service.
    */
-  constructor(private searchService: SearchService) {}
+  constructor(private searchAPIService: SearchAPIService) {}
 
   /**
    * Returns the Search Resultsdata.
@@ -27,7 +28,7 @@ export class SearchResolver implements Resolve<Object> {
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const query = route.queryParams['query'];
     const resource = route.queryParams['resource'];
-    return this.searchService.getSearchResults(query, resource);
+    return this.searchAPIService.searchData(query, resource,false);
   }
 
 }

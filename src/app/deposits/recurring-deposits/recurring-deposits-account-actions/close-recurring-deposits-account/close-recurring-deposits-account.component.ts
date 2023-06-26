@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecurringDepositsService } from '../../recurring-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Close Recurring Deposits Account Component
@@ -27,7 +28,7 @@ export class CloseRecurringDepositsAccountComponent implements OnInit {
   /** Title */
   title: string;
   /** Account Id */
-  accountId: string;
+  accountId: any;
   /** Show payment details */
   showPaymentDetails = false;
   /** Minimum Date allowed. */
@@ -50,7 +51,7 @@ export class CloseRecurringDepositsAccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountService,
     private settingsService: SettingsService
   ) {
     this.route.data.subscribe((data: { recurringDepositsAccountActionData: any }) => {
@@ -112,7 +113,7 @@ export class CloseRecurringDepositsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.recurringDepositsService.executeRecurringDepositsAccountCommand(this.accountId, 'close', data).subscribe(() => {
+    this.recurringDepositsService.handleCommands5(this.accountId, data, 'close').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

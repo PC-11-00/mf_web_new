@@ -13,6 +13,7 @@ import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/conf
 import { TasksService } from '../../tasks.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { BatchAPIService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-reschedule-loan',
@@ -46,7 +47,7 @@ export class RescheduleLoanComponent implements OnInit {
     private dateUtils: Dates,
     private router: Router,
     private settingsService: SettingsService,
-    private tasksService: TasksService) {
+    private batchAPIService: BatchAPIService) {
     this.route.data.subscribe((data: { recheduleLoansData: any }) => {
       this.loans = data.recheduleLoansData;
       this.dataSource = new MatTableDataSource(this.loans);
@@ -112,7 +113,7 @@ export class RescheduleLoanComponent implements OnInit {
       const batchData = { requestId: reqId++, relativeUrl: url, method: 'POST', body: bodyData };
       this.batchRequests.push(batchData);
     });
-    this.tasksService.submitBatchData(this.batchRequests).subscribe((response: any) => {
+    this.batchAPIService.handleBatchRequests(this.batchRequests).subscribe((response: any) => {
       this.reload();
     });
   }

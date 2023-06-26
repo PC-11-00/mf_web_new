@@ -8,6 +8,7 @@ import { SystemService } from '../../system.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { AccountNumberFormatService } from 'openapi/typescript_files';
 
 /**
  * View Account Number Preference Component.
@@ -30,7 +31,7 @@ export class ViewAccountNumberPreferenceComponent implements OnInit {
    * @param {MatDialog} dialog Dialog reference.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private accountNumberFormatService: AccountNumberFormatService,
               private router: Router,
               private dialog: MatDialog) {
     this.route.data.subscribe((data: { accountNumberPreference: any }) => {
@@ -50,7 +51,7 @@ export class ViewAccountNumberPreferenceComponent implements OnInit {
     });
     deleteAccountNumberPreferenceDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.systemService.deleteAccountNumberPreference(this.accountNumberPreferenceData.id)
+        this.accountNumberFormatService._delete(this.accountNumberPreferenceData.id)
           .subscribe(() => {
             this.router.navigate(['/system/account-number-preferences']);
           });

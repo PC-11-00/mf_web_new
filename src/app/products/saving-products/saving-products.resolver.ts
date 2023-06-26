@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { SavingsProductService } from 'openapi/typescript_files';
 
 /**
  * Saving products data resolver.
@@ -18,14 +19,14 @@ export class SavingProductsResolver implements Resolve<Object> {
    *
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: SavingsProductService) {}
 
   /**
    * Returns the saving products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getSavingProducts();
+    return this.productsService.retrieveAll34();
   }
 
 }

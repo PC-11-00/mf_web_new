@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { RecurringDepositsService } from 'app/deposits/recurring-deposits/recurring-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 /**
  * Withdraw By Client Recurring Deposits Account Component
  */
@@ -35,7 +36,7 @@ export class WithdrawByClientRecurringDepositsAccountComponent implements OnInit
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
     private router: Router,
@@ -78,7 +79,7 @@ export class WithdrawByClientRecurringDepositsAccountComponent implements OnInit
       dateFormat,
       locale
     };
-    this.recurringDepositsService.executeRecurringDepositsAccountCommand(this.accountId, 'withdrawnByApplicant', data).subscribe(() => {
+    this.recurringDepositsService.handleCommands5(this.accountId, data, 'withdrawnByApplicant').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

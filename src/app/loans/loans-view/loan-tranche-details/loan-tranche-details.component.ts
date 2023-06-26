@@ -9,6 +9,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
 import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-base';
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
+import { LoanDisbursementDetailsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loan-tranche-details',
@@ -38,7 +39,7 @@ export class LoanTrancheDetailsComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
     public dialog: MatDialog,
-    private loanServices: LoansService,
+    private loanDisbursementDetailsService: LoanDisbursementDetailsService,
     private settingsService: SettingsService,
     private dateUtils: Dates) {
     this.route.parent.data.subscribe((data: { loanDetailsData: any }) => {
@@ -190,7 +191,7 @@ export class LoanTrancheDetailsComponent implements OnInit {
       }
     });
   }
-
+  payload: any;
   editDisbursementData() {
     const disbursementData: any = [];
     this.disbursementDataSource.forEach((item: any) => {
@@ -200,15 +201,15 @@ export class LoanTrancheDetailsComponent implements OnInit {
       });
     });
 
-    const payload = {
+    this.payload = {
       disbursementData: disbursementData,
       dateFormat: this.settingsService.dateFormat,
       locale: this.settingsService.language.code
     };
-    this.loanServices.editDisbursements(this.loanId, payload).toPromise()
-    .then(result => {
-      this.pristine = true;
-    });
+    this.loanDisbursementDetailsService.addAndDeleteDisbursementDetail(this.loanId, this.payload).toPromise()
+      .then(result => {
+        this.pristine = true;
+      });
   }
 
 }

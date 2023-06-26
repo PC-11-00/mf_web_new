@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
 /** Custom Services */
-import { GroupsService } from 'app/groups/groups.service';
+// import { GroupsService } from 'app/groups/groups.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { MeetingsService } from 'openapi/typescript_files';
 
 /** Custom Dialogs */
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
@@ -53,7 +54,7 @@ export class GroupAttendanceComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private dateUtils: Dates,
               private router: Router,
-              private groupsService: GroupsService,
+              private meetingsService: MeetingsService,
               public dialog: MatDialog,
               private settingsService: SettingsService) {
     this.route.data.subscribe(( data: { groupActionData: any }) => {
@@ -76,7 +77,7 @@ export class GroupAttendanceComponent implements OnInit {
    * Gets attendance type options based on calendar id.
    */
   getAttendanceOptions() {
-    this.groupsService.getMeetingsTemplate(this.groupData.id, this.groupData.collectionMeetingCalendar.id)
+    this.meetingsService.template11('groups',this.groupData.id, this.groupData.collectionMeetingCalendar.id)
       .subscribe((response: any) => {
         this.attendanceTypeOptions = response.attendanceTypeOptions;
       });
@@ -114,19 +115,20 @@ export class GroupAttendanceComponent implements OnInit {
   /**
    * Assigns Client Members Attendance
    */
+  data:any;
   submit() {
     // TODO: Update once language and date settings are setup
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
     const prevMeetingDate: Date = new Date(this.meetingDate.value);
-    const data = {
+    this.data = {
       meetingDate: this.dateUtils.formatDate(prevMeetingDate, dateFormat),
       calendarId: this.groupData.collectionMeetingCalendar.id,
       clientsAttendance: this.dataSource,
       dateFormat,
       locale
     };
-    this.groupsService.assignGroupAttendance(this.groupData.id, this.groupData.collectionMeetingCalendar.id, data).subscribe(() => {
+    this.meetingsService.createMeeting('groups',this.groupData.id, this.data).subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

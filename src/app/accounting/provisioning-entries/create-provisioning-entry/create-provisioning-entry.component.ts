@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AccountingService } from '../../accounting.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ProvisioningEntriesService } from 'openapi/typescript_files';
 /**
  * Create provisioning entry component.
  */
@@ -32,7 +33,7 @@ export class CreateProvisioningEntryComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-    private accountingService: AccountingService,
+    private accountingService: ProvisioningEntriesService,
     private settingsService: SettingsService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
@@ -68,7 +69,7 @@ export class CreateProvisioningEntryComponent implements OnInit {
     if (provisioningEntry.date instanceof Date) {
       provisioningEntry.date = this.dateUtils.formatDate(provisioningEntry.date, this.settingsService.dateFormat);
     }
-    this.accountingService.createProvisioningEntry(provisioningEntry)
+    this.accountingService.createProvisioningEntries(provisioningEntry)
       .subscribe((response: any) => {
         this.router.navigate(['../view', response.resourceId], { relativeTo: this.route });
       });

@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { LoansService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
+// import { LoansService } from '../loans.service';
 
 /**
  * GLIM Account data resolver.
@@ -24,10 +25,11 @@ export class GLIMViewResolver implements Resolve<Object> {
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  glimId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const groupId = route.paramMap.get('groupId');
-    const glimId = route.paramMap.get('glimId');
-    return this.loansService.getGLIMAccountData(glimId, groupId);
+    this.glimId = route.paramMap.get('glimId');
+    return this.loansService.getGlimRepaymentTemplate(this.glimId);
   }
 
 }

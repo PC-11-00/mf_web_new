@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+import { ProductMixService } from 'openapi/typescript_files';
 
 /**
  * Edit Product mix component.
@@ -33,7 +34,7 @@ export class EditProductMixComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-    private productsService: ProductsService,
+    private productsService: ProductMixService,
     private route: ActivatedRoute,
     private router: Router) {
     this.route.data.subscribe((data: { productMix: any }) => {
@@ -72,12 +73,14 @@ export class EditProductMixComponent implements OnInit {
    * Submits the product mix form and edits product mix,
    * if successful redirects to products mix.
    */
+  productMixId:any;
+  productMix:any;
   submit() {
-    const productMix = {
+    this.productMix = {
       restrictedProducts: this.productMixForm.value.restrictedProducts
     };
-    const productMixId = this.productMixData.productId;
-    this.productsService.updateProductMix(productMix, productMixId).subscribe((response: any) => {
+    this.productMixId = this.productMixData.productId;
+    this.productsService.updateProductMix(this.productMixId,this.productMix).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

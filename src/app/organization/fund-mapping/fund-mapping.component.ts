@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrganizationService } from '../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { SearchAPIService } from 'openapi/typescript_files';
 
 /**
  * Fund Mapping Component.
@@ -51,7 +52,7 @@ export class FundMappingComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: SearchAPIService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private dateUtils: Dates) {
@@ -166,7 +167,7 @@ export class FundMappingComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.retrieveAdvanceSearchResults(data).subscribe((response: any) => {
+    this.organizationService.advancedSearch(data).subscribe((response: any) => {
       this.setLoans(response);
     });
   }

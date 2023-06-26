@@ -6,8 +6,8 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
-
+// import { LoansService } from '../loans.service';
+import { LoansService } from 'openapi/typescript_files';
 /**
  * GLIM Loan template data resolver.
  */
@@ -22,8 +22,9 @@ export class GLIMLoanTemplateResolver implements Resolve<Object> {
      * Returns the loan account template data.
      * @returns {Observable<any>}
      */
+    groupId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const groupId = route.paramMap.get('groupId');
-        return this.loansService.getGLIMLoanAccountTemplate(groupId);
+        this.groupId = route.paramMap.get('groupId');
+        return this.loansService.template10(null,this.groupId,null,'jlgbulk');
     }
 }

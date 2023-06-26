@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CollectionsService } from '../collections.service';
+import { OfficesService } from 'openapi/typescript_files';
 
 /**
  * Returns all the offices data.
@@ -17,14 +18,14 @@ export class GetOfficesResolver implements Resolve<Object> {
     /**
      * @param {CollectionsService} CollectionsService Collections service.
      */
-    constructor(private collectionsService: CollectionsService) { }
+    constructor(private collectionsService: OfficesService) { }
 
     /**
      * Returns the Collection Office Data.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.collectionsService.getOffices();
+        return this.collectionsService.retrieveOffices();
     }
 
 }

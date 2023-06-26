@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'app/products/products.service';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { DelinquencyRangeAndBucketsManagementService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-view-range',
@@ -17,7 +18,7 @@ export class ViewRangeComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private productsService: ProductsService) {
+    private productsService: DelinquencyRangeAndBucketsManagementService) {
     this.route.data.subscribe((data: { delinquencyRange: any }) => {
       this.delinquencyRangeData = data.delinquencyRange;
     });
@@ -32,7 +33,7 @@ export class ViewRangeComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.productsService.deleteDelinquencyRange(this.delinquencyRangeData.id).subscribe(() => {
+        this.productsService.deleteDelinquencyRange(this.delinquencyRangeData.id,this.delinquencyRangeData.name).subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }

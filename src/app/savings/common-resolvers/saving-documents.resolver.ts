@@ -5,23 +5,25 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SavingsService } from '../savings.service';
+import { DocumentsService } from 'openapi/typescript_files';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SavingDocumentsResolver implements Resolve<boolean> {
 
-    /**
-     * @param {SavingsService} savingsService Savings service.
-     */
-    constructor(private savingsService: SavingsService) { }
+  /**
+   * @param {SavingsService} savingsService Savings service.
+   */
+  constructor(private documentsService: DocumentsService) { }
 
-    /**
-     * Returns the Savings data.
-     * @returns {Observable<any>}
-     */
-    resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const savingAccountId = route.parent.paramMap.get('savingAccountId');
-        return this.savingsService.getSavingsDocuments(savingAccountId);
-    }
+  /**
+   * Returns the Savings data.
+   * @returns {Observable<any>}
+   */
+  savingAccountId: any;
+  resolve(route: ActivatedRouteSnapshot): Observable<any> {
+    this.savingAccountId = route.parent.paramMap.get('savingAccountId');
+    return this.documentsService.retrieveAllDocuments('savings', this.savingAccountId);
+  }
 }

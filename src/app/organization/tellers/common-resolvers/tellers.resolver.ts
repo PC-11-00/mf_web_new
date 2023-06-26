@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * Tellers data resolver.
@@ -17,14 +18,14 @@ export class TellersResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: TellerCashManagementService) {}
 
   /**
    * Returns the Tellers data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getTellers();
+    return this.organizationService.getTellerData();
   }
 
 }

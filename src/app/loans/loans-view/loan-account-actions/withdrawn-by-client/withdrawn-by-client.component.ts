@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoansService } from 'openapi/typescript_files';
 
 /**
  * Withdrawn By Applicant Loan Form
@@ -20,7 +21,7 @@ export class WithdrawnByClientComponent implements OnInit {
 
   @Input() dataObject: any;
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   /** Minimum Date allowed. */
   minDate = new Date(2000, 0, 1);
   /** Maximum Date allowed. */
@@ -77,7 +78,7 @@ export class WithdrawnByClientComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loanService.loanActionButtons(this.loanId, 'withdrawnByApplicant', data)
+    this.loanService.stateTransitions(this.loanId, data, 'withdrawnByApplicant')
       .subscribe((response: any) => {
         this.router.navigate(['../../general'], { relativeTo: this.route });
       });

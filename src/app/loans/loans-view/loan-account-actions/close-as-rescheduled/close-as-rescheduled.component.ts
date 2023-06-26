@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-close-as-rescheduled',
@@ -33,7 +34,7 @@ export class CloseAsRescheduledComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanService: LoanTransactionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
@@ -76,7 +77,7 @@ export class CloseAsRescheduledComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loanService.submitLoanActionButton(this.loanId, data, 'close-rescheduled')
+    this.loanService.executeLoanTransaction(this.loanId, data, 'close-rescheduled')
       .subscribe((response: any) => {
         this.router.navigate(['../../general'], { relativeTo: this.route });
     });

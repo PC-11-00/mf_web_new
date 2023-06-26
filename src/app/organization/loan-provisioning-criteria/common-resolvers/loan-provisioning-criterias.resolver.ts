@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { ProvisioningCriteriaService } from 'openapi/typescript_files';
 
 /**
  * Charges data resolver.
@@ -17,14 +18,14 @@ export class LoanProvisioningCriteriasResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Products service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: ProvisioningCriteriaService) {}
 
   /**
    * Returns the products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getProvisioningCriterias();
+    return this.organizationService.retrieveAllProvisioningCriterias();
   }
 
 }

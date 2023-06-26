@@ -6,7 +6,8 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
+// import { LoansService } from '../loans.service';
+import { LoanChargesService } from 'openapi/typescript_files';
 
 /**
  * Loans Account Charge data resolver.
@@ -17,17 +18,19 @@ export class LoansAccountChargeResolver implements Resolve<Object> {
     /**
      * @param {LoansService} LoansService Loans service.
      */
-    constructor(private loansService: LoansService) { }
+    constructor(private loanChargesService: LoanChargesService) { }
 
     /**
      * Returns the Loans Account Charge data.
      * @param {ActivatedRouteSnapshot} route Route Snapshot
      * @returns {Observable<any>}
      */
+    loanId:any;
+    chargeId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-      const loanId = route.paramMap.get('loanId');
-      const chargeId = route.paramMap.get('id');
-      return this.loansService.getLoansAccountCharge(loanId, chargeId);
+      this.loanId = route.paramMap.get('loanId');
+      this.chargeId = route.paramMap.get('id');
+      return this.loanChargesService.retrieveLoanCharge(this.loanId, this.chargeId);
     }
 
 }

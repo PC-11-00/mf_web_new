@@ -11,6 +11,7 @@ import { startWith, map, debounceTime, distinctUntilChanged, tap } from 'rxjs/op
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { ProvisioningEntriesService } from 'openapi/typescript_files';
 
 /**
  * View provisioning entry component.
@@ -23,7 +24,7 @@ import { AccountingService } from '../../accounting.service';
 export class ViewProvisioningEntryComponent implements OnInit, AfterViewInit {
 
   /** Provisioning entry id. */
-  provisioningEntryId: string;
+  provisioningEntryId: any;
   /** Provisioning entry. */
   provisioningEntry: any;
   /** Provisioning entry entries. */
@@ -69,7 +70,7 @@ export class ViewProvisioningEntryComponent implements OnInit, AfterViewInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {Router} router Router for navigation.
    */
-  constructor(private accountingService: AccountingService,
+  constructor(private accountingService: ProvisioningEntriesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: {
@@ -238,7 +239,7 @@ export class ViewProvisioningEntryComponent implements OnInit, AfterViewInit {
    * and redirects to created entries.
    */
   createProvisioningJournalEntries() {
-    this.accountingService.createProvisioningJournalEntries(this.provisioningEntryId)
+    this.accountingService.createProvisioningEntries(this.provisioningEntryId)
       .subscribe((response: any) => {
         this.router.navigate(['../../journal-entries/view', response.resourceId], { relativeTo: this.route });
       });

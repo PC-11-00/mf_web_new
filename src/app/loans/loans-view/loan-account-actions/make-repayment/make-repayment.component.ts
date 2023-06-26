@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Loan Make Repayment Component
@@ -20,7 +21,7 @@ export class MakeRepaymentComponent implements OnInit, OnDestroy {
 
   @Input() dataObject: any;
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   /** Payment Type Options */
   paymentTypes: any;
   /** Show payment details */
@@ -40,7 +41,7 @@ export class MakeRepaymentComponent implements OnInit, OnDestroy {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanTransactionsService: LoanTransactionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
@@ -117,7 +118,7 @@ export class MakeRepaymentComponent implements OnInit, OnDestroy {
       locale
     };
     const command = this.dataObject.type.code.split('.')[1];
-    this.loanService.submitLoanActionButton(this.loanId, data, command)
+    this.loanTransactionsService.executeLoanTransaction(this.loanId, data, command)
       .subscribe((response: any) => {
         this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });

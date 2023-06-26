@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { ProvisioningCriteriaService } from 'openapi/typescript_files';
 
 /**
  * Provisioning criteria and template resolver.
@@ -17,15 +18,16 @@ export class LoanProvisioningCriteriaAndTemplateResolver implements Resolve<Obje
   /**
    * @param {OrganizationService} organizationService Products service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: ProvisioningCriteriaService) {}
 
   /**
    * Returns the Pprovisioning criteria and template data.
    * @returns {Observable<any>}
    */
+  provisioningId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const provisioningId = route.paramMap.get('id');
-    return this.organizationService.getProvisioningCriteria(provisioningId, true);
+    this.provisioningId = route.paramMap.get('id');
+    return this.organizationService.retrieveProvisioningCriteria(this.provisioningId);
   }
 
 }

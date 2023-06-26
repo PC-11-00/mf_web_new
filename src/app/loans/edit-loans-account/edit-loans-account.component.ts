@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoansService } from '../loans.service';
+// import { LoansService } from '../loans.service';
 import { LoansAccountDetailsStepComponent } from '../loans-account-stepper/loans-account-details-step/loans-account-details-step.component';
 import { LoansAccountTermsStepComponent } from '../loans-account-stepper/loans-account-terms-step/loans-account-terms-step.component';
 import { LoansAccountChargesStepComponent } from '../loans-account-stepper/loans-account-charges-step/loans-account-charges-step.component';
@@ -8,6 +8,7 @@ import { LoansAccountChargesStepComponent } from '../loans-account-stepper/loans
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoansService } from 'openapi/typescript_files';
 
 /**
  * Edit Loans
@@ -64,7 +65,7 @@ export class EditLoansAccountComponent implements OnInit {
     this.loansAccountProductTemplate = $event;
     this.currencyCode = this.loansAccountProductTemplate.currency.code;
     if (this.loansAccountProductTemplate.loanProductId) {
-      this.loansService.getLoansCollateralTemplateResource(this.loansAccountProductTemplate.loanProductId).subscribe((response: any) => {
+      this.loansService.template10(null,null,this.loansAccountProductTemplate.loanProductId,'collateral').subscribe((response: any) => {
         this.collateralOptions = response.loanCollateralOptions;
       });
     }
@@ -155,7 +156,7 @@ export class EditLoansAccountComponent implements OnInit {
     }
     loansAccountData.principal = loansAccountData.principalAmount;
     delete loansAccountData.principalAmount;
-    this.loansService.updateLoansAccount(this.loanId, loansAccountData).subscribe((response: any) => {
+    this.loansService.modifyLoanApplication(this.loanId, loansAccountData).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

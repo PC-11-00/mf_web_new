@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services. */
 import { LoansService } from 'app/loans/loans.service';
+import { LoanCollateralService } from 'openapi/typescript_files';
 
 /**
  * Add Collateral component.
@@ -33,7 +34,7 @@ export class AddCollateralComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute,
-              private loanService: LoansService ) { }
+              private loanCollateralService: LoanCollateralService ) { }
 
   ngOnInit() {
     this.createAddCollateralForm();
@@ -61,7 +62,7 @@ export class AddCollateralComponent implements OnInit {
     const loanId = this.route.snapshot.params['loanId'];
     const collateralForm = this.collateralForm.value;
     collateralForm.locale = 'en';
-    this.loanService.createLoanCollateral(loanId, collateralForm).subscribe((response: any) => {
+    this.loanCollateralService.createCollateral(loanId, collateralForm).subscribe((response: any) => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

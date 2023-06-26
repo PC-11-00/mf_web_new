@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationService } from 'app/organization/organization.service';
+import { FundsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-edit-fund',
@@ -22,7 +23,7 @@ export class EditFundComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {Router} router Router for navigation.
    */
-  constructor(private organizationService: OrganizationService,
+  constructor(private organizationService: FundsService,
               private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute) {
@@ -48,7 +49,7 @@ export class EditFundComponent implements OnInit {
 
   submit() {
     const payload = this.fundForm.getRawValue();
-    this.organizationService.editFund(this.fundData.id.toString(), payload)
+    this.organizationService.updateFund(this.fundData.id.toString(), payload)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

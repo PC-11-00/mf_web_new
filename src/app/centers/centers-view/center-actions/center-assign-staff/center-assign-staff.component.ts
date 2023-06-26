@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { CentersService } from 'app/centers/centers.service';
-
+// import { CentersService } from 'app/centers/centers.service';
+import { CentersService, GroupsService } from 'openapi/typescript_files';
 /**
  * Centers Assign Staff Component
  */
@@ -31,7 +31,7 @@ export class CenterAssignStaffComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private centersService: CentersService,
+              private centersService: GroupsService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { centersActionData: any }) => {
@@ -60,7 +60,7 @@ export class CenterAssignStaffComponent implements OnInit {
    * Submits the form and assigns staff for the center.
    */
   submit() {
-    this.centersService.executeGroupActionCommand(this.centerData.id, 'assignStaff', this.centerAssignStaffForm.value)
+    this.centersService.activateOrGenerateCollectionSheet(this.centerData.id, this.centerAssignStaffForm.value,'assignStaff')
       .subscribe(() => {
         this.router.navigate(['../../'], { relativeTo: this.route });
       });

@@ -4,10 +4,11 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
-import { GroupsService } from '../groups.service';
-import { ClientsService } from '../../clients/clients.service';
+// import { GroupsService } from '../groups.service';
+// import { ClientsService } from '../../clients/clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ClientService, GroupsService } from 'openapi/typescript_files';
 
 /**
  * Create Group component.
@@ -49,7 +50,7 @@ export class CreateGroupComponent implements OnInit, AfterViewInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private groupService: GroupsService,
               private dateUtils: Dates,
               private settingsService: SettingsService) {
@@ -72,7 +73,7 @@ export class CreateGroupComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.clientChoice.valueChanges.subscribe( (value: string) => {
       if (value.length >= 2) {
-        this.clientsService.getFilteredClients('displayName', 'ASC', true, value, this.groupForm.get('officeId').value)
+        this.clientsService.retrieveAll21(null, this.groupForm.get('officeId').value,null,value,null,null,null,null,null,null,'displayName', 'ASC', true)
         .subscribe( (data: any) => {
           this.clientsData = data.pageItems;
         });
@@ -101,7 +102,7 @@ export class CreateGroupComponent implements OnInit, AfterViewInit {
    */
   buildDependencies() {
     this.groupForm.get('officeId').valueChanges.subscribe((option: any) => {
-      this.groupService.getStaff(option).subscribe(data => {
+      this.groupService.retrieveTemplate7(option,null,null,null,true).subscribe(data => {
         this.staffData = data['staffOptions'];
         if (this.staffData === undefined) {
           this.groupForm.controls['staffId'].disable();
@@ -168,7 +169,7 @@ export class CreateGroupComponent implements OnInit, AfterViewInit {
     };
     data.clientMembers = [];
     this.clientMembers.forEach((client: any) => data.clientMembers.push(client.id));
-    this.groupService.createGroup(data).subscribe((response: any) => {
+    this.groupService.create8(data).subscribe((response: any) => {
       this.router.navigate(['../groups', response.resourceId, 'general']);
     });
   }

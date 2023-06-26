@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
 
 /** Custom Services. */
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoansService } from 'openapi/typescript_files';
 
 /**
  * Approve Loan component.
@@ -52,7 +53,7 @@ export class ApproveLoanComponent implements OnInit {
 
   ngOnInit() {
     this.setApproveLoanForm();
-    this.loanService.getApproveAssociationsDetails(this.loanId).subscribe((response: any) => {
+    this.loanService.retrieveLoan(this.loanId,null,'multiDisburseDetails').subscribe((response: any) => {
       this.associationData = response;
       this.approveLoanForm.patchValue({
         'expectedDisbursementDate': new Date(response.timeline.expectedDisbursementDate)
@@ -92,7 +93,7 @@ export class ApproveLoanComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loanService.loanActionButtons(this.loanId, 'approve', data).subscribe((response: any) => {
+    this.loanService.stateTransitions(this.loanId, data, 'approve').subscribe((response: any) => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

@@ -11,6 +11,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
+import { ClientsAddressService } from 'openapi/typescript_files';
 
 /**
  * Clients Address Tab Component
@@ -29,7 +30,7 @@ export class AddressTabComponent {
   /** Client Address Template */
   clientAddressTemplate: any;
   /** Client Id */
-  clientId: string;
+  clientId: any;
 
   /**
    * @param {ActivatedRoute} route Activated Route
@@ -37,7 +38,7 @@ export class AddressTabComponent {
    * @param {MatDialog} dialog Mat Dialog
    */
   constructor(private route: ActivatedRoute,
-              private clientService: ClientsService,
+              private clientService: ClientsAddressService,
               private dialog: MatDialog) {
     this.route.data.subscribe((data: {
       clientAddressData: any,
@@ -63,7 +64,7 @@ export class AddressTabComponent {
     addAddressDialogRef.afterClosed().subscribe((response: any) => {
       if (response.data) {
         console.log(response.data);
-        this.clientService.createClientAddress(this.clientId, response.data.value.addressType, response.data.value).subscribe((res: any) => {
+        this.clientService.addClientAddress(this.clientId, response.data.value, response.data.value.addressType).subscribe((res: any) => {
           const addressData = response.data.value;
           addressData.addressId = res.resourceId;
           addressData.addressType = this.getSelectedValue('addressTypeIdOptions', addressData.addressType).name;
@@ -93,7 +94,7 @@ export class AddressTabComponent {
         const addressData = response.data.value;
         addressData.addressId = address.addressId;
         addressData.isActive = address.isActive;
-        this.clientService.editClientAddress(this.clientId, address.addressTypeId, addressData).subscribe((res: any) => {
+        this.clientService.updateClientAddress(this.clientId, address.addressTypeId, addressData).subscribe((res: any) => {
           addressData.addressTypeId = address.addressTypeId;
           addressData.addressType = address.addressType;
           this.clientAddressData[index] = addressData;
@@ -106,12 +107,13 @@ export class AddressTabComponent {
    * Toggles address activity.
    * @param {any} address Client Address
    */
+  addressData:any;
   toggleAddress(address: any) {
-    const addressData = {
+    this.addressData = {
       'addressId': address.addressId,
       'isActive': address.isActive ? false : true
     };
-    this.clientService.editClientAddress(this.clientId, address.addressTypeId, addressData).subscribe(() => {
+    this.clientService.updateClientAddress(this.clientId, address.addressTypeId, this.addressData).subscribe(() => {
       address.isActive = address.isActive ? false : true;
     });
   }

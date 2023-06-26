@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { RecurringDepositsService } from '../../recurring-deposits.service';
+import { RecurringDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Undo Approval Recurring Deposits Account Component
@@ -28,7 +29,7 @@ export class UndoApprovalRecurringDepositsAccountComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-    private recurringDepositsService: RecurringDepositsService,
+    private recurringDepositsService: RecurringDepositAccountService,
     private route: ActivatedRoute,
     private router: Router) {
     this.accountId = this.route.parent.snapshot.params['recurringDepositAccountId'];
@@ -58,7 +59,7 @@ export class UndoApprovalRecurringDepositsAccountComponent implements OnInit {
     const data = {
       ...this.undoApprovalRecurringDepositsAccountForm.value,
     };
-    this.recurringDepositsService.executeRecurringDepositsAccountCommand(this.accountId, 'undoapproval', data).subscribe(() => {
+    this.recurringDepositsService.handleCommands5(this.accountId, data, 'undoapproval').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

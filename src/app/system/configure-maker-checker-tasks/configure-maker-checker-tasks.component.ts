@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { PopoverService } from '../../configuration-wizard/popover/popover.service';
 import { ConfigurationWizardService } from '../../configuration-wizard/configuration-wizard.service';
 import { SystemService } from '../system.service';
+import { PermissionsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-configure-maker-checker-tasks',
@@ -52,7 +53,7 @@ export class ConfigureMakerCheckerTasksComponent implements OnInit, AfterViewIni
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor(private route: ActivatedRoute,
-    private systemService: SystemService,
+    private permissionsService: PermissionsService,
     private formBuilder: FormBuilder,
     private router: Router,
     private configurationWizardService: ConfigurationWizardService,
@@ -180,7 +181,7 @@ export class ConfigureMakerCheckerTasksComponent implements OnInit, AfterViewIni
     this.formGroup.controls.roster.disable();
     this.checkboxesChanged = false;
     this.isDisabled = true;
-    this.systemService.updateMakerCheckerPermission(permissionData).subscribe((response: any) => {
+    this.permissionsService.updatePermissionsDetails(permissionData).subscribe((response: any) => {
     });
   }
 

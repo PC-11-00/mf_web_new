@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsChargesService } from 'openapi/typescript_files';
 
 /**
  * Add Recurring Deposits Charge component.
@@ -28,7 +29,7 @@ export class AddChargeRecurringDepositsAccountComponent implements OnInit {
   /** savings charge options. */
   savingsChargeOptions: any;
   /** savings Id of the savings account. */
-  recurringDepositAccountId: string;
+  recurringDepositAccountId: any;
   /** charge details */
   chargeDetails: any;
 
@@ -45,7 +46,7 @@ export class AddChargeRecurringDepositsAccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private savingsService: SavingsService,
+    private savingsService: SavingsChargesService,
     private settingsService: SettingsService
   ) {
     this.route.data.subscribe((data: { recurringDepositsAccountActionData: any }) => {
@@ -65,7 +66,7 @@ export class AddChargeRecurringDepositsAccountComponent implements OnInit {
 
   buildDependencies() {
     this.recurringDepositsChargeForm.controls.chargeId.valueChanges.subscribe(chargeId => {
-      this.savingsService.getChargeTemplate(chargeId).subscribe((data: any) => {
+      this.savingsService.retrieveTemplate18(chargeId).subscribe((data: any) => {
         this.chargeDetails = data;
         const chargeTimeType = data.chargeTimeType.id;
         if (data.chargeTimeType.value === 'Withdrawal Fee' || data.chargeTimeType.value === 'Saving No Activity Fee') {
@@ -136,7 +137,7 @@ export class AddChargeRecurringDepositsAccountComponent implements OnInit {
         }
       }
     }
-    this.savingsService.createSavingsCharge(this.recurringDepositAccountId, 'charges', savingsCharge).subscribe(() => {
+    this.savingsService.addSavingsAccountCharge(this.recurringDepositAccountId, savingsCharge).subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

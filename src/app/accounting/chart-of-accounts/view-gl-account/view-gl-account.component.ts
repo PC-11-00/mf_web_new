@@ -8,6 +8,7 @@ import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dial
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { GeneralLedgerAccountService } from 'openapi/typescript_files';
 
 /**
  * View gl account component.
@@ -29,7 +30,7 @@ export class ViewGlAccountComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private accountingService: AccountingService,
+  constructor(private accountingService: GeneralLedgerAccountService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {
@@ -50,7 +51,7 @@ export class ViewGlAccountComponent implements OnInit {
     });
     deleteGlAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.accountingService.deleteGlAccount(this.glAccount.id)
+        this.accountingService.deleteGLAccount1(this.glAccount.id)
           .subscribe(() => {
             this.router.navigate(['/accounting/chart-of-accounts']);
           });
@@ -62,7 +63,7 @@ export class ViewGlAccountComponent implements OnInit {
    * Changes state of gl account. (enabled/disabled)
    */
   changeGlAccountState() {
-    this.accountingService.updateGlAccount(this.glAccount.id, { disabled: !this.glAccount.disabled })
+    this.accountingService.updateGLAccount1(this.glAccount.id, { disabled: !this.glAccount.disabled })
       .subscribe((response: any) => {
         this.glAccount.disabled = response.changes.disabled;
       });

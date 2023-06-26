@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
+import { ExternalServicesService } from 'openapi/typescript_files';
 
 /**
  * Edit Amazon S3 Component.
@@ -33,7 +34,7 @@ export class EditAmazonS3Component implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private externalServicesService: ExternalServicesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { amazonS3Configuration: any }) => {
@@ -66,8 +67,8 @@ export class EditAmazonS3Component implements OnInit {
    * if successful redirects to view Amazon S3 configuration.
    */
   submit() {
-    this.systemService
-      .updateExternalConfiguration('S3', this.amazonS3ConfigurationForm.value)
+    this.externalServicesService
+      .updateExternalServiceProperties('S3', this.amazonS3ConfigurationForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

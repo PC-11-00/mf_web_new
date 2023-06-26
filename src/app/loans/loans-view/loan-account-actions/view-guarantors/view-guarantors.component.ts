@@ -10,6 +10,7 @@ import { LoansService } from 'app/loans/loans.service';
 /** Dialog Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { LoansAccountViewGuarantorDetailsDialogComponent } from 'app/loans/custom-dialog/loans-account-view-guarantor-details-dialog/loans-account-view-guarantor-details-dialog.component';
+import { GuarantorsService } from 'openapi/typescript_files';
 
 /**
  * View Guarantors Action
@@ -34,7 +35,7 @@ export class ViewGuarantorsComponent implements OnInit {
    * @param {router} Router Router
    */
   constructor(public dialog: MatDialog,
-              public loansService: LoansService,
+              public guarantorsService: GuarantorsService,
               private route: ActivatedRoute,
               private router: Router) {
     this.loanId = this.route.snapshot.params['loanId'];
@@ -54,7 +55,7 @@ export class ViewGuarantorsComponent implements OnInit {
     });
     deleteGuarantorDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.loansService.deleteGuarantor(this.loanId, id).subscribe(() => {
+        this.guarantorsService.deleteGuarantor(this.loanId, id).subscribe(() => {
           this.reload();
         });
       }

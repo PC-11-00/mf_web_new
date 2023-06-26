@@ -10,6 +10,7 @@ import { SettingsService } from 'app/settings/settings.service';
 /** Custom Dialogs */
 import { RecurringDepositConfirmationDialogComponent } from '../../custom-dialogs/recurring-deposit-confirmation-dialog/recurring-deposit-confirmation-dialog.component';
 import { Dates } from 'app/core/utils/dates';
+import { RecurringDepositAccountTransactionsService } from 'openapi/typescript_files';
 
 /**
  * View Transaction Component.
@@ -34,7 +35,7 @@ export class ViewTransactionComponent {
    * @param {Dates} dateUtils Date Utils.
    * @param {SettingsService} settingsService Settings Service
    */
-  constructor(private recurringDepositsService: RecurringDepositsService,
+  constructor(private recurringDepositsService:RecurringDepositAccountTransactionsService,
     private route: ActivatedRoute,
     private dateUtils: Dates,
     private router: Router,
@@ -61,7 +62,7 @@ export class ViewTransactionComponent {
           dateFormat,
           locale
         };
-        this.recurringDepositsService.executeRecurringDepositsAccountTransactionsCommand(accountId, 'undo', data, this.transactionData.id).subscribe(() => {
+        this.recurringDepositsService.handleTransactionCommands(accountId, this.transactionData.id, data, 'undo').subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }

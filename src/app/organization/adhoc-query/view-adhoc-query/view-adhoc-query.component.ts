@@ -8,6 +8,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { AdhocQueryApiService } from 'openapi/typescript_files';
 
 /**
  * View Adhoc Query Component.
@@ -29,7 +30,7 @@ export class ViewAdhocQueryComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: OrganizationService,
+  constructor(private organizationService: AdhocQueryApiService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
@@ -62,7 +63,7 @@ export class ViewAdhocQueryComponent implements OnInit {
     });
     deleteAdhocQueryDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteAdhocQuery(this.adhocQueryData.id)
+        this.organizationService.deleteAdHocQuery(this.adhocQueryData.id)
         .subscribe(() => {
           this.router.navigate(['/organization/adhoc-query']);
         });

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { ClientFamilyMemberService } from 'openapi/typescript_files';
 
 /**
  * Client Family Member resolver.
@@ -17,16 +18,18 @@ export class ClientFamilyMemberResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: ClientFamilyMemberService) { }
 
     /**
      * Returns the Clients data.
      * @returns {Observable<any>}
      */
+    clientId:any;
+    familyMemberId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.parent.parent.paramMap.get('clientId');
-        const familyMemberId = route.parent.paramMap.get('familyMemberId');
-        return this.clientsService.getClientFamilyMember(clientId, familyMemberId);
+        this.clientId = route.parent.parent.parent.paramMap.get('clientId');
+        this.familyMemberId = route.parent.paramMap.get('familyMemberId');
+        return this.clientsService.getFamilyMember(this.familyMemberId,this.clientId);
     }
 
 }

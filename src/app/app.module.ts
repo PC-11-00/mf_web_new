@@ -49,7 +49,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const configurationFactory = () =>{
   const configParams: ConfigurationParameters = {
-    basePath: 'https://localhost:8443/fineract-provider/api/v1',
+    basePath: 'https://webapp.ps.mifos.io/fineract-provider/api/v1',
   };
   return new Configuration(configParams);
 }

@@ -21,6 +21,7 @@ import { ContinueSetupDialogComponent } from '../../configuration-wizard/continu
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { FundsService } from 'openapi/typescript_files';
 
 /**
  * Manage Funds component.
@@ -65,7 +66,7 @@ export class ManageFundsComponent implements OnInit, AfterViewInit {
    */
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private organizationservice: OrganizationService,
+              private organizationservice: FundsService,
               public dialog: MatDialog,
               private router: Router,
               private configurationWizardService: ConfigurationWizardService,
@@ -123,7 +124,7 @@ export class ManageFundsComponent implements OnInit, AfterViewInit {
    * @param {string} fundContent Fund's content.
    * @param {number} index  Index of fund.
    */
-  editFund(fundId: string, fundContent: string, index: number) {
+  editFund(fundId: any, fundContent: string, index: number) {
     const formfields: FormfieldBase[] = [
       new InputBase({
         controlName: 'name',
@@ -141,7 +142,7 @@ export class ManageFundsComponent implements OnInit, AfterViewInit {
     const editFundDialogRef = this.dialog.open(FormDialogComponent, { data });
     editFundDialogRef.afterClosed().subscribe((response: any) => {
       if (response.data) {
-        this.organizationservice.editFund(fundId, response.data.value).subscribe(() => {
+        this.organizationservice.updateFund(fundId, response.data.value).subscribe(() => {
           this.fundsData[index].name = response.data.value.name;
         });
       }

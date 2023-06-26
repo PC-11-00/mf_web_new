@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * Allocate Cash component.
@@ -39,7 +40,7 @@ export class AllocateCashComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dateUtils: Dates,
-              private organizationService: OrganizationService,
+              private organizationService: TellerCashManagementService,
               private settingsService: SettingsService,
               private router: Router) {
     this.route.data.subscribe((data: { cashierTemplate: any}) => {
@@ -84,7 +85,7 @@ export class AllocateCashComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.allocateCash(this.cashierData.tellerId, this.cashierData.cashierId, data).subscribe((response: any) => {
+    this.organizationService.allocateCashToCashier(this.cashierData.tellerId, this.cashierData.cashierId, data).subscribe((response: any) => {
       this.router.navigate(['../'], {relativeTo: this.route});
     });
   }

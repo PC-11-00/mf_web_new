@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
-import { UsersService } from '../users.service';
+// import { UsersService } from '../users.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { ChangePasswordDialogComponent } from 'app/shared/change-password-dialog/change-password-dialog.component';
+import { UsersService } from 'openapi/typescript_files';
 
 /**
  * View user component.
@@ -51,7 +52,7 @@ export class ViewUserComponent implements OnInit {
     });
     deleteUserDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.usersService.deleteUser(this.userData.id)
+        this.usersService.delete22(this.userData.id)
           .subscribe(() => {
             this.router.navigate(['/users']);
           });
@@ -73,7 +74,7 @@ export class ViewUserComponent implements OnInit {
         const repeatPassword = response.repeatPassword;
         const firstname = this.userData.firstname;
         const data = {password: password, repeatPassword: repeatPassword, firstname: firstname};
-        this.usersService.changePassword(this.userData.id, data).subscribe(() => {
+        this.usersService.update25(this.userData.id, data).subscribe(() => {
           this.router.navigate(['/users']);
         });
       }

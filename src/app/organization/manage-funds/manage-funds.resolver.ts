@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { FundsService } from 'openapi/typescript_files';
 
 /**
  * Manage Funds data resolver.
@@ -17,14 +18,14 @@ export class ManageFundsResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: FundsService) {}
 
   /**
    * Returns the manage funds data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getFunds();
+    return this.organizationService.retrieveFunds();
   }
 
 }

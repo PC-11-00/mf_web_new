@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AccountTransfersService } from '../account-transfers.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * Create Standing Instructions
@@ -75,7 +76,7 @@ export class CreateStandingInstructionsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountTransfersService: AccountTransfersService,
+    private accountTransfersService: StandingInstructionsService,
     private settingsService: SettingsService,
     private dateUtils: Dates) {
     this.route.data.subscribe((data: { standingIntructionsTemplate: any }) => {
@@ -186,9 +187,10 @@ export class CreateStandingInstructionsComponent implements OnInit {
   }
 
   /** Executes on change of various select options */
+  formValue:any;
   changeEvent() {
-    const formValue = this.refineObject(this.createStandingInstructionsForm.value);
-    this.accountTransfersService.getStandingInstructionsTemplate(this.clientId, this.officeId, this.accountTypeId, formValue).subscribe((response: any) => {
+    this.formValue = this.refineObject(this.createStandingInstructionsForm.value);
+    this.accountTransfersService.template6(this.clientId, this.officeId, this.accountTypeId, this.formValue).subscribe((response: any) => {
       this.standingIntructionsTemplate = response;
       this.setOptions();
     });
@@ -227,7 +229,7 @@ export class CreateStandingInstructionsComponent implements OnInit {
     };
     delete standingInstructionData['destination'];
     delete standingInstructionData['applicant'];
-    this.accountTransfersService.createStandingInstructions(standingInstructionData).subscribe((response: any) => {
+    this.accountTransfersService.create5(standingInstructionData).subscribe((response: any) => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

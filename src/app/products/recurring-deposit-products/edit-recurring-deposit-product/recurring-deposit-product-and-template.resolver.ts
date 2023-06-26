@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+import { RecurringDepositProductService } from 'openapi/typescript_files';
 
 /**
  * Recurring Deposits Account Template resolver.
@@ -17,16 +18,17 @@ export class RecurringDepositProductAndTemplateResolver implements Resolve<Objec
     /**
      * @param {ProductsService} productsService Products service.
      */
-    constructor(private productsService: ProductsService) { }
+    constructor(private productsService: RecurringDepositProductService) { }
 
     /**
      * Returns the Recurring Deposits Product and Template.
      * @param {ActivatedRouteSnapshot} route Route Snapshot
      * @returns {Observable<any>}
      */
+    productId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-      const productId = route.parent.paramMap.get('productId');
-      return this.productsService.getRecurringDepositProductAndTemplate(productId);
+      this.productId = route.parent.paramMap.get('productId');
+      return this.productsService.retrieveOne23(this.productId);
     }
 
 }

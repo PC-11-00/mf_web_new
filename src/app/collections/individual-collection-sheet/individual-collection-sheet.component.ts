@@ -21,6 +21,7 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { CollectionSheetService, StaffService } from 'openapi/typescript_files';
 
 /**
  * Individual Collection Sheet
@@ -88,7 +89,8 @@ export class IndividualCollectionSheetComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private collectionsService: CollectionsService,
+              private staffService: StaffService,
+              private collectionSheetService: CollectionSheetService,
               private route: ActivatedRoute,
               private dateUtils: Dates,
               public dialog: MatDialog,
@@ -126,7 +128,7 @@ export class IndividualCollectionSheetComponent implements OnInit {
    */
   buildDependencies() {
     this.collectionSheetForm.get('officeId').valueChanges.subscribe((value: any) => {
-      this.collectionsService.getStaffs(value).subscribe((response: any) => {
+      this.staffService.retrieveAll16(value,false,false,'all').subscribe((response: any) => {
         this.loanOfficerData = response;
       });
     });
@@ -292,7 +294,7 @@ export class IndividualCollectionSheetComponent implements OnInit {
     if (collectionSheet.staffId === '') {
       delete collectionSheet.staffId;
     }
-    this.collectionsService.retrieveCollectionSheetData(collectionSheet).subscribe((response: any) => {
+    this.collectionSheetService.generateCollectionSheet(collectionSheet,'generateCollectionSheet').subscribe((response: any) => {
       if (response.clients.length > 0) {
         this.collectionSheetData = response;
         this.organizeData(response);
@@ -307,19 +309,20 @@ export class IndividualCollectionSheetComponent implements OnInit {
   /**
    * Submit the data with all the payments data
    */
+  finalSubmitData:any;
   submit() {
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
     this.bulkDisbursementTransactionsData['bulkRepaymentTransactions'] = this.bulkRepaymentTransactions;
     this.bulkDisbursementTransactionsData['bulkSavingsDueTransactions'] = this.bulkSavingsDueTransactions;
-    const finalSubmitData = {
+    this.finalSubmitData = {
       dateFormat,
       locale,
       actualDisbursementDate: this.dateUtils.formatDate(this.collectionSheetForm.value.transactionDate, dateFormat),
       transactionDate: this.dateUtils.formatDate(this.collectionSheetForm.value.transactionDate, dateFormat),
       bulkDisbursementTransactions: this.bulkDisbursementTransactionsData
     };
-    this.collectionsService.executeSaveCollectionSheet(finalSubmitData).subscribe(() => {
+    this.collectionSheetService.generateCollectionSheet(this.finalSubmitData,'saveCollectionSheet').subscribe(() => {
       this.reload();
       localStorage.setItem('Success', 'true');
     });

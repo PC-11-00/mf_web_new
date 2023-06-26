@@ -13,6 +13,7 @@ import { SystemService } from '../../system.service';
 /** Custom Components */
 import { AddEventDialogComponent } from '../add-event-dialog/add-event-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { HooksService } from 'openapi/typescript_files';
 
 /**
  * Edit Hook Component.
@@ -50,7 +51,7 @@ export class EditHookComponent implements OnInit {
    * @param {MatDialog} dialog Dialog Reference.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private hooksService: HooksService,
               private router: Router,
               private formBuilder: FormBuilder,
               private dialog: MatDialog) {
@@ -132,6 +133,7 @@ export class EditHookComponent implements OnInit {
    * Submits the hook form and updates hook,
    * if successful redirects to view updated hook.
    */
+  data:any;
   submit() {
     const hook: {
       name: string, isActive: boolean, displayName: string, events: any,
@@ -152,7 +154,8 @@ export class EditHookComponent implements OnInit {
         'SMS Provider Token': this.hookForm.get('smsProviderToken').enabled ? this.hookForm.get('smsProviderToken').value : undefined
       }
     };
-    this.systemService.updateHook(this.hookData.id, hook)
+    this.data = hook;
+    this.hooksService.updateHook(this.hookData.id, this.data)
       .subscribe((response: any) => {
         this.router.navigate(['../'], {relativeTo: this.route});
       });

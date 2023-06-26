@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { PaymentTypeService } from 'openapi/typescript_files';
 
 /**
  * Create Payment Type Component.
@@ -26,7 +27,7 @@ export class CreatePaymentTypeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: PaymentTypeService,
               private router: Router,
               private route: ActivatedRoute) {}
 

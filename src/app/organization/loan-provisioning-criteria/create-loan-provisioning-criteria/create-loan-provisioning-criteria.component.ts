@@ -16,6 +16,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { ProvisioningCriteriaService } from 'openapi/typescript_files';
 
 /**
  * Create Loan Provisioning Criteria Component.
@@ -60,7 +61,7 @@ export class CreateLoanProvisioningCriteriaComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: ProvisioningCriteriaService,
               private settingsService: SettingsService,
               private router: Router,
               public dialog: MatDialog,

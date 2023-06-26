@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
+import { SpmSurveysService } from 'openapi/typescript_files';
 
 /**
  * View Survey Component.
@@ -30,7 +31,7 @@ export class ViewSurveyComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private spmSurveysService: SpmSurveysService,
               private dialog: MatDialog,
               private router: Router) {
     this.route.data.subscribe((data: { survey: any }) => {

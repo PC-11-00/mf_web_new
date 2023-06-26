@@ -7,18 +7,19 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { FixedDepositProductService } from 'openapi/typescript_files';
 
 @Injectable()
 export class FixedDepositProductsTemplateResolver implements Resolve<Object> {
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: FixedDepositProductService) {}
 
   /**
    * Returns the fixed deposit products template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getFixedDepositProductsTemplate();
+    return this.productsService.retrieveTemplate15();
   }
 
 }

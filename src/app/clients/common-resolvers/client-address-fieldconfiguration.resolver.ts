@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { EntityFieldConfigurationService } from 'openapi/typescript_files';
 
 /**
  * Client Address Field Configuration resolver.
@@ -17,14 +18,14 @@ export class ClientAddressFieldConfigurationResolver implements Resolve<Object> 
     /**
      * @param {ClientsService} ClientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: EntityFieldConfigurationService) { }
 
     /**
      * Returns the Client Address Field Configuration.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.clientsService.getAddressFieldConfiguration();
+        return this.clientsService.getAddresses('ADDRESS');
     }
 
 }

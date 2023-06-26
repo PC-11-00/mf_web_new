@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
+import { ExternalServicesService } from 'openapi/typescript_files';
 
 /**
  * Edit Email Configuration Component.
@@ -31,7 +32,7 @@ export class EditEmailComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private externalServicesService: ExternalServicesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { emailConfiguration: any }) => {
@@ -67,8 +68,8 @@ export class EditEmailComponent implements OnInit {
    * if successful redirects to view Email configuration.
    */
   submit() {
-    this.systemService
-      .updateExternalConfiguration('SMTP', this.emailConfigurationForm.value)
+    this.externalServicesService
+      .updateExternalServiceProperties('SMTP', this.emailConfigurationForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

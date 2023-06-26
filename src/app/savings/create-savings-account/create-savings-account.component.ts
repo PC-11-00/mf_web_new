@@ -11,6 +11,7 @@ import { SavingsAccountChargesStepComponent } from '../savings-account-stepper/s
 import { SavingsService } from '../savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { SavingsAccountService } from 'openapi/typescript_files';
 
 /**
  * Create Savings Account Component
@@ -45,7 +46,7 @@ export class CreateSavingsAccountComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private savingsService: SavingsService,
+              private savingsAccountService: SavingsAccountService,
               private settingsService: SettingsService
               ) {
     this.route.data.subscribe((data: { savingsAccountTemplate: any }) => {
@@ -123,7 +124,7 @@ export class CreateSavingsAccountComponent {
     } else {
       savingsAccount.groupId = this.savingsAccountTemplate.groupId;
     }
-    this.savingsService.createSavingsAccount(savingsAccount).subscribe((response: any) => {
+    this.savingsAccountService.submitApplication2(savingsAccount).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

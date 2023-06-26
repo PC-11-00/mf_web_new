@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
+import { ClientCollateralManagementService } from 'openapi/typescript_files';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class ViewCollateralComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private collateralsService: CollateralsService,
+    private collateralsService: ClientCollateralManagementService,
     private router: Router,
     private dialog: MatDialog
   ) {
@@ -41,7 +42,7 @@ export class ViewCollateralComponent implements OnInit {
     });
     deleteCollateralDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.collateralsService.deleteCollateral(this.clientCollateralData.clientId, this.clientCollateralData.id)
+        this.collateralsService.deleteCollateral1(this.clientCollateralData.clientId, this.clientCollateralData.id)
           .subscribe(() => {
             this.router.navigate(['../../'], { relativeTo: this.route });
           });

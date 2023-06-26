@@ -4,10 +4,11 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
-import { GroupsService } from 'app/groups/groups.service';
-import { CentersService } from '../centers.service';
+// import { GroupsService } from 'app/groups/groups.service';
+// import { CentersService } from '../centers.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { CentersService, GroupsService, StaffService } from 'openapi/typescript_files';
 
 /**
  * Create Center component.
@@ -52,6 +53,7 @@ export class CreateCenterComponent implements OnInit {
     private centerService: CentersService,
     private settingsService: SettingsService,
     private groupService: GroupsService,
+    private staffService:StaffService,
     private dateUtils: Dates) {
     this.route.data.subscribe((data: { offices: any }) => {
       this.officeData = data.offices;
@@ -87,7 +89,7 @@ export class CreateCenterComponent implements OnInit {
    */
   buildDependencies() {
     this.centerForm.get('officeId').valueChanges.subscribe((option: any) => {
-      this.groupService.getGroupsByOfficeId(option).subscribe((data: any) => {
+      this.groupService.retrieveAll24(option).subscribe((data: any) => {
         this.groupsData = data;
         if (!this.groupsData.length) {
           this.groupChoice.disable();
@@ -95,7 +97,7 @@ export class CreateCenterComponent implements OnInit {
           this.groupChoice.enable();
         }
       });
-      this.centerService.getStaff(option).subscribe((data: any) => {
+      this.staffService.retrieveAll16(option).subscribe((data: any) => {
         this.staffData = data['staffOptions'];
         if (this.staffData === undefined) {
           this.centerForm.controls['staffId'].disable();
@@ -152,7 +154,7 @@ export class CreateCenterComponent implements OnInit {
     };
     data.groupMembers = [];
     this.groupMembers.forEach((group: any) => data.groupMembers.push(group.id));
-    this.centerService.createCenter(data).subscribe((response: any) => {
+    this.centerService.create7(data).subscribe((response: any) => {
       this.router.navigate(['../centers']);
     });
   }

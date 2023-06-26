@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccountingService } from '../accounting.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { PeriodicAccrualAccountingService } from 'openapi/typescript_files';
 /**
  * Periodic accruals component.
  */
@@ -32,7 +33,7 @@ export class PeriodicAccrualsComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-    private accountingService: AccountingService,
+    private accountingService: PeriodicAccrualAccountingService,
     private settingsService: SettingsService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
@@ -67,7 +68,7 @@ export class PeriodicAccrualsComponent implements OnInit {
     if (periodicAccruals.tillDate instanceof Date) {
       periodicAccruals.tillDate = this.dateUtils.formatDate(periodicAccruals.tillDate, this.settingsService.dateFormat);
     }
-    this.accountingService.executePeriodicAccruals(periodicAccruals).subscribe(() => {
+    this.accountingService.executePeriodicAccrualAccounting(periodicAccruals).subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

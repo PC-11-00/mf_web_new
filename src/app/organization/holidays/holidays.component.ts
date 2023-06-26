@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 import { OrganizationService } from '../organization.service';
 import { PopoverService } from '../../configuration-wizard/popover/popover.service';
 import { ConfigurationWizardService } from '../../configuration-wizard/configuration-wizard.service';
+import { HolidaysService } from 'openapi/typescript_files';
 
 /**
  * Holidays component.
@@ -58,7 +59,7 @@ export class HolidaysComponent implements OnInit, AfterViewInit {
    * @param {ConfigurationWizardService} configurationWizardService ConfigurationWizard Service.
    * @param {PopoverService} popoverService PopoverService.
    */
-  constructor(private organizationService: OrganizationService,
+  constructor(private organizationService: HolidaysService,
               private route: ActivatedRoute,
               private router: Router,
               private configurationWizardService: ConfigurationWizardService,
@@ -89,7 +90,7 @@ export class HolidaysComponent implements OnInit, AfterViewInit {
   onChangeOffice() {
     this.officeSelector.valueChanges.subscribe((officeId = this.officeSelector.value) => {
       this.holidaysData = [];
-      this.organizationService.getHolidays(officeId).subscribe((holidays: any) => {
+      this.organizationService.retrieveAllHolidays(officeId).subscribe((holidays: any) => {
         this.holidaysData = holidays.filter((holiday: any) => holiday.status.value !== 'Deleted');
         this.setHolidays();
       });

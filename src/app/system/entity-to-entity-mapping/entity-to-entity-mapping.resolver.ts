@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { FineractEntityService } from 'openapi/typescript_files';
 
 /**
  * Entity to entity mapping data resolver.
@@ -17,14 +18,14 @@ export class EntityToEntityMappingResolver implements Resolve<Object> {
     /**
      * @param {SystemService} systemService System service.
      */
-    constructor(private systemService: SystemService) { }
+    constructor(private fineractEntityService: FineractEntityService) { }
 
     /**
      * Returns the Mapping data.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.systemService.getEntityMappings();
+        return this.fineractEntityService.retrieveAll7();
     }
 
 }

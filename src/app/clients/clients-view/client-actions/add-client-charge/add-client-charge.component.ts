@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientChargesService } from 'openapi/typescript_files';
 
 /**
  * Add Clients Charge component.
@@ -27,7 +28,7 @@ export class AddClientChargeComponent implements OnInit {
   /** clients charge options. */
   clientChargeOptions: any;
   /** clients Id */
-  clientId: string;
+  clientId: any;
   /** charge details */
   chargeDetails: any;
 
@@ -45,7 +46,7 @@ export class AddClientChargeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private clientsService: ClientsService,
+    private clientsService: ClientChargesService,
     private settingsService: SettingsService
   ) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
@@ -65,7 +66,7 @@ export class AddClientChargeComponent implements OnInit {
    */
   buildDependencies() {
     this.clientChargeForm.controls.chargeId.valueChanges.subscribe(chargeId => {
-      this.clientsService.getChargeAndTemplate(chargeId).subscribe((data: any) => {
+      this.clientsService.retrieveTemplate4(chargeId).subscribe((data: any) => {
         this.chargeDetails = data;
         const chargeTimeType = data.chargeTimeType.id;
         if (data.chargeTimeType.value === 'Withdrawal Fee' || data.chargeTimeType.value === 'Saving No Activity Fee') {
@@ -136,7 +137,7 @@ export class AddClientChargeComponent implements OnInit {
         }
       }
     }
-    this.clientsService.createClientCharge(this.clientId, clientCharge).subscribe( () => {
+    this.clientsService.applyClientCharge(this.clientId, clientCharge).subscribe( () => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

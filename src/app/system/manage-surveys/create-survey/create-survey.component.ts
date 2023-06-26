@@ -10,6 +10,7 @@ import { SystemService } from '../../system.service';
 
 /** Custom Components */
 import { CancelDialogComponent } from '../../../shared/cancel-dialog/cancel-dialog.component';
+import { SpmSurveysService, SurveyService } from 'openapi/typescript_files';
 
 /**
  * Create survey component.
@@ -32,7 +33,7 @@ export class CreateSurveyComponent implements OnInit {
    * @param {MatDialog} dialog Dialog reference.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private spmSurveysService: SpmSurveysService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) { }
@@ -184,7 +185,7 @@ export class CreateSurveyComponent implements OnInit {
     this.surveyForm.patchValue({
       countryCode: this.surveyForm.value.countryCode.toUpperCase()
     });
-    this.systemService.createSurvey(this.surveyForm.value).subscribe((response: any) => {
+    this.spmSurveysService.createSurvey(this.surveyForm.value).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

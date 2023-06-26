@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { CollateralManagementService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-edit-collateral',
@@ -29,7 +30,7 @@ export class EditCollateralComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {SettingsService} settingsService Settings Service.
    */
-  constructor(private productsService: ProductsService,
+  constructor(private productsService: CollateralManagementService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -64,7 +65,7 @@ export class EditCollateralComponent implements OnInit {
   submit() {
     const collateral = this.collateralForm.value;
     collateral.locale = this.settingsService.language.code;
-    this.productsService.updateCollateral(this.collateralData.id.toString(), collateral)
+    this.productsService.updateCollateral2(this.collateralData.id.toString(), collateral)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

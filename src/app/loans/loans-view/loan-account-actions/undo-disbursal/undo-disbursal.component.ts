@@ -2,9 +2,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LoansService } from 'openapi/typescript_files';
 
 /** Custom Services */
-import { LoansService } from '../../../loans.service';
+// import { LoansService } from '../../../loans.service';
 
 /**
  * Undo Disbursal component.
@@ -51,7 +52,7 @@ export class UndoDisbursalComponent implements OnInit {
     if (this.actionName === 'Undo Last Disbursal') {
       command = 'undolastdisbursal';
     }
-    this.loansService.loanActionButtons(this.loanId, command, {'note': this.note.value}).subscribe((response: any) => {
+    this.loansService.stateTransitions(this.loanId,  {'note': this.note.value},command).subscribe((response: any) => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

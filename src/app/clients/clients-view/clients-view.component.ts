@@ -15,6 +15,7 @@ import { CaptureImageDialogComponent } from './custom-dialogs/capture-image-dial
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { ClientService, DefaultService, DocumentsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-clients-view',
@@ -30,7 +31,9 @@ export class ClientsViewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
+              private defaultService: DefaultService,
+              private documentsService:DocumentsService,
               private _sanitizer: DomSanitizer,
               public dialog: MatDialog) {
     this.route.data.subscribe((data: {
@@ -45,7 +48,7 @@ export class ClientsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.clientsService.getClientProfileImage(this.clientViewData.id).subscribe(
+    this.defaultService.retrieveImage('clients',this.clientViewData.id).subscribe(
       (base64Image: any) => {
         this.clientImage = this._sanitizer.bypassSecurityTrustResourceUrl(base64Image);
       }, (error: any) => {}
@@ -135,7 +138,7 @@ export class ClientsViewComponent implements OnInit {
     });
     deleteClientDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.clientsService.deleteClient(this.clientViewData.id).subscribe(() => {
+        this.clientsService.delete9(this.clientViewData.id,this.clientViewData).subscribe(() => {
           this.router.navigate(['/clients'], { relativeTo: this.route });
         });
       }
@@ -149,7 +152,7 @@ export class ClientsViewComponent implements OnInit {
     const unAssignStaffDialogRef = this.dialog.open(UnassignStaffDialogComponent);
     unAssignStaffDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.clientsService.executeClientCommand(this.clientViewData.id, 'unassignStaff', { staffId: this.clientViewData.staffId })
+        this.clientsService.activate1(this.clientViewData.id, this.clientViewData,'unassignStaff')
           .subscribe(() => {
             this.reload();
           });
@@ -161,7 +164,7 @@ export class ClientsViewComponent implements OnInit {
    * Shows client signature in a dialog
    */
   private viewSignature() {
-    this.clientsService.getClientDocuments(this.clientViewData.id).subscribe((documents: any) => {
+    this.documentsService.retrieveAllDocuments('clients',this.clientViewData.id).subscribe((documents: any) => {
       const viewSignatureDialogRef = this.dialog.open(ViewSignatureDialogComponent, {
         data: {
           documents: documents,
@@ -183,9 +186,9 @@ export class ClientsViewComponent implements OnInit {
    */
   private uploadSignature() {
     const uploadSignatureDialogRef = this.dialog.open(UploadSignatureDialogComponent);
-    uploadSignatureDialogRef.afterClosed().subscribe((signature: File) => {
+    uploadSignatureDialogRef.afterClosed().subscribe((signature: any) => {
       if (signature) {
-        this.clientsService.uploadClientSignatureImage(this.clientViewData.id, signature)
+        this.defaultService.addNewClientImage1('clients',this.clientViewData.id, signature)
           .subscribe(() => {
             this.reload();
           });
@@ -197,13 +200,13 @@ export class ClientsViewComponent implements OnInit {
    * Deletes client signature
    */
   private deleteSignature() {
-    this.clientsService.getClientDocuments(this.clientViewData.id).subscribe((documents: any) => {
+    this.documentsService.retrieveAllDocuments('clients',this.clientViewData.id).subscribe((documents: any) => {
       const deleteSignatureDialogRef = this.dialog.open(DeleteSignatureDialogComponent, {
         data: documents
       });
       deleteSignatureDialogRef.afterClosed().subscribe((response: any) => {
         if (response.delete) {
-          this.clientsService.deleteClientDocument(this.clientViewData.id, response.id)
+          this.documentsService.deleteDocument('clients',this.clientViewData.id, response.id)
             .subscribe(() => {
               this.reload();
             });
@@ -219,9 +222,9 @@ export class ClientsViewComponent implements OnInit {
    */
   private captureProfileImage() {
     const captureImageDialogRef = this.dialog.open(CaptureImageDialogComponent);
-    captureImageDialogRef.afterClosed().subscribe((imageURL: string) => {
+    captureImageDialogRef.afterClosed().subscribe((imageURL: any) => {
       if (imageURL) {
-        this.clientsService.uploadCapturedClientProfileImage(this.clientViewData.id, imageURL)
+        this.defaultService.addNewClientImage1('clients',this.clientViewData.id, imageURL)
           .subscribe(() => {
             this.reload();
           });
@@ -234,9 +237,9 @@ export class ClientsViewComponent implements OnInit {
    */
   private uploadProfileImage() {
     const uploadImageDialogRef = this.dialog.open(UploadImageDialogComponent);
-    uploadImageDialogRef.afterClosed().subscribe((image: File) => {
+    uploadImageDialogRef.afterClosed().subscribe((image: any) => {
       if (image) {
-        this.clientsService.uploadClientProfileImage(this.clientViewData.id, image)
+        this.defaultService.updateClientImage1('clients',this.clientViewData.id, image)
           .subscribe(() => {
             this.reload();
           });
@@ -253,7 +256,7 @@ export class ClientsViewComponent implements OnInit {
     });
     deleteClientImageDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.clientsService.deleteClientProfileImage(this.clientViewData.id)
+        this.defaultService.deleteClientImage('clients',this.clientViewData.id)
           .subscribe(() => {
             this.reload();
           });

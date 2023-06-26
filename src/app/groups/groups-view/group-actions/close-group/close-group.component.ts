@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
 
 /** Custom Services */
-import { GroupsService } from 'app/groups/groups.service';
+// import { GroupsService } from 'app/groups/groups.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { GroupsService } from 'openapi/typescript_files';
 
 /**
  * Close Group Component
@@ -80,7 +81,7 @@ export class CloseGroupComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.groupsService.executeGroupCommand(this.groupId, 'close', data).subscribe(() => {
+    this.groupsService.activateOrGenerateCollectionSheet(this.groupId, data, 'close').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

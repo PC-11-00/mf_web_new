@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccountingService } from '../../accounting.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { AccountingClosureService } from 'openapi/typescript_files';
 /**
  * Create closure component.
  */
@@ -35,7 +36,7 @@ export class CreateClosureComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-    private accountingService: AccountingService,
+    private accountingService: AccountingClosureService,
     private settingsService: SettingsService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
@@ -76,7 +77,7 @@ export class CreateClosureComponent implements OnInit {
     if (accountingClosure.closingDate) {
       accountingClosure.closingDate = this.dateUtils.formatDate(accountingClosure.closingDate, this.settingsService.dateFormat);
     }
-    this.accountingService.createAccountingClosure(accountingClosure).subscribe((response: any) => {
+    this.accountingService.createGLClosure(accountingClosure).subscribe((response: any) => {
       this.router.navigate(['../view', response.resourceId], { relativeTo: this.route });
     });
   }

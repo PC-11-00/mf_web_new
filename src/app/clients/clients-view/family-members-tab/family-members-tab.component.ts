@@ -8,6 +8,7 @@ import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dial
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
+import { ClientFamilyMemberService } from 'openapi/typescript_files';
 
 /**
  * Client Family Members Tab
@@ -28,7 +29,7 @@ export class FamilyMembersTabComponent {
    * @param {MatDialog }dialog Mat Dialog
    */
   constructor(private route: ActivatedRoute,
-              private clientsService: ClientsService,
+              private clientsService: ClientFamilyMemberService,
               public dialog: MatDialog) {
     this.route.data.subscribe((data: { clientFamilyMembers: any }) => {
       this.clientFamilyMembers = data.clientFamilyMembers;
@@ -38,13 +39,13 @@ export class FamilyMembersTabComponent {
   /**
    * Deletes the family member and redirects to family members tab.
    */
-  deleteFamilyMember(clientId: string, id: string, name: string, index: number) {
+  deleteFamilyMember(clientId: any, id: any, name: string, index: number) {
     const deleteFamilyMemberDialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { deleteContext: `Family member id:${id} name : ${name} ${index}` }
     });
     deleteFamilyMemberDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.clientsService.deleteFamilyMember(clientId, id)
+        this.clientsService.deleteClientFamilyMembers(id,clientId)
           .subscribe(() => {
             this.clientFamilyMembers.splice(index, 1);
           });

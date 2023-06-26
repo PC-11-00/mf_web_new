@@ -13,6 +13,7 @@ import { ToggleWithholdTaxDialogComponent } from './custom-dialogs/toggle-withho
 import { SavingsButtonsConfiguration } from './savings-buttons.config';
 import { SavingsService } from '../savings.service';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
+import { SavingsAccountService } from 'openapi/typescript_files';
 
 /**
  * Savings Account View Component
@@ -43,9 +44,9 @@ export class SavingsAccountViewComponent implements OnInit {
    * @param {SavingsService} savingsService Savings Service
    */
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private savingsService: SavingsService,
-              public dialog: MatDialog) {
+    private router: Router,
+    private savingsAccountService: SavingsAccountService,
+    public dialog: MatDialog) {
     this.route.data.subscribe((data: { savingsAccountData: any, savingsDatatables: any }) => {
       this.savingsAccountData = data.savingsAccountData;
       this.currencyCode = this.savingsAccountData.currency.code;
@@ -122,7 +123,7 @@ export class SavingsAccountViewComponent implements OnInit {
   private reload() {
     const url: string = this.router.url;
     const refreshUrl: string = this.router.url.slice(0, this.router.url.indexOf('savings-accounts') + 'savings-accounts'.length);
-    this.router.navigateByUrl(refreshUrl, {skipLocationChange: true})
+    this.router.navigateByUrl(refreshUrl, { skipLocationChange: true })
       .then(() => this.router.navigate([url]));
   }
 
@@ -188,7 +189,7 @@ export class SavingsAccountViewComponent implements OnInit {
     });
     deleteSavingsAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.savingsService.deleteSavingsAccount(this.savingsAccountData.id).subscribe(() => {
+        this.savingsAccountService.delete19(this.savingsAccountData.id).subscribe(() => {
           this.router.navigate(['../../'], { relativeTo: this.route });
         });
       }
@@ -202,7 +203,7 @@ export class SavingsAccountViewComponent implements OnInit {
     const calculateInterestAccountDialogRef = this.dialog.open(CalculateInterestDialogComponent);
     calculateInterestAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountCommand(this.savingsAccountData.id, 'calculateInterest', {}).subscribe(() => {
+        this.savingsAccountService.handleCommands6(this.savingsAccountData.id, {}, 'calculateInterest').subscribe(() => {
           this.reload();
         });
       }
@@ -216,7 +217,7 @@ export class SavingsAccountViewComponent implements OnInit {
     const postInterestAccountDialogRef = this.dialog.open(PostInterestDialogComponent);
     postInterestAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountCommand(this.savingsAccountData.id, 'postInterest', {}).subscribe(() => {
+        this.savingsAccountService.handleCommands6(this.savingsAccountData.id, {}, 'postInterest').subscribe(() => {
           this.reload();
         });
       }
@@ -226,13 +227,15 @@ export class SavingsAccountViewComponent implements OnInit {
   /**
    * Enables withhold tax for savings account.
    */
+  data: any;
   private enableWithHoldTax() {
     const deleteSavingsAccountDialogRef = this.dialog.open(ToggleWithholdTaxDialogComponent, {
       data: { isEnable: true }
     });
     deleteSavingsAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountUpdateCommand(this.savingsAccountData.id, 'updateWithHoldTax', { withHoldTax: true})
+        this.data = { withHoldTax: true };
+        this.savingsAccountService.update20(this.savingsAccountData.id, this.data, 'updateWithHoldTax')
           .subscribe(() => {
             this.reload();
           });
@@ -249,7 +252,8 @@ export class SavingsAccountViewComponent implements OnInit {
     });
     disableWithHoldTaxDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountUpdateCommand(this.savingsAccountData.id, 'updateWithHoldTax', { withHoldTax: false})
+        this.data = { withHoldTax: false };
+        this.savingsAccountService.update20(this.savingsAccountData.id, this.data, 'updateWithHoldTax')
           .subscribe(() => {
             this.reload();
           });
@@ -266,7 +270,7 @@ export class SavingsAccountViewComponent implements OnInit {
     });
     unblockSavingsAccountDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountCommand(this.savingsAccountData.id, 'unblock', { })
+        this.savingsAccountService.handleCommands6(this.savingsAccountData.id, {}, 'unblock')
           .subscribe(() => {
             this.reload();
           });

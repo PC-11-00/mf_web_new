@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { ExternalServicesService } from 'openapi/typescript_files';
 
 /**
  * Email Configuration data resolver.
@@ -17,14 +18,14 @@ export class EmailConfigurationResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private externalServicesService: ExternalServicesService) {}
 
   /**
    * Returns the Email Configuration data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.systemService.getExternalConfiguration('SMTP');
+    return this.externalServicesService.retrieveOne2('SMTP');
   }
 
 }

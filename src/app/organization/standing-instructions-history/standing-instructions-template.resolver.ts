@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * Standing Instructions Template resolver.
@@ -17,14 +18,14 @@ export class StandingInstructionsTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: StandingInstructionsService) {}
 
   /**
    * Returns the Standing Instruction template.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getStandingInstructionTemplate();
+    return this.organizationService.template6();
   }
 
 }

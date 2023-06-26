@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { FixedDepositsService } from 'app/deposits/fixed-deposits/fixed-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { FixedDepositAccountService } from 'openapi/typescript_files';
 
 /**
  * Reject Fixed Deposits Account Component
@@ -36,7 +37,7 @@ export class RejectFixedDepositsAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private fixedDepositsService: FixedDepositsService,
+              private fixedDepositsService: FixedDepositAccountService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -79,7 +80,7 @@ export class RejectFixedDepositsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.fixedDepositsService.executeFixedDepositsAccountCommand(this.accountId, 'reject', data).subscribe(() => {
+    this.fixedDepositsService.handleCommands4(this.accountId, data, 'reject').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

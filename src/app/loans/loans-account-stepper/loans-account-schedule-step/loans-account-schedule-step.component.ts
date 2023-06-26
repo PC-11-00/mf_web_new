@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoansService } from 'app/loans/loans.service';
+import { Dates } from 'app/core/utils/dates';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loans-account-schedule-step',
@@ -26,11 +28,68 @@ export class LoansAccountScheduleStepComponent implements OnInit {
 
   constructor(private loansService: LoansService,
     private settingsService: SettingsService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dateUtils: Dates) {
       this.loanId = this.route.snapshot.params['loanId'];
   }
 
   ngOnInit(): void { }
+
+  buildLoanRequestPayload(loansAccount: any, loansAccountTemplate: any, calendarOptions: any, locale: string, dateFormat: string): any {
+    const loansAccountData = {
+      ...loansAccount,
+      charges: loansAccount.charges.map((charge: any) => ({
+        chargeId: charge.id,
+        amount: charge.amount,
+        dueDate: charge.dueDate && this.dateUtils.formatDate(charge.dueDate, dateFormat),
+      })),
+      collateral: loansAccount.collateral.map((collateralEle: any) => ({
+        clientCollateralId: collateralEle.type.collateralId,
+        quantity: collateralEle.value,
+      })),
+      disbursementData: loansAccount.disbursementData.map((item: any) => ({
+        expectedDisbursementDate: this.dateUtils.formatDate(item.expectedDisbursementDate, dateFormat),
+        principal: item.principal
+      })),
+      interestChargedFromDate: this.dateUtils.formatDate(loansAccount.interestChargedFromDate, dateFormat),
+      repaymentsStartingFromDate: this.dateUtils.formatDate(loansAccount.repaymentsStartingFromDate, dateFormat),
+      submittedOnDate: this.dateUtils.formatDate(loansAccount.submittedOnDate, dateFormat),
+      expectedDisbursementDate: this.dateUtils.formatDate(loansAccount.expectedDisbursementDate, dateFormat),
+      dateFormat,
+      locale,
+    };
+    if (loansAccountTemplate.clientId) {
+      loansAccountData.clientId = loansAccountTemplate.clientId;
+      loansAccountData.loanType = 'individual';
+    } else {
+      loansAccountData.groupId = loansAccountTemplate.group.id;
+      loansAccountData.loanType = 'group';
+    }
+
+    if (loansAccountData.syncRepaymentsWithMeeting) {
+      loansAccountData.calendarId = calendarOptions[0].id;
+      delete loansAccountData.syncRepaymentsWithMeeting;
+    }
+
+    if (loansAccountData.recalculationRestFrequencyDate) {
+      loansAccountData.recalculationRestFrequencyDate = this.dateUtils.formatDate(loansAccount.recalculationRestFrequencyDate, dateFormat);
+    }
+
+    if (loansAccountData.interestCalculationPeriodType === 0) {
+      loansAccountData.allowPartialPeriodInterestCalcualtion = false;
+    }
+    if (!(loansAccountData.isFloatingInterestRate === false)) {
+      delete loansAccountData.isFloatingInterestRate;
+    }
+    if (!(loansAccountData.multiDisburseLoan)) {
+      delete loansAccountData.disbursementData;
+    }
+    delete loansAccountData.isValid;
+    loansAccountData.principal = loansAccountData.principalAmount;
+    delete loansAccountData.principalAmount;
+
+    return loansAccountData;
+  }
 
   showRepaymentInfo(): void {
     this.repaymentScheduleDetails = {periods: []};
@@ -38,10 +97,10 @@ export class LoansAccountScheduleStepComponent implements OnInit {
     if (this.showRepayment) {
       const locale = this.settingsService.language.code;
       const dateFormat = this.settingsService.dateFormat;
-      const payload = this.loansService.buildLoanRequestPayload(this.loansAccount, this.loansAccountTemplate,
+      const payload = this.buildLoanRequestPayload(this.loansAccount, this.loansAccountTemplate,
         this.loansAccountProductTemplate.calendarOptions, locale, dateFormat);
 
-      this.loansService.calculateLoanSchedule(payload).subscribe((response: any) => {
+      this.loansService.calculateLoanScheduleOrSubmitLoanApplication(payload).subscribe((response: any) => {
         this.repaymentScheduleDetails = response;
       });
     }

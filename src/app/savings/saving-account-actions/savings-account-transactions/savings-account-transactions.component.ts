@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SavingsService } from '../../savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { SavingsAccountTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Create savings account transactions component.
@@ -41,7 +42,7 @@ export class SavingsAccountTransactionsComponent implements OnInit {
   /** transaction command for submit request */
   transactionCommand: string;
   /** saving account's Id */
-  savingAccountId: string;
+  savingAccountId: any;
 
   /**
    * Retrieves the Saving Account transaction template data from `resolve`.
@@ -56,7 +57,7 @@ export class SavingsAccountTransactionsComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private savingsService: SavingsService,
+              private savingsAccountTransactionsService: SavingsAccountTransactionsService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { savingsAccountActionData: any }) => {
       this.paymentTypeOptions = data.savingsAccountActionData.paymentTypeOptions;
@@ -122,7 +123,7 @@ export class SavingsAccountTransactionsComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.savingsService.executeSavingsAccountTransactionsCommand(this.savingAccountId, this.transactionCommand, data).subscribe(res => {
+    this.savingsAccountTransactionsService.transaction2(this.savingAccountId, data, this.transactionCommand).subscribe(res => {
       this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });
   }

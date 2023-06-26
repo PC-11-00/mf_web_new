@@ -18,6 +18,7 @@ import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
 import { Dates } from 'app/core/utils/dates';
+import { SavingsChargesService } from 'openapi/typescript_files';
 
 /**
  * Charges Tab Component
@@ -60,7 +61,7 @@ export class ChargesTabComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    */
   constructor(private route: ActivatedRoute,
-              private savingsService: SavingsService,
+              private savingsService: SavingsChargesService,
               private dateUtils: Dates,
               private router: Router,
               public dialog: MatDialog,
@@ -113,7 +114,7 @@ export class ChargesTabComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.savingsService.executeSavingsAccountChargesCommand(this.recurringDepositsAccountData.id, 'paycharge', dataObject, chargeId)
+        this.savingsService.payOrWaiveSavingsAccountCharge(this.recurringDepositsAccountData.id,chargeId,dataObject,  'paycharge')
           .subscribe(() => {
             this.reload();
           });
@@ -129,7 +130,7 @@ export class ChargesTabComponent implements OnInit {
     const waiveChargeDialogRef = this.dialog.open(RecurringDepositConfirmationDialogComponent, { data: { heading: 'Waive Charge', dialogContext: `Are you sure you want to waive charge with id: ${chargeId}?` } });
     waiveChargeDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.savingsService.executeSavingsAccountChargesCommand(this.recurringDepositsAccountData.id, 'waive', {}, chargeId)
+        this.savingsService.payOrWaiveSavingsAccountCharge(this.recurringDepositsAccountData.id, chargeId, {}, 'waive')
           .subscribe(() => {
             this.reload();
           });
@@ -166,7 +167,7 @@ export class ChargesTabComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.savingsService.editSavingsAccountCharge(this.recurringDepositsAccountData.id, dataObject, charge.id)
+        this.savingsService.updateSavingsAccountCharge(this.recurringDepositsAccountData.id, charge.id, dataObject)
           .subscribe(() => {
             this.reload();
           });

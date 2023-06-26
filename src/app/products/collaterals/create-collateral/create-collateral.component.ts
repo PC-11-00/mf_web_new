@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { CollateralManagementService } from 'openapi/typescript_files';
 
 /**
  * Create Collateral component.
@@ -32,7 +33,7 @@ export class CreateCollateralComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: ProductsService,
+              private productsService: CollateralManagementService,
               private route:  ActivatedRoute,
               private router: Router,
               private settingsService: SettingsService) {
@@ -72,7 +73,7 @@ export class CreateCollateralComponent implements OnInit {
       ...collateralFormData,
       locale
     };
-    this.productsService.createCollateral(data).subscribe((response: any) => {
+    this.productsService.createCollateral1(data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

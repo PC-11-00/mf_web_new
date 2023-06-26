@@ -11,10 +11,11 @@ import { merge } from 'rxjs';
 import { tap, startWith, map, distinctUntilChanged, debounceTime} from 'rxjs/operators';
 
 /** Custom Services */
-import { CentersService } from './centers.service';
+// import { CentersService } from './centers.service';
 
 /** Custom Data Source */
 import { CentersDataSource } from './centers.datasource';
+import { CentersService } from 'openapi/typescript_files';
 
 /**
  * Centers component.

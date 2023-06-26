@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { AccountingClosureService } from 'openapi/typescript_files';
 
 /**
  * Closing entry data resolver.
@@ -17,15 +18,16 @@ export class ClosingEntryResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: AccountingClosureService) {}
 
   /**
    * Returns the gl account closure data.
    * @returns {Observable<any>}
    */
+  glAccountClosureId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const glAccountClosureId = route.paramMap.get('id');
-    return this.accountingService.getAccountingClosure(glAccountClosureId);
+    this.glAccountClosureId = route.paramMap.get('id');
+    return this.accountingService.retreiveClosure(this.glAccountClosureId);
   }
 
 }

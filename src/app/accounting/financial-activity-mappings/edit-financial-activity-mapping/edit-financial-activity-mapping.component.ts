@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { MappingFinancialActivitiesToAccountsService } from 'openapi/typescript_files';
 
 /**
  * Edit financial activity mapping component.
@@ -25,7 +26,7 @@ export class EditFinancialActivityMappingComponent implements OnInit {
   /** Financial activity data. */
   financialActivityData: any;
   /** Financial activity account ID. */
-  financialActivityAccountId: string;
+  financialActivityAccountId: any;
   /** Financial activity ID. */
   financialActivityId: number;
   /** GL Account ID. */
@@ -39,7 +40,7 @@ export class EditFinancialActivityMappingComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuider: FormBuilder,
-              private accountingService: AccountingService,
+              private accountingService: MappingFinancialActivitiesToAccountsService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { financialActivityAccountAndTemplate: any }) => {
@@ -97,7 +98,7 @@ export class EditFinancialActivityMappingComponent implements OnInit {
    * if successful redirects to view updated account.
    */
   submit() {
-    this.accountingService.updateFinancialActivityAccount(this.financialActivityAccountId, this.financialActivityMappingForm.value)
+    this.accountingService.updateGLAccount(this.financialActivityAccountId, this.financialActivityMappingForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
     });

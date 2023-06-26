@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 
 /** Client Services. */
 import { ClientsService } from 'app/clients/clients.service';
+import { UsersService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-create-self-service-user',
@@ -20,7 +21,7 @@ export class CreateSelfServiceUserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private clientService: ClientsService,
+              private clientService: UsersService,
               private router: Router) {
     this.route.data.subscribe((data: { clientActionData: any}) => {
       this.clientData = data.clientActionData;
@@ -78,7 +79,7 @@ export class CreateSelfServiceUserComponent implements OnInit {
     selfServiceForm.staffId = this.clientData.staffId;
     selfServiceForm.clients = [clientId];
     selfServiceForm.officeId = this.clientData.officeId;
-    this.clientService.createSelfServiceUser(selfServiceForm).subscribe(() => {
+    this.clientService.create15(selfServiceForm).subscribe(() => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

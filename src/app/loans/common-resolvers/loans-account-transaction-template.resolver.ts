@@ -6,7 +6,8 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
+// import { LoansService } from '../loans.service';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Loans Account Transaction Template data resolver.
@@ -17,17 +18,19 @@ export class LoansAccountTransactionTemplateResolver implements Resolve<Object> 
   /**
    * @param {LoansService} LoansService Loans service.
    */
-  constructor(private loansService: LoansService) { }
+  constructor(private loansService: LoanTransactionsService) { }
 
   /**
    * Returns the Loans Account Transaction Template data.
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
+  loanId:any;
+  transactionId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const loanId = route.paramMap.get('loanId');
-    const transactionId = route.paramMap.get('id');
-    return this.loansService.getLoansAccountTransactionTemplate(loanId, transactionId);
+    this.loanId = route.paramMap.get('loanId');
+    this.transactionId = route.paramMap.get('id');
+    return this.loansService.retrieveTransaction(this.loanId, this.transactionId);
   }
 
 }

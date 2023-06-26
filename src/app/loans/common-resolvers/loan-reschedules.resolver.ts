@@ -5,7 +5,8 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { LoansService } from '../loans.service';
+// import { LoansService } from '../loans.service';
+import { RescheduleLoansService } from 'openapi/typescript_files';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +16,16 @@ export class LoanReschedulesResolver implements Resolve<boolean> {
     /**
      * @param {LoansService} LoansService Loans service.
      */
-    constructor(private loansService: LoansService) { }
+    constructor(private rescheduleLoansService: RescheduleLoansService) { }
 
     /**
      * Returns the Loans data.
      * @returns {Observable<any>}
      */
+    loanId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-      const loanId = route.paramMap.get('loanId') || route.parent.paramMap.get('loanId');
-      return this.loansService.loanRescheduleRequests(loanId);
+      this.loanId = route.paramMap.get('loanId') || route.parent.paramMap.get('loanId');
+      return this.rescheduleLoansService.readLoanRescheduleRequest(this.loanId);
     }
 
 }

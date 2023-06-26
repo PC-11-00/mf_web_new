@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountTransfersService } from '../account-transfers.service';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * View Standing Instructions resolver.
@@ -17,16 +18,17 @@ export class StandingInstructionsDataAndTemplateResolver implements Resolve<Obje
     /**
      * @param {accountTransfersService} AccountTransfersService Account Transfers service.
      */
-    constructor(private accountTransfersService: AccountTransfersService) { }
+    constructor(private accountTransfersService: StandingInstructionsService) { }
 
     /**
      * Returns the Standing Instructions Data.
      * @param {ActivatedRouteSnapshot} route Route Snapshot
      * @returns {Observable<any>}
      */
+    standingInstructionsId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const standingInstructionsId = route.parent.paramMap.get('standingInstructionsId');
-        return this.accountTransfersService.getStandingInstructionsDataAndTemplate(standingInstructionsId);
+        this.standingInstructionsId = route.parent.paramMap.get('standingInstructionsId');
+        return this.accountTransfersService.template6(this.standingInstructionsId);
     }
 
 }

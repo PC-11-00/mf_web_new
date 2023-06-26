@@ -16,6 +16,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
+import { ClientIdentifierService, DocumentsService } from 'openapi/typescript_files';
 
 /**
  * Identities Tab Component
@@ -32,7 +33,7 @@ export class IdentitiesTabComponent {
   /** Client Identifier Template */
   clientIdentifierTemplate: any;
   /** Client Id */
-  clientId: string;
+  clientId: any;
   /** Identities Columns */
   identitiesColumns: string[] = ['id', 'description', 'type', 'documentKey', 'documents', 'status', 'actions'];
 
@@ -46,7 +47,8 @@ export class IdentitiesTabComponent {
    */
   constructor(private route: ActivatedRoute,
               public dialog: MatDialog,
-              private clientService: ClientsService) {
+              private documentsService: DocumentsService,
+              private clientIdentifierService: ClientIdentifierService) {
     this.clientId = this.route.parent.snapshot.paramMap.get('clientId');
     this.route.data.subscribe((data: { clientIdentities: any, clientIdentifierTemplate: any }) => {
       this.clientIdentities = data.clientIdentities;
@@ -59,8 +61,8 @@ export class IdentitiesTabComponent {
    * @param {string} parentEntityId Parent Entity Id
    * @param {string} documentId Document ID
    */
-  download(parentEntityId: string, documentId: string) {
-    this.clientService.downloadClientIdentificationDocument(parentEntityId, documentId).subscribe(res => {
+  download(parentEntityId: any, documentId: any) {
+    this.documentsService.downloadFile('client_identifiers',parentEntityId, documentId).subscribe(res => {
       const url = window.URL.createObjectURL(res);
       window.open(url);
     });
@@ -110,7 +112,7 @@ export class IdentitiesTabComponent {
     const addIdentifierDialogRef = this.dialog.open(FormDialogComponent, { data });
     addIdentifierDialogRef.afterClosed().subscribe((response: any) => {
       if (response.data) {
-        this.clientService.addClientIdentifier(this.clientId, response.data.value).subscribe((res: any) => {
+        this.clientIdentifierService.createClientIdentifier(this.clientId, response.data.value).subscribe((res: any) => {
           this.clientIdentities.push({
             id: res.resourceId,
             description: response.data.value.description,
@@ -132,13 +134,13 @@ export class IdentitiesTabComponent {
    * @param {string} identifierId Identifier Id
    * @param {number} index Index
    */
-  deleteIdentifier(clientId: string, identifierId: string, index: number) {
+  deleteIdentifier(clientId: any, identifierId: any, index: number) {
     const deleteIdentifierDialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { deleteContext: `identifier id:${identifierId}` }
     });
     deleteIdentifierDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.clientService.deleteClientIdentifier(clientId, identifierId).subscribe(res => {
+        this.clientIdentifierService.deleteClientIdentifier(clientId, identifierId).subscribe(res => {
           this.clientIdentities.splice(index, 1);
           this.identifiersTable.renderRows();
         });
@@ -151,16 +153,16 @@ export class IdentitiesTabComponent {
    * @param {number} index Index
    * @param {string} identifierId Identifier Id
    */
-  uploadDocument(index: number, identifierId: string) {
+  uploadDocument(index: number, identifierId: any) {
     const uploadDocumentDialogRef = this.dialog.open(UploadDocumentDialogComponent, {
       data: { documentIdentifier: true }
     });
     uploadDocumentDialogRef.afterClosed().subscribe((dialogResponse: any) => {
       if (dialogResponse) {
-        const formData: FormData = new FormData;
+        const formData: any = new FormData;
         formData.append('name', dialogResponse.fileName);
         formData.append('file', dialogResponse.file);
-        this.clientService.uploadClientIdentifierDocument(identifierId, formData).subscribe((res: any) => {
+        this.documentsService.createDocument('client_identifiers',identifierId, formData).subscribe((res: any) => {
           this.clientIdentities[index].documents.push({
             id: res.resourceId,
             parentEntityType: 'client_identifiers',

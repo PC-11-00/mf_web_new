@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { SearchAPIService } from 'openapi/typescript_files';
 
 /**
  * Advance Search Template resolver.
@@ -17,14 +18,14 @@ export class AdvanceSearchTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: SearchAPIService) {}
 
   /**
    * Returns the Advance Search template.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getAdvanceSearchTemplate();
+    return this.organizationService.retrieveAdHocSearchQueryTemplate();
   }
 
 }

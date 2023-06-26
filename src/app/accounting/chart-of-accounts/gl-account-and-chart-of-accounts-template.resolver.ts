@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { GeneralLedgerAccountService } from 'openapi/typescript_files';
 
 /**
  * GL Account and chart of accounts template data resolver.
@@ -18,16 +19,17 @@ export class GlAccountAndChartOfAccountsTemplateResolver implements Resolve<Obje
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: GeneralLedgerAccountService) {}
 
   /**
    * Returns the gl account and chart of accounts template data.
    * @returns {Observable<any>}
    */
+  id:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const id = route.paramMap.get('id');
+    this.id = route.paramMap.get('id');
 
-    return this.accountingService.getGlAccount(id, true).pipe(
+    return this.accountingService.retreiveAccount(this.id, true).pipe(
       map((glAccountData: any) => {
         let accountOptions = [];
         switch (glAccountData.type.value) {

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * Teller data resolver.
@@ -17,15 +18,16 @@ export class TellerResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: TellerCashManagementService) {}
 
   /**
    * Returns the teller data.
    * @returns {Observable<any>}
    */
+  tellerId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const tellerId = route.paramMap.get('id');
-    return this.organizationService.getTeller(tellerId);
+    this.tellerId = route.paramMap.get('id');
+    return this.organizationService.findTeller(this.tellerId);
   }
 
 }

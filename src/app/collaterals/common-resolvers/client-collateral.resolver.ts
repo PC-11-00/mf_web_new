@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CollateralsService } from '../collaterals.service';
+import { ClientCollateralManagementService } from 'openapi/typescript_files';
 
 /**
  * Client Collateral data resolver.
@@ -17,16 +18,18 @@ export class ClientCollateralResolver implements Resolve<Object> {
     /**
      * @param {CollateralsService} collateralsService Collaterals service.
      */
-    constructor(private collateralsService: CollateralsService) { }
+    constructor(private collateralsService: ClientCollateralManagementService) { }
 
     /**
      * Returns the Client Collateral data.
      * @returns {Observable<any>}
      */
+    clientId:any;
+    collateralId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.paramMap.get('clientId');
-        const collateralId = route.parent.paramMap.get('collateralId');
-        return this.collateralsService.getClientCollateral(clientId, collateralId);
+        this.clientId = route.parent.paramMap.get('clientId');
+        this.collateralId = route.parent.paramMap.get('collateralId');
+        return this.collateralsService.getClientCollateralData(this.clientId, this.collateralId);
     }
 
 }

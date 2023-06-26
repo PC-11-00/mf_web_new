@@ -7,6 +7,7 @@ import { LoansService } from 'app/loans/loans.service';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loans-account-close',
@@ -34,13 +35,13 @@ export class LoansAccountCloseComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanTransactionsService: LoanTransactionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
     private settingsService: SettingsService) {
-      this.loanId = this.route.snapshot.params['loanId'];
-    }
+    this.loanId = this.route.snapshot.params['loanId'];
+  }
 
   /**
    * Creates the close form.
@@ -77,10 +78,10 @@ export class LoansAccountCloseComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loanService.submitLoanActionButton(this.loanId, data, 'close')
+    this.loanTransactionsService.executeLoanTransaction(this.loanId, data, 'close')
       .subscribe((response: any) => {
         this.router.navigate(['../../general'], { relativeTo: this.route });
-    });
+      });
   }
 
 }

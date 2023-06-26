@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { CurrencyService } from 'openapi/typescript_files';
 
 /**
  * Currencies data resolver.
@@ -17,14 +18,14 @@ export class CurrenciesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: CurrencyService) {}
 
   /**
    * Returns the currencies data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getCurrencies();
+    return this.organizationService.retrieveCurrencies();
   }
 
 }

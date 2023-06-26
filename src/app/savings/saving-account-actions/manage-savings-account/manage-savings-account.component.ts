@@ -5,6 +5,7 @@ import { Dates } from 'app/core/utils/dates';
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { SystemService } from 'app/system/system.service';
+import { SavingsAccountService, SavingsAccountTransactionsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-manage-savings-account',
@@ -20,7 +21,7 @@ export class ManageSavingsAccountComponent implements OnInit {
   /** Manage Savings Account form. */
   manageSavingsAccountForm: FormGroup;
   /** Savings Account Id */
-  savingAccountId: string;
+  savingAccountId: any;
   transactionCommand: string;
 
   reasonOptions: any = [];
@@ -41,7 +42,8 @@ export class ManageSavingsAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Setting service
    */
   constructor(private formBuilder: FormBuilder,
-    private savingsService: SavingsService,
+    private savingsAccountService: SavingsAccountService,
+    private savingsAccountTransactionsService: SavingsAccountTransactionsService,
     private dateUtils: Dates,
     private route: ActivatedRoute,
     private router: Router,
@@ -98,9 +100,8 @@ export class ManageSavingsAccountComponent implements OnInit {
       });
     }
   }
-
+  command: any;
   submit() {
-    let command = '';
     let payload = {};
 
     if (this.transactionType.holdamount) {
@@ -116,18 +117,18 @@ export class ManageSavingsAccountComponent implements OnInit {
         dateFormat,
         locale
       };
-      command = 'holdAmount';
+      this.command = 'holdAmount';
 
-      this.savingsService.executeSavingsAccountTransactionsCommand(this.savingAccountId, command, payload).subscribe((response: any) => {
+      this.savingsAccountTransactionsService.transaction2(this.savingAccountId, payload, this.command).subscribe((response: any) => {
         this.router.navigate(['../../transactions'], { relativeTo: this.route });
       });
     } else {
       payload = {
         ... this.manageSavingsAccountForm.value
       };
-      command = 'block';
+      this.command = 'block';
 
-      this.savingsService.executeSavingsAccountCommand(this.savingAccountId, command, payload).subscribe((response: any) => {
+      this.savingsAccountService.handleCommands6(this.savingAccountId, payload, this.command).subscribe((response: any) => {
         this.router.navigate(['../../transactions'], { relativeTo: this.route });
       });
     }

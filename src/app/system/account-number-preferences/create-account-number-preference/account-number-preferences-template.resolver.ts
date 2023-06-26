@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { AccountNumberFormatService } from 'openapi/typescript_files';
 
 /**
  * Account Number Preferences Template data resolver.
@@ -17,14 +18,14 @@ export class AccountNumberPreferencesTemplateResolver implements Resolve<Object>
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private accountNumberFormatService: AccountNumberFormatService) {}
 
   /**
    * Returns the Account Number Preferences Template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.systemService.getAccountNumberPreferencesTemplate();
+    return this.accountNumberFormatService.retrieveTemplate2();
   }
 
 }

@@ -4,8 +4,9 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
-import { GroupsService } from 'app/groups/groups.service';
+// import { GroupsService } from 'app/groups/groups.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { GroupsService } from 'openapi/typescript_files';
 
 /**
  * Group Transfer Clients component.
@@ -57,7 +58,7 @@ export class GroupTransferClientsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.transferClientsForm.get('destinationGroupId').valueChanges.subscribe( (value: string) => {
       if (value.length >= 2) {
-        this.groupsService.getFilteredGroups('name', 'ASC', value, this.groupData.officeId)
+        this.groupsService.retrieveAll24(this.groupData.officeId,null,null,value,null,null,null,null,'name','ASC')
           .subscribe( (data: any) => {
             this.groupsData = data;
           });
@@ -96,7 +97,7 @@ export class GroupTransferClientsComponent implements OnInit, AfterViewInit {
       destinationGroupId: this.transferClientsForm.get('destinationGroupId').value.id,
       locale
     };
-    this.groupsService.executeGroupCommand(this.groupData.id, 'transferClients', data).subscribe(() => {
+    this.groupsService.activateOrGenerateCollectionSheet(this.groupData.id, data, 'transferClients').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

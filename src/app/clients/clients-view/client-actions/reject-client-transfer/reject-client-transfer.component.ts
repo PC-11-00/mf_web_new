@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Reject Client Transfer Component
@@ -32,7 +33,7 @@ export class RejectClientTransferComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private settingsService: SettingsService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
@@ -74,7 +75,7 @@ export class RejectClientTransferComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.clientsService.executeClientCommand(this.clientId, 'rejectTransfer', data).subscribe(() => {
+    this.clientsService.activate1(this.clientId, data, 'rejectTransfer').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

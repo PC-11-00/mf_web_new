@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { CodesService } from 'openapi/typescript_files';
 
 /**
  * Codes data resolver.
@@ -17,14 +18,14 @@ export class CodesResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private codesService: CodesService) {}
 
   /**
    * Returns the Codes data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.systemService.getCodes();
+    return this.codesService.retrieveCodes();
   }
 
 }

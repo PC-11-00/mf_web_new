@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ReportsService } from '../reports.service';
+import { MixMappingService } from 'openapi/typescript_files';
 
 /**
  * Mix Mappings data resolver.
@@ -17,14 +18,14 @@ export class MixMappingsResolver implements Resolve<Object> {
   /**
    * @param {ReportsService} reportsService Reports service.
    */
-  constructor(private reportsService: ReportsService) {}
+  constructor(private mixMappingService: MixMappingService) {}
 
   /**
    * Returns Mix Mappings.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.reportsService.getMixMappings();
+    return this.mixMappingService.retrieveTaxonomyMapping();
   }
 
 }

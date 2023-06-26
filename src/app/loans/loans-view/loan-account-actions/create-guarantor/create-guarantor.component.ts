@@ -8,6 +8,7 @@ import { LoansService } from 'app/loans/loans.service';
 import { ClientsService } from 'app/clients/clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { GuarantorsService } from 'openapi/typescript_files';
 
 /**
  * Create Guarantor Action
@@ -23,7 +24,7 @@ export class CreateGuarantorComponent implements OnInit, AfterViewInit {
   /** New Guarantor Form */
   newGuarantorForm: FormGroup;
   /** Loan ID */
-  loanId: string;
+  loanId: any;
   /** Relation Types */
   relationTypes: any;
   /** Show Client Details Form */
@@ -45,7 +46,7 @@ export class CreateGuarantorComponent implements OnInit, AfterViewInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private guarantorsService: GuarantorsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
@@ -134,7 +135,7 @@ export class CreateGuarantorComponent implements OnInit, AfterViewInit {
 
   clientSelected(clientDetails: any) {
     this.accountOptions = [];
-    this.loanService.guarantorAccountResource(this.loanId, clientDetails.id).subscribe((response: any) => {
+    this.guarantorsService.accountsTemplate(this.loanId, clientDetails.id).subscribe((response: any) => {
       this.accountOptions = response.accountLinkingOptions;
     });
   }
@@ -174,7 +175,7 @@ export class CreateGuarantorComponent implements OnInit, AfterViewInit {
     delete data.existingClient;
     delete data.name;
 
-    this.loanService.createNewGuarantor(this.loanId, data)
+    this.guarantorsService.createGuarantor(this.loanId, data)
       .subscribe((response: any) => {
         this.router.navigate(['../../general'], { relativeTo: this.route });
       });

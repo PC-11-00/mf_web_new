@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoanTransactionsService } from 'openapi/typescript_files';
 
 
 /**
@@ -21,7 +22,7 @@ export class PrepayLoanComponent implements OnInit, OnDestroy {
 
   @Input() dataObject: any;
   /** Loan Id */
-  loanId: string;
+  loanId: any;
   /** Payment Types */
   paymentTypes: any;
   /** Principal Portion */
@@ -47,13 +48,13 @@ export class PrepayLoanComponent implements OnInit, OnDestroy {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-    private loanService: LoansService,
+    private loanTransactionsService: LoanTransactionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
     private settingsService: SettingsService) {
-      this.loanId = this.route.snapshot.params['loanId'];
-    }
+    this.loanId = this.route.snapshot.params['loanId'];
+  }
 
   /**
    * Creates the prepay loan form
@@ -85,21 +86,22 @@ export class PrepayLoanComponent implements OnInit, OnDestroy {
   /**
    * Sets the value in the prepay loan form
    */
+  prepayDate: any;
   setPrepayLoanDetails() {
     this.paymentTypes = this.dataObject.paymentTypeOptions;
     this.prepayLoanForm.patchValue({
       transactionAmount: this.dataObject.amount
     });
     this.prepayLoanForm.get('transactionDate').valueChanges.subscribe((transactionDate: string) => {
-      const prepayDate = this.dateUtils.formatDate(transactionDate, this.settingsService.dateFormat);
+      this.prepayDate = this.dateUtils.formatDate(transactionDate, this.settingsService.dateFormat);
 
-      this.loanService.getLoanPrepayLoanActionTemplate(this.loanId, prepayDate)
-      .subscribe((response: any) => {
-        this.prepayData = response;
-        this.prepayLoanForm.patchValue({
-          transactionAmount: this.prepayData.amount
+      this.loanTransactionsService.retrieveTransactionTemplate(this.loanId, 'prepayLoan', this.settingsService.dateFormat, this.prepayDate, this.settingsService.language.code)
+        .subscribe((response: any) => {
+          this.prepayData = response;
+          this.prepayLoanForm.patchValue({
+            transactionAmount: this.prepayData.amount
+          });
         });
-      });
     });
   }
 
@@ -139,10 +141,10 @@ export class PrepayLoanComponent implements OnInit, OnDestroy {
       dateFormat,
       locale
     };
-    this.loanService.submitLoanActionButton(this.loanId, data, 'repayment')
+    this.loanTransactionsService.executeLoanTransaction(this.loanId, data, 'repayment')
       .subscribe((response: any) => {
         this.router.navigate(['../../general'], { relativeTo: this.route });
-    });
+      });
   }
 
 }

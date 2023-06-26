@@ -8,6 +8,7 @@ import { SystemService } from 'app/system/system.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { ReportsService } from 'openapi/typescript_files';
 
 /**
  * View Report Component.
@@ -30,7 +31,7 @@ export class ViewReportComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private reportsService: ReportsService,
               private dialog: MatDialog,
               private router: Router) {
     this.route.data.subscribe((data: { report: any }) => {
@@ -50,7 +51,7 @@ export class ViewReportComponent implements OnInit {
     });
     deleteReportDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.systemService.deleteReport(this.reportData.id)
+        this.reportsService.deleteReport(this.reportData.id)
           .subscribe(() => {
             this.router.navigate(['/system/reports']);
           });

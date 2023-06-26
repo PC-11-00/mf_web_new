@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { HooksService } from 'openapi/typescript_files';
 
 /**
  * Hook data resolver.
@@ -17,15 +18,16 @@ export class HookResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private hooksService: HooksService) {}
 
   /**
    * Returns the manage hooks data.
    * @returns {Observable<any>}
    */
+  hookId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const hookId = route.paramMap.get('id');
-    return this.systemService.getHook(hookId);
+    this.hookId = route.paramMap.get('id');
+    return this.hooksService.retrieveHook(this.hookId);
   }
 
 }

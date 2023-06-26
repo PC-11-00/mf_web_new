@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { AccountNumberFormatService } from 'openapi/typescript_files';
 
 /**
  * Create Account Number Preference Component.
@@ -31,7 +32,7 @@ export class CreateAccountNumberPreferenceComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private accountNumberFormatService: AccountNumberFormatService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { accountNumberPreferencesTemplate: any }) => {
@@ -77,7 +78,7 @@ export class CreateAccountNumberPreferenceComponent implements OnInit {
     if (accountNumberPreference.prefixType === '') {
       accountNumberPreference.prefixType = undefined;
     }
-    this.systemService.createAccountNumberPreference(accountNumberPreference)
+    this.accountNumberFormatService.create(accountNumberPreference)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });

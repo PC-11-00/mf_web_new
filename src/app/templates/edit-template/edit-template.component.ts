@@ -11,6 +11,7 @@ import { clientParameterLabels, loanParameterLabels, repaymentParameterLabels } 
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
+import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
 
 /**
  * Edit Template Component.
@@ -53,7 +54,7 @@ export class EditTemplateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private templateService: TemplatesService) {
+              private userGeneratedDocumentsService: UserGeneratedDocumentsService) {
     this.route.data.subscribe((data: { editTemplateData: any }) => {
       this.editTemplateData = data.editTemplateData;
       this.mappers = this.editTemplateData.template.mappers
@@ -170,7 +171,7 @@ export class EditTemplateComponent implements OnInit {
       })),
       text: this.getEditorContent()
     };
-    this.templateService.updateTemplate(template, this.editTemplateData.template.id).subscribe(() => {
+    this.userGeneratedDocumentsService.saveTemplate(this.editTemplateData.template.id,template).subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

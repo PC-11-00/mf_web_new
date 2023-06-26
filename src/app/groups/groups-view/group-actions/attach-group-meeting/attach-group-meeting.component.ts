@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
 
 /** Custom Services */
-import { GroupsService } from 'app/groups/groups.service';
+// import { GroupsService } from 'app/groups/groups.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { CalendarService, GroupsService } from 'openapi/typescript_files';
 
 /**
  * Group Meetings Component
@@ -45,7 +46,7 @@ export class AttachGroupMeetingComponent implements OnInit {
    * @param {SettingsService} settingsService SettingsService
    */
   constructor(private formBuilder: FormBuilder,
-              private groupsService: GroupsService,
+              private calendarService: CalendarService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -131,7 +132,7 @@ export class AttachGroupMeetingComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.groupsService.createGroupMeeting(this.groupId, data).subscribe((response: any) => {
+    this.calendarService.createCalendar('groups',this.groupId, data).subscribe((response: any) => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

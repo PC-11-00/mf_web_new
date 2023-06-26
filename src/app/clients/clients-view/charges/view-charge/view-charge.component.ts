@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
+import { ClientChargesService, ClientTransactionService } from 'openapi/typescript_files';
 
 /**
  * View Charge component.
@@ -25,7 +26,8 @@ export class ViewChargeComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private clientService: ClientsService) {
+              private clientService: ClientChargesService,
+              private clientTransactionService: ClientTransactionService) {
     this.route.data.subscribe((data: { clientChargeData: any }) => {
       this.chargeData = data.clientChargeData;
     });
@@ -38,9 +40,10 @@ export class ViewChargeComponent implements OnInit {
   /**
    * Waive Charge.
    */
+  waiveChargeObj:any;
   waiveCharge() {
-    const waiveChargeObj = { clientId: this.chargeData.clientId, resourceType: this.chargeData.id};
-    this.clientService.waiveClientCharge(waiveChargeObj).subscribe(() => {
+    this.waiveChargeObj = { clientId: this.chargeData.clientId, resourceType: this.chargeData.id};
+    this.clientService.payOrWaiveClientCharge(this.waiveChargeObj.clientId,this.waiveChargeObj.resourceType,this.waiveChargeObj,'waive').subscribe(() => {
       this.getChargeData();
     });
   }
@@ -48,9 +51,10 @@ export class ViewChargeComponent implements OnInit {
   /**
    * Undo Transaction.
    */
+  transactionData:any;
   undoTransaction(transactionId: any) {
-    const transactionData = { clientId: this.chargeData.clientId.toString(), transactionId: transactionId};
-    this.clientService.undoTransaction(transactionData).subscribe(() => {
+    this.transactionData = { clientId: this.chargeData.clientId.toString(), transactionId: transactionId};
+    this.clientTransactionService.undoClientTransaction(this.transactionData.clientId,this.transactionData.transactionId,'undo').subscribe(() => {
       this.getChargeData();
     });
   }
@@ -59,7 +63,7 @@ export class ViewChargeComponent implements OnInit {
    * Get Charge Data.
    */
   getChargeData() {
-    this.clientService.getSelectedChargeData(this.chargeData.clientId, this.chargeData.id).subscribe((data: any) => {
+    this.clientService.retrieveClientCharge(this.chargeData.clientId, this.chargeData.id).subscribe((data: any) => {
       this.chargeData = data;
     });
   }
@@ -68,7 +72,7 @@ export class ViewChargeComponent implements OnInit {
    * Delete Charge.
    */
   deleteCharge() {
-    this.clientService.deleteCharge(this.chargeData.clientId, this.chargeData.id).subscribe(() => {
+    this.clientService.deleteClientCharge(this.chargeData.clientId, this.chargeData.id).subscribe(() => {
       this.router.navigate(['../../clients', this.chargeData.clientId, 'general']);
     });
   }

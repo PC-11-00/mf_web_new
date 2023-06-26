@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { StaffService } from 'openapi/typescript_files';
 
 /**
  * Edit Employee Component.
@@ -39,7 +40,7 @@ export class EditEmployeeComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: StaffService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -90,7 +91,7 @@ export class EditEmployeeComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.updateEmployee(this.employeeData.id, data).subscribe((response: any) => {
+    this.organizationService.update7(this.employeeData.id, data).subscribe((response: any) => {
       this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
     });
   }

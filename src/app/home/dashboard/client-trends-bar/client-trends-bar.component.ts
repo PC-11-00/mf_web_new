@@ -13,6 +13,7 @@ import { HomeService } from '../../home.service';
 /** Charting Imports */
 import Chart from 'chart.js';
 import { Dates } from 'app/core/utils/dates';
+import { RunReportsService } from 'openapi/typescript_files';
 
 /**
  * Client Trends Bar Chart Component.
@@ -41,7 +42,7 @@ export class ClientTrendsBarComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route
    * @param {Dates} dateUtils Date Utils
    */
-  constructor(private homeService: HomeService,
+  constructor(private runReportsService: RunReportsService,
               private route: ActivatedRoute,
               private dateUtils: Dates) {
     this.route.data.subscribe( (data: { offices: any }) => {
@@ -73,8 +74,8 @@ export class ClientTrendsBarComponent implements OnInit {
         const timescale = this.timescale.value;
         switch (timescale) {
           case 'Day':
-            const clientsByDay = this.homeService.getClientTrendsByDay(officeId);
-            const loansByDay = this.homeService.getLoanTrendsByDay(officeId);
+            const clientsByDay = this.runReportsService.runReport('ClientTrendsByDay');
+            const loansByDay = this.runReportsService.runReport('LoanTrendsByDay');
             forkJoin([clientsByDay, loansByDay]).subscribe((data: any[]) => {
               const dayLabels = this.getLabels(timescale);
               const clientCounts = this.getCounts(data[0], dayLabels, timescale, 'client');
@@ -84,8 +85,8 @@ export class ClientTrendsBarComponent implements OnInit {
             });
             break;
           case 'Week':
-            const clientsByWeek = this.homeService.getClientTrendsByWeek(officeId);
-            const loansByWeek = this.homeService.getLoanTrendsByWeek(officeId);
+            const clientsByWeek = this.runReportsService.runReport('ClientTrendsByWeek');
+            const loansByWeek = this.runReportsService.runReport('LoanTrendsByWeek');
             forkJoin([clientsByWeek, loansByWeek]).subscribe((data: any[]) => {
               const weekLabels = this.getLabels(timescale);
               const clientCounts = this.getCounts(data[0], weekLabels, timescale, 'client');
@@ -95,8 +96,8 @@ export class ClientTrendsBarComponent implements OnInit {
             });
             break;
           case 'Month':
-            const clientsByMonth = this.homeService.getClientTrendsByMonth(officeId);
-            const loansByMonth = this.homeService.getLoanTrendsByMonth(officeId);
+            const clientsByMonth = this.runReportsService.runReport('ClientTrendsByMonth');
+            const loansByMonth = this.runReportsService.runReport('LoanTrendsByMonth');
             forkJoin([clientsByMonth, loansByMonth]).subscribe((data: any[]) => {
               const monthLabels = this.getLabels(timescale);
               const clientCounts = this.getCounts(data[0], monthLabels, timescale, 'client');

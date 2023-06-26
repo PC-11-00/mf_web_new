@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TasksService } from '../tasks.service';
+import { RescheduleLoansService } from 'openapi/typescript_files';
 
 /**
  * Pending Reschedule Loans data resolver.
@@ -17,14 +18,14 @@ export class GetRescheduleLoans implements Resolve<Object> {
     /**
      * @param {TasksService} tasksService Tasks service.
      */
-    constructor(private tasksService: TasksService) { }
+    constructor(private rescheduleLoansService: RescheduleLoansService) { }
 
     /**
      * Returns the pending reschedule data.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.tasksService.getPendingRescheduleLoans();
+        return this.rescheduleLoansService.retrieveAllRescheduleRequest('pending');
     }
 
 }

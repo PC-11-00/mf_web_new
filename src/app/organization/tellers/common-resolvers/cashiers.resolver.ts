@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * Cashiers data resolver.
@@ -17,15 +18,16 @@ export class CashiersResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: TellerCashManagementService) {}
 
   /**
    * Returns the cashiers data.
    * @returns {Observable<any>}
    */
+  tellerId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const tellerId = route.parent.paramMap.get('id');
-    return this.organizationService.getCashiers(tellerId);
+    this.tellerId = route.parent.paramMap.get('id');
+    return this.organizationService.getCashierData1(this.tellerId);
   }
 
 }

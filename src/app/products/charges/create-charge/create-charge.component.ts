@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ChargesService } from 'openapi/typescript_files';
 
 /**
  * Create charge component.
@@ -47,7 +48,7 @@ export class CreateChargeComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: ProductsService,
+              private productsService: ChargesService,
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,

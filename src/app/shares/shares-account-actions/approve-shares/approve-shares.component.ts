@@ -13,6 +13,7 @@ import { ApproveShareDialogComponent } from './approve-share-dialog/approve-shar
 /** Custom Serices */
 import { SharesService } from 'app/shares/shares.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { ShareAccountService } from 'openapi/typescript_files';
 
 /**
  * Approve shares component.
@@ -49,7 +50,7 @@ export class ApproveSharesComponent implements OnInit {
    * @param {MatDialog} dialog Dialog reference.
    * @param {SettingsService} settingsService Settings Service
    */
-  constructor(private sharesService: SharesService,
+  constructor(private shareAccountService: ShareAccountService,
               private route: ActivatedRoute,
               public dialog: MatDialog,
               private settingsService: SettingsService) {
@@ -81,6 +82,7 @@ export class ApproveSharesComponent implements OnInit {
    * Approves a share
    * @param {any} id Share Id
    */
+  data:any;
   approve(id: any) {
     const approveSharesDialogRef = this.dialog.open(ApproveShareDialogComponent, {
       data: { shareId: id }
@@ -89,12 +91,12 @@ export class ApproveSharesComponent implements OnInit {
       if (response.approve) {
         const locale = this.settingsService.language.code;
         const dateFormat = this.settingsService.dateFormat;
-        const data = {
+        this.data = {
           requestedShares: [{id}],
           dateFormat,
           locale
         };
-        this.sharesService.executeSharesAccountCommand(this.accountId, 'approveadditionalshares', data).subscribe(() => {
+        this.shareAccountService.handleCommands2('share',this.accountId, this.data, 'approveadditionalshares').subscribe(() => {
           const share = this.sharesData.find(element => element.id === id);
           const index = this.sharesData.indexOf(share);
           this.sharesData.splice(index, 1);

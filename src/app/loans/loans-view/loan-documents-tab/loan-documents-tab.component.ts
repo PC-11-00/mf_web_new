@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from 'environments/environment';
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { DocumentsService } from 'openapi/typescript_files';
 
 /**
  * Overdue charges tab component
@@ -20,7 +21,7 @@ export class LoanDocumentsTabComponent implements OnInit {
   /** Stores the resolved loan documents data */
   entityDocuments: any;
   /** Loan account Id */
-  entityId: string;
+  entityId: any;
   entityType = 'loans';
 
   /**
@@ -28,7 +29,7 @@ export class LoanDocumentsTabComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    */
   constructor(private route: ActivatedRoute,
-    private loansService: LoansService,
+    private documentsService: DocumentsService,
     private settingsService: SettingsService) {
       this.entityId = this.route.parent.snapshot.params['loanId'];
 
@@ -56,19 +57,19 @@ export class LoanDocumentsTabComponent implements OnInit {
     this.entityDocuments = data;
   }
 
-  downloadDocument(documentId: string) {
-    this.loansService.downloadLoanDocument(this.entityId, documentId).subscribe(res => {
+  downloadDocument(documentId: any) {
+    this.documentsService.downloadFile(this.entityType,this.entityId, documentId).subscribe(res => {
       const url = window.URL.createObjectURL(res);
       window.open(url);
     });
   }
 
-  uploadDocument(formData: FormData): any {
-    return this.loansService.loadLoanDocument(this.entityId, formData);
+  uploadDocument(formData: any): any {
+    return this.documentsService.createDocument(this.entityType,this.entityId, formData);
   }
 
   deleteDocument(documentId: any) {
-    this.loansService.deleteLoanDocument(this.entityId, documentId).subscribe((res: any) => {});
+    this.documentsService.deleteDocument(this.entityType,this.entityId, documentId).subscribe((res: any) => {});
   }
 
 }

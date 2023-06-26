@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
+import { AdhocQueryApiService } from 'openapi/typescript_files';
 
 /**
  * Adhoc Queries data resolver.
@@ -17,14 +18,14 @@ export class AdhocQueriesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organizationService: AdhocQueryApiService) {}
 
   /**
    * Returns the adhoc queries data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getAdhocQueries();
+    return this.organizationService.retrieveAll2();
   }
 
 }

@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsAccountTransactionsService } from 'openapi/typescript_files';
 
 /**
  * Edit Transaction component.
@@ -35,7 +36,7 @@ export class EditTransactionComponent implements OnInit {
   /** Flag to enable payment details fields. */
   showPaymentDetails: Boolean = false;
   /** saving account's Id */
-  savingAccountId: string;
+  savingAccountId: any;
   /** Transaction Template */
   transactionTemplateData: any;
 
@@ -52,7 +53,7 @@ export class EditTransactionComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private savingsService: SavingsService,
+              private savingsAccountTransactionsService: SavingsAccountTransactionsService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { savingsAccountTransactionTemplate: any }) => {
       this.transactionTemplateData = data.savingsAccountTransactionTemplate;
@@ -121,7 +122,7 @@ export class EditTransactionComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.savingsService.executeSavingsAccountTransactionsCommand(this.savingAccountId, 'modify', data, this.transactionTemplateData.id)
+    this.savingsAccountTransactionsService.adjustTransaction1(this.savingAccountId, this.transactionTemplateData.id, data, 'modify')
       .subscribe(res => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

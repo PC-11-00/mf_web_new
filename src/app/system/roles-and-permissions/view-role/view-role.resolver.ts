@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { RolesService } from 'openapi/typescript_files';
 
 /**
  * Roles and Permission data resolver.
@@ -17,15 +18,16 @@ export class ViewRoleResolver implements Resolve<Object> {
     /**
      * @param {SystemService} systemService System service.
      */
-    constructor(private systemService: SystemService) { }
+    constructor(private rolesService: RolesService) { }
 
     /**
      * Returns the roles and permissions data.
      * @returns {Observable<any>}
      */
+    id: any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const id = route.paramMap.get('id');
-        return this.systemService.getRole(id);
+        this.id = route.paramMap.get('id');
+        return this.rolesService.retrieveRole(this.id);
     }
 
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { JournalEntriesService } from 'openapi/typescript_files';
 
 /**
  * Transaction data resolver.
@@ -17,15 +18,16 @@ export class TransactionResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: JournalEntriesService) {}
 
   /**
    * Returns the transaction data.
    * @returns {Observable<any>}
    */
+  transactionId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const transactionId = route.paramMap.get('id');
-    return this.accountingService.getJournalEntry(transactionId);
+    this.transactionId = route.paramMap.get('id');
+    return this.accountingService.retrieveJournalEntryById(this.transactionId);
   }
 
 }

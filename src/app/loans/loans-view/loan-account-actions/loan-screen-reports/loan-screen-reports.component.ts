@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { LoansService } from 'app/loans/loans.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
 
 /**
  * Loans Screen Reports Component.
@@ -39,7 +40,7 @@ export class LoanScreenReportsComponent implements OnInit {
    * @param {Renderer2} renderer Renderer 2
    */
   constructor(private formBuilder: FormBuilder,
-    private loansService: LoansService,
+    private userGeneratedDocumentsService: UserGeneratedDocumentsService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private renderer: Renderer2) {
@@ -81,7 +82,7 @@ export class LoanScreenReportsComponent implements OnInit {
    */
   generate() {
     const templateId = this.loanScreenReportForm.get('templateId').value;
-    this.loansService.getTemplateData(templateId, this.loanId).subscribe((response: any) => {
+    this.userGeneratedDocumentsService.mergeTemplate(templateId, this.loanId).subscribe((response: any) => {
       this.template = this.sanitizer.sanitize(SecurityContext.HTML, response);
       this.renderer.setProperty(this.screenReportRef.nativeElement, 'innerHTML', this.template);
     });

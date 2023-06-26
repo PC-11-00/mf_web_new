@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OrganizationService } from '../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { StandingInstructionsHistoryService } from 'openapi/typescript_files';
 
 /**
  * View Standing Instructions History Component.
@@ -52,7 +53,7 @@ export class StandingInstructionsHistoryComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: StandingInstructionsHistoryService,
               private settingsService: SettingsService,
               private router: Router,
               private route: ActivatedRoute,
@@ -122,7 +123,7 @@ export class StandingInstructionsHistoryComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.getStandingInstructions(data).subscribe((response: any) => {
+    this.organizationService.retrieveAll20(data).subscribe((response: any) => {
       this.setInstructions(response.pageItems);
     });
   }

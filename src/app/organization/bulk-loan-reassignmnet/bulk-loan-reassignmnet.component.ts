@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationService } from '../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { BulkLoansService } from 'openapi/typescript_files';
 
 /**
  * Bulk Loan Reassignment component.
@@ -47,7 +48,7 @@ export class BulkLoanReassignmnetComponent implements OnInit {
    */
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private organizationSevice: OrganizationService,
+              private organizationSevice: BulkLoansService,
               private settingsService: SettingsService,
               private dateUtils: Dates,
               private router: Router) {
@@ -75,8 +76,9 @@ export class BulkLoanReassignmnetComponent implements OnInit {
    * Get Office template.
    * @param officeId Office Id.
    */
-  getOffice(officeId: string) {
-    this.organizationSevice.getOfficeTemplate(officeId).subscribe((response: any) => {
+  
+  getOffice(officeId: any) {
+    this.organizationSevice.loanReassignmentTemplate(officeId).subscribe((response: any) => {
       this.officeTemplate = response;
       this.fromLoanOfficers = this.officeTemplate.loanOfficerOptions;
       this.bulkLoanForm.addControl('fromLoanOfficerId', new FormControl('', Validators.required));
@@ -89,7 +91,7 @@ export class BulkLoanReassignmnetComponent implements OnInit {
    */
   getFromOfficers(officerId: any) {
     this.toLoanOfficers = this.fromLoanOfficers.filter((officer: any) => officer.id !== officerId );
-    this.organizationSevice.getOfficerTemplate(officerId, this.officeTemplate.id).subscribe((response: any) => {
+    this.organizationSevice.loanReassignmentTemplate(officerId, this.officeTemplate.id).subscribe((response: any) => {
       this.officerTemplate = response;
     });
   }
@@ -126,7 +128,7 @@ export class BulkLoanReassignmnetComponent implements OnInit {
       locale
     };
     data.loans = this.loans;
-    this.organizationSevice.createLoanReassignment(data).subscribe((response: any) => {
+    this.organizationSevice.loanReassignment(data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

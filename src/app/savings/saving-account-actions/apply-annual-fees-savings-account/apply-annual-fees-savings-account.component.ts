@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsChargesService } from 'openapi/typescript_files';
 
 /**
  * Apply Annual Fees Component
@@ -40,7 +41,7 @@ export class ApplyAnnualFeesSavingsAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Setting service
    */
   constructor(private formBuilder: FormBuilder,
-              private savingsService: SavingsService,
+              private savingsChargesService: SavingsChargesService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -100,7 +101,7 @@ export class ApplyAnnualFeesSavingsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.savingsService.executeSavingsAccountChargesCommand(this.accountId, 'paycharge', data, this.chargeId).subscribe(() => {
+    this.savingsChargesService.payOrWaiveSavingsAccountCharge(this.accountId, this.chargeId, data, 'paycharge').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

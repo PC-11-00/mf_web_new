@@ -6,6 +6,7 @@ import { LoansService } from 'app/loans/loans.service';
 import { LoanStatus } from 'app/loans/models/loan-status.nodel';
 import { SettingsService } from 'app/settings/settings.service';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
+import { RescheduleLoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-reschedule-loan-tab',
@@ -21,7 +22,7 @@ export class RescheduleLoanTabComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private loansServices: LoansService,
+    private rescheduleLoansService: RescheduleLoansService,
     private settingsService: SettingsService,
     private dateUtils: Dates,
     private dialog: MatDialog) {
@@ -33,7 +34,7 @@ export class RescheduleLoanTabComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  payload:any;
   manageRequest(request: any, command: string): void {
     const approveLoanRescheduleDialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: { heading: `${command} Loan Reschedule`, dialogContext: `Are you sure you want ${command} the Loan Reschedule ${request.id}` }
@@ -42,16 +43,16 @@ export class RescheduleLoanTabComponent implements OnInit {
       if (response.confirm) {
         const locale = this.settingsService.language.code;
         const dateFormat = this.settingsService.dateFormat;
-        const payload = {
+        this.payload = {
           dateFormat,
           locale
         };
         if (command === 'Approve') {
-          payload['approvedOnDate'] = this.dateUtils.formatDate(this.settingsService.businessDate, dateFormat);
+          this.payload['approvedOnDate'] = this.dateUtils.formatDate(this.settingsService.businessDate, dateFormat);
         } else {
-          payload['rejectedOnDate'] = this.dateUtils.formatDate(this.settingsService.businessDate, dateFormat);
+          this.payload['rejectedOnDate'] = this.dateUtils.formatDate(this.settingsService.businessDate, dateFormat);
         }
-        this.loansServices.applyCommandLoanRescheduleRequests(request.id, command.toLowerCase(), payload).subscribe((result: any) => {
+        this.rescheduleLoansService.updateLoanRescheduleRequest(request.id, this.payload, command.toLowerCase()).subscribe((result: any) => {
           this.reload();
         });
       }

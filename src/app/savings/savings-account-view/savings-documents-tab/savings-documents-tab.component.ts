@@ -5,6 +5,7 @@ import { UploadDocumentDialogComponent } from 'app/clients/clients-view/custom-d
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { environment } from 'environments/environment';
+import { DocumentsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-savings-documents-tab',
@@ -16,7 +17,7 @@ export class SavingsDocumentsTabComponent implements OnInit {
   /** Stores the resolved savings documents data */
   entityDocuments: any;
   /** Stores the saving Account Id */
-  entityId: string;
+  entityId: any;
   entityType = 'savings';
 
   /**
@@ -24,7 +25,7 @@ export class SavingsDocumentsTabComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    */
   constructor(private route: ActivatedRoute,
-    private savingsService: SavingsService,
+    private documentsService: DocumentsService,
     private settingsService: SettingsService,
     public dialog: MatDialog) {
     this.route.data.subscribe((data: { savingsDocuments: any }) => {
@@ -53,19 +54,19 @@ export class SavingsDocumentsTabComponent implements OnInit {
     this.entityDocuments = data;
   }
 
-  downloadDocument(documentId: string) {
-    this.savingsService.downloadSavingsDocument(this.entityId, documentId).subscribe(res => {
+  downloadDocument(documentId: any) {
+    this.documentsService.downloadFile(this.entityType,this.entityId, documentId).subscribe(res => {
       const url = window.URL.createObjectURL(res);
       window.open(url);
     });
   }
 
-  uploadDocument(formData: FormData): any {
-    return this.savingsService.loadSavingsDocument(this.entityId, formData);
+  uploadDocument(formData: any): any {
+    return this.documentsService.createDocument(this.entityType,this.entityId, formData);
   }
 
   deleteDocument(documentId: any) {
-    this.savingsService.deleteSavingsDocument(this.entityId, documentId).subscribe((res: any) => {});
+    this.documentsService.deleteDocument(this.entityType,this.entityId, documentId).subscribe((res: any) => {});
   }
 
 }

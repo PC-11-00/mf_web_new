@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { GeneralLedgerAccountService } from 'openapi/typescript_files';
 
 /**
  * GL accounts data resolver.
@@ -17,14 +18,14 @@ export class GlAccountsResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: GeneralLedgerAccountService) {}
 
   /**
    * Returns the gl accounts data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.accountingService.getGlAccounts();
+    return this.accountingService.retrieveAllAccounts();
   }
 
 }

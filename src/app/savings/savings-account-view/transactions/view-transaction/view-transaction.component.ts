@@ -11,6 +11,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { UndoTransactionDialogComponent } from '../../custom-dialogs/undo-transaction-dialog/undo-transaction-dialog.component';
 import { Dates } from 'app/core/utils/dates';
 import { ReleaseAmountDialogComponent } from '../../custom-dialogs/release-amount-dialog/release-amount-dialog.component';
+import { SavingsAccountTransactionsService } from 'openapi/typescript_files';
 
 /**
  * View Transaction Component.
@@ -26,7 +27,7 @@ export class ViewTransactionComponent {
   /** Transaction data. */
   transactionData: any;
 
-  accountId: string;
+  accountId: any;
 
   /**
    * Retrieves the Transaction data from `resolve`.
@@ -37,7 +38,7 @@ export class ViewTransactionComponent {
    * @param {Dates} dateUtils Date Utils.
    * @param {SettingsService} settingsService Setting service
    */
-  constructor(private savingsService: SavingsService,
+  constructor(private savingsAccountTransactionsService: SavingsAccountTransactionsService,
               private route: ActivatedRoute,
               private dateUtils: Dates,
               private router: Router,
@@ -52,19 +53,20 @@ export class ViewTransactionComponent {
   /**
    * Undo the savings transaction
    */
+  data:any;
   undoTransaction() {
     const undoTransactionAccountDialogRef = this.dialog.open(UndoTransactionDialogComponent);
     undoTransactionAccountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
         const locale = this.settingsService.language.code;
         const dateFormat = this.settingsService.dateFormat;
-        const data = {
+        this.data = {
           transactionDate: this.dateUtils.formatDate(this.transactionData.date && new Date(this.transactionData.date), dateFormat),
           transactionAmount: 0,
           dateFormat,
           locale
         };
-        this.savingsService.executeSavingsAccountTransactionsCommand(this.accountId, 'undo', data, this.transactionData.id).subscribe(() => {
+        this.savingsAccountTransactionsService.adjustTransaction1(this.accountId, this.transactionData.id, this.data, 'undo').subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }
@@ -75,8 +77,8 @@ export class ViewTransactionComponent {
     const releaseAmountDialogRef = this.dialog.open(ReleaseAmountDialogComponent);
     releaseAmountDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        const data = { };
-        this.savingsService.executeSavingsAccountTransactionsCommand(this.accountId, 'releaseAmount', data, this.transactionData.id).subscribe(() => {
+        this.data = { };
+        this.savingsAccountTransactionsService.adjustTransaction1(this.accountId, this.transactionData.id, this.data, 'releaseAmount').subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }

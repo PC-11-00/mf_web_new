@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoansService } from '../../../loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { LoanChargesService } from 'openapi/typescript_files';
 
 /**
  * Create Add Loan Charge component.
@@ -41,7 +42,7 @@ export class AddLoanChargeComponent implements OnInit {
     };
   }[];
   /** loan Id of the loan account. */
-  loanId: string;
+  loanId: any;
 
   /**
    * Retrieves the loan charge template data from `resolve`.
@@ -55,7 +56,7 @@ export class AddLoanChargeComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private loansService: LoansService,
+              private loanChargesService: LoanChargesService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { actionButtonData: any }) => {
       this.loanChargeOptions = data.actionButtonData.chargeOptions;
@@ -111,7 +112,7 @@ export class AddLoanChargeComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.loansService.createLoanCharge(this.loanId, 'charges', data).subscribe(res => {
+    this.loanChargesService.executeLoanCharge(this.loanId, data, 'create').subscribe(res => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

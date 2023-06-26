@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { PasswordPreferencesService } from 'openapi/typescript_files';
 
 /**
  * Password preferences component.
@@ -29,7 +30,7 @@ export class PasswordPreferencesComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
+              private organizationService: PasswordPreferencesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { passwordPreferencesTemplate: any}) => {
@@ -71,7 +72,7 @@ export class PasswordPreferencesComponent implements OnInit {
    */
   submit() {
     const passwordPreferences = this.passwordPreferencesForm.value;
-    this.organizationService.updatePasswordPreferences(passwordPreferences).subscribe((response: any) => {
+    this.organizationService.update24(passwordPreferences).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

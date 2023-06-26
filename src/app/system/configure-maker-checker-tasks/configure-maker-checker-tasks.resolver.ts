@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { PermissionsService } from 'openapi/typescript_files';
 
 /**
  * Maker Checker Tasks resolver.
@@ -17,14 +18,14 @@ export class MakerCheckerTasksResolver implements Resolve<Object> {
     /**
      * @param {SystemService} systemService System service.
      */
-    constructor(private systemService: SystemService) { }
+    constructor(private permissionsService: PermissionsService) { }
 
     /**
      * Returns all the Configurable Maker Checker Tasks.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.systemService.getMakerCheckerPermissions();
+        return this.permissionsService.retrieveAllPermissions();
     }
 
 }

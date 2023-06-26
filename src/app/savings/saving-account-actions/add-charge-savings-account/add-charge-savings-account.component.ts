@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SavingsService } from '../../savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ChargesService, SavingsChargesService } from 'openapi/typescript_files';
 
 /**
  * Add Savings Charge component.
@@ -27,7 +28,7 @@ export class AddChargeSavingsAccountComponent implements OnInit {
   /** savings charge options. */
   savingsChargeOptions: any;
   /** savings Id of the savings account. */
-  savingAccountId: string;
+  savingAccountId: any;
   /** charge details */
   chargeDetails: any;
 
@@ -44,7 +45,8 @@ export class AddChargeSavingsAccountComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private savingsService: SavingsService,
+              private savingsChargesService: SavingsChargesService,
+              private chargesService:ChargesService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { savingsAccountActionData: any }) => {
       this.savingsChargeOptions = data.savingsAccountActionData.chargeOptions;
@@ -63,7 +65,7 @@ export class AddChargeSavingsAccountComponent implements OnInit {
 
   buildDependencies() {
     this.savingsChargeForm.controls.chargeId.valueChanges.subscribe(chargeId => {
-      this.savingsService.getChargeTemplate(chargeId).subscribe((data: any) => {
+      this.chargesService.retrieveCharge(chargeId).subscribe((data: any) => {
         this.chargeDetails = data;
         const chargeTimeType = data.chargeTimeType.id;
         if (data.chargeTimeType.value === 'Withdrawal Fee' || data.chargeTimeType.value === 'Saving No Activity Fee') {
@@ -134,7 +136,7 @@ export class AddChargeSavingsAccountComponent implements OnInit {
         }
       }
     }
-    this.savingsService.createSavingsCharge(this.savingAccountId, 'charges', savingsCharge).subscribe( () => {
+    this.savingsChargesService.addSavingsAccountCharge(this.savingAccountId, savingsCharge).subscribe( () => {
       this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });
   }

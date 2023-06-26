@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
+import { PaymentTypeService } from 'openapi/typescript_files';
 
 /**
  * Payment types data resolver.
@@ -17,14 +18,14 @@ export class PaymentTypesResolver implements Resolve<Object> {
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: PaymentTypeService) {}
 
   /**
    * Returns the payment types data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.accountingService.getPaymentTypes();
+    return this.accountingService.getAllPaymentTypes();
   }
 
 }

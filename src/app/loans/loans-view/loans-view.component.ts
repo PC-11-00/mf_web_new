@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
+// import { LoansService } from '../loans.service';
 
 /** Custom Buttons Configuration */
 import { LoansAccountButtonConfiguration } from './loan-accounts-button-config';
@@ -13,6 +13,7 @@ import { LoansAccountButtonConfiguration } from './loan-accounts-button-config';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { LoanStatus } from '../models/loan-status.nodel';
+import { LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-loans-view',
@@ -191,7 +192,7 @@ export class LoansViewComponent implements OnInit {
     });
     recoverFromGuarantorDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.loansService.loanActionButtons(this.loanId, 'recoverGuarantees').subscribe(() => {
+        this.loansService.stateTransitions(this.loanId,{},'recoverGuarantees').subscribe(() => {
           this.reload();
         });
       }
@@ -214,7 +215,7 @@ export class LoansViewComponent implements OnInit {
     });
     deleteGuarantorDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.loansService.deleteLoanAccount(this.loanId).subscribe(() => {
+        this.loansService.deleteLoanApplication(this.loanId).subscribe(() => {
           this.router.navigate(['../../'], { relativeTo: this.route });
         });
       }

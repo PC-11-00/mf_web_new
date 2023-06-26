@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SavingsAccountService } from 'openapi/typescript_files';
 
 /**
  * Approve Savings Account Component
@@ -36,7 +37,7 @@ export class ApproveSavingsAccountComponent implements OnInit {
    * @param {SettingsService} settingsService Setting service
    */
   constructor(private formBuilder: FormBuilder,
-              private savingsService: SavingsService,
+              private savingsAccountService: SavingsAccountService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
@@ -79,7 +80,7 @@ export class ApproveSavingsAccountComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.savingsService.executeSavingsAccountCommand(this.accountId, 'approve', data).subscribe(() => {
+    this.savingsAccountService.handleCommands6(this.accountId, data, 'approve').subscribe(() => {
       this.router.navigate(['../../transactions'], { relativeTo: this.route });
     });
   }

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * View Cashier component.
@@ -31,7 +32,7 @@ export class ViewCashierComponent {
    */
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private organizationService: OrganizationService,
+              private organizationService: TellerCashManagementService,
               public dialog: MatDialog) {
     this.route.data.subscribe((data: { cashier: any }) => {
       this.cashierData = data.cashier;

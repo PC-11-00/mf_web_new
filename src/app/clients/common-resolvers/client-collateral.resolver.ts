@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { ClientCollateralManagementService } from 'openapi/typescript_files';
 
 /**
  * Client Charges data resolver.
@@ -17,15 +18,16 @@ export class ClientCollateralResolver implements Resolve<Object> {
     /**
      * @param {ClientsService} clientsService Clients service.
      */
-    constructor(private clientsService: ClientsService) { }
+    constructor(private clientsService: ClientCollateralManagementService) { }
 
     /**
      * Returns the Client Collateral data.
      * @returns {Observable<any>}
      */
+    clientId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        const clientId = route.parent.paramMap.get('clientId');
-        return this.clientsService.getCollateralTemplate(clientId);
+        this.clientId = route.parent.paramMap.get('clientId');
+        return this.clientsService.getClientCollateralTemplate(this.clientId);
     }
 
 }

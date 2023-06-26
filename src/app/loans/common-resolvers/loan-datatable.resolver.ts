@@ -6,7 +6,8 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { LoansService } from '../loans.service';
+// import { LoansService } from '../loans.service';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * Loans notes data resolver.
@@ -17,16 +18,17 @@ export class LoanDatatableResolver implements Resolve<Object> {
     /**
      * @param {LoansService} LoansService Loans service.
      */
-    constructor(private loansService: LoansService) { }
+    constructor(private dataTablesService: DataTablesService) { }
 
     /**
      * Returns the Loans Notes Data.
      * @returns {Observable<any>}
      */
+    loanId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-      const loanId = route.paramMap.get('loanId') || route.parent.parent.paramMap.get('loanId');
+      this.loanId = route.paramMap.get('loanId') || route.parent.parent.paramMap.get('loanId');
       const datatableName = route.paramMap.get('datatableName');
-      return this.loansService.getLoanDatatable(loanId, datatableName);
+      return this.dataTablesService.getDatatable1( datatableName,this.loanId);
     }
 
 }

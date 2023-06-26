@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { TellerCashManagementService } from 'openapi/typescript_files';
 
 /**
  * Create Cashier component.
@@ -40,7 +41,7 @@ export class CreateCashierComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private organizationService: OrganizationService,
+              private organizationService: TellerCashManagementService,
               private settingsService: SettingsService ) {
     this.route.data.subscribe((data: { cashierTemplate: any }) => {
       this.cashierTemplate = data.cashierTemplate;

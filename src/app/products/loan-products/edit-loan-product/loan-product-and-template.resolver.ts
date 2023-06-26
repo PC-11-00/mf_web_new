@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+
+/* OpenApi Transcirpt Service*/
 import { LoanProductsService } from 'openapi/typescript_files';
 
 /**
@@ -21,24 +23,15 @@ export class LoanProductAndTemplateResolver implements Resolve<Object> {
   constructor(private productsService: LoanProductsService) { }
 
   loanProductId: any;
-  template: any;
-  template_bool: any;
-
+  template:any;
   /**
    * Returns the loan product and template data.
    * @returns {Observable<any>}
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.loanProductId = route.parent.paramMap.get('productId');
-    this.template_bool = true;
-    console.log("product-id: ", this.loanProductId);
-    console.log("Hi baby");
-    this.template = new HttpParams().set('template', this.template);
-
-    console.log(this.template);
-    // console.log(this.productsService.retrieveLoanProductDetails(this.loanProductId, this.template));
-
-    return this.productsService.updateLoanProduct(this.loanProductId, this.template);
+    // this.template = 
+    return this.productsService.retrieveLoanProductDetails(this.loanProductId);
   }
 
 }

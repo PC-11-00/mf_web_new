@@ -11,6 +11,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
+import { GeneralLedgerAccountService } from 'openapi/typescript_files';
 
 /**
  * Create gl account component.
@@ -57,7 +58,7 @@ export class CreateGlAccountComponent implements OnInit, AfterViewInit {
    * @param {Matdialog} dialog Matdialog.
    */
   constructor(private formBuilder: FormBuilder,
-              private accountingService: AccountingService,
+              private accountingService: GeneralLedgerAccountService,
               private route: ActivatedRoute,
               private router: Router,
               private configurationWizardService: ConfigurationWizardService,
@@ -134,7 +135,7 @@ export class CreateGlAccountComponent implements OnInit, AfterViewInit {
    * if successful redirects to view created account.
    */
   submit() {
-    this.accountingService.createGlAccount(this.glAccountForm.value).subscribe((response: any) => {
+    this.accountingService.createGLAccount1(this.glAccountForm.value).subscribe((response: any) => {
       if (this.configurationWizardService.showChartofAccounts === true) {
         this.configurationWizardService.showChartofAccounts = false;
         this.openDialog();

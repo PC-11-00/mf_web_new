@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ClientsService } from '../../../clients.service';
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
+import { ScoreCardService } from 'openapi/typescript_files';
 
 /**
  * Take Survey Component
@@ -27,15 +28,7 @@ export class TakeSurveyComponent {
   /** Client ID */
   clientId: any;
   /** Stores the value to send to the API */
-  formData: {
-    userId: Number,
-    clientId: Number,
-    surveyId: Number,
-    scorecardValues: { questionId: Number, responseId: Number, value: String }[],
-    surveyName: String,
-    username: String,
-    id: Number
-  };
+  formData: any;
 
   /**
    * Retrieves the survey data from `resolve`.
@@ -45,7 +38,7 @@ export class TakeSurveyComponent {
    * @param {AuthenticationService} authenticationService AuthenticationService
    */
   constructor(private route: ActivatedRoute,
-              private clientsService: ClientsService,
+              private clientsService: ScoreCardService,
               private router: Router,
               private authenticationService: AuthenticationService) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
@@ -123,7 +116,7 @@ export class TakeSurveyComponent {
       }
     });
 
-    this.clientsService.createNewSurvey(this.surveyData.id, this.formData).subscribe(() => {
+    this.clientsService.createScorecard1(this.surveyData.id, this.formData).subscribe(() => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

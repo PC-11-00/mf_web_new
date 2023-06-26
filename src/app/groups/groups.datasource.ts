@@ -5,8 +5,8 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 /** Custom Services */
-import { GroupsService } from './groups.service';
-
+// import { GroupsService } from './groups.service';
+import { GroupsService } from 'openapi/typescript_files';
 /**
  * Groups custom data source to implement server side filtering, pagination and sorting.
  */
@@ -33,9 +33,9 @@ export class GroupsDataSource implements DataSource<any> {
    * @param {number} limit Number of entries within the page.
    * @param {boolean} groupActive Specify whether to only filter active groups.
    */
-  getGroups(filterBy: any, orderBy: string = '', sortOrder: string = '', pageIndex: number = 0, limit: number = 10, groupActive: boolean = true) {
+  getGroups(name: any, orderBy: string = '', sortOrder: string = '', pageIndex: number = 0, limit: number = 10, groupActive: boolean = true) {
     this.groupsSubject.next([]);
-    this.groupsService.getGroups(filterBy, orderBy, sortOrder, pageIndex * limit, limit)
+    this.groupsService.retrieveAll24(null, null, null, name, null, true, pageIndex * limit, limit, orderBy, sortOrder, null)
       .subscribe((groups: any) => {
         groups.pageItems = (groupActive) ? (groups.pageItems.filter((group: any) => group.active)) : groups.pageItems;
         this.recordsSubject.next(groups.totalFilteredRecords);

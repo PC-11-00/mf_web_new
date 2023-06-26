@@ -15,6 +15,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-base';
 import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { Dates } from 'app/core/utils/dates';
+import { MeetingsService } from 'openapi/typescript_files';
 
 /**
  * Center Attendance component.
@@ -57,7 +58,7 @@ export class CenterAttendanceComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private dateUtils: Dates,
               private router: Router,
-              private centersService: CentersService,
+              private centersService: MeetingsService,
               private settingsService: SettingsService,
               public dialog: MatDialog) {
     this.route.data.subscribe(( data: { centersActionData: any }) => {
@@ -83,7 +84,7 @@ export class CenterAttendanceComponent implements OnInit {
    * Gets attendance type options based on calendar id.
    */
   getAttendanceOptions() {
-    this.centersService.getMeetingsTemplate(this.centerData.id, this.centerData.collectionMeetingCalendar.id)
+    this.centersService.template11('centers',this.centerData.id, this.centerData.collectionMeetingCalendar.id)
       .subscribe((response: any) => {
         this.attendanceTypeOptions = response.attendanceTypeOptions;
       });
@@ -121,19 +122,20 @@ export class CenterAttendanceComponent implements OnInit {
   /**
    * Assigns Client Members Attendance
    */
+  data:any;
   submit() {
     // TODO: Update once language and date settings are setup
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
     const prevMeetingDate: Date = new Date(this.meetingDate.value);
-    const data = {
+    this.data = {
       meetingDate: this.dateUtils.formatDate(this.meetingDate.value, dateFormat),
       calendarId: this.centerData.collectionMeetingCalendar.id,
       clientsAttendance: this.dataSource,
       dateFormat,
       locale
     };
-    this.centersService.assignCenterAttendance(this.centerData.id, this.centerData.collectionMeetingCalendar.id, data).subscribe(() => {
+    this.centersService.performMeetingCommands('centers',this.centerData.id,this.data, this.centerData.collectionMeetingCalendar.id).subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { FixedDepositProductService } from 'openapi/typescript_files';
 
 /**
  * Fixed Deposit Products data resolver.
@@ -17,14 +18,14 @@ export class FixedDepositProductsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: FixedDepositProductService) {}
 
   /**
    * Returns the fixed deposit products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getFixedDepositProducts();
+    return this.productsService.retrieveAll30();
   }
 
 }

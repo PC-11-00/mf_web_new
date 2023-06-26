@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
@@ -14,6 +14,7 @@ import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { GlimChargesStepComponent } from './glim-account-stepper/glim-charges-step/glim-charges-step.component';
 import { GlimDetailsStepComponent } from './glim-account-stepper/glim-details-step/glim-details-step.component';
 import { GlimTermsStepComponent } from './glim-account-stepper/glim-terms-step/glim-terms-step.component';
+import { BatchAPIService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-create-glim-account',
@@ -57,7 +58,7 @@ export class CreateGlimAccountComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private loansService: LoansService,
+    private loansService: BatchAPIService,
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private dateUtils: Dates) {
@@ -174,7 +175,7 @@ export class CreateGlimAccountComponent implements OnInit {
    */
   submit() {
     const data = this.buildRequestData();
-    this.loansService.createGlimAccount(data).subscribe((response: any) => {
+    this.loansService.handleBatchRequests(data,true).subscribe((response: any) => {
       this.router.navigate(['../../../'], { relativeTo: this.route });
     });
   }

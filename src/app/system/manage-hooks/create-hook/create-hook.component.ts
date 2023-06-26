@@ -13,6 +13,7 @@ import { SystemService } from '../../system.service';
 /** Custom Components */
 import { AddEventDialogComponent } from '../add-event-dialog/add-event-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { HooksService } from 'openapi/typescript_files';
 
 /**
  * Create Hook Component.
@@ -46,7 +47,7 @@ export class CreateHookComponent implements OnInit {
    * @param {MatDialog} dialog Dialog Reference.
    */
   constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
+              private hooksService: HooksService,
               private router: Router,
               private formBuilder: FormBuilder,
               private dialog: MatDialog) {
@@ -139,6 +140,7 @@ export class CreateHookComponent implements OnInit {
    * Submits the hook form and creates hook,
    * if successful redirects to view created hook.
    */
+  data:any;
   submit() {
     const hook: {
       name: string, isActive: boolean, displayName: string, events: any,
@@ -159,7 +161,8 @@ export class CreateHookComponent implements OnInit {
         'SMS Provider Token': this.hookForm.get('smsProviderToken').enabled ? this.hookForm.get('smsProviderToken').value : undefined
       }
     };
-    this.systemService.createHook(hook)
+    this.data = hook;
+    this.hooksService.createHook(this.data)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], {relativeTo: this.route});
       });

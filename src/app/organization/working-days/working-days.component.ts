@@ -12,6 +12,7 @@ import { ConfigurationWizardService } from '../../configuration-wizard/configura
 
 /** Custom Dialog Components */
 import { NextStepDialogComponent } from '../../configuration-wizard/next-step-dialog/next-step-dialog.component';
+import { WorkingDaysService } from 'openapi/typescript_files';
 
 /** Recurrence default value. */
 const recurrenceDefaultValue = 'FREQ=WEEKLY;INTERVAL=1;BYDAY=';
@@ -61,7 +62,7 @@ export class WorkingDaysComponent implements OnInit, AfterViewInit {
    */
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private organizationService: OrganizationService,
+              private organizationService: WorkingDaysService,
               private settingsService: SettingsService,
               private router: Router,
               private dialog: MatDialog,
@@ -131,7 +132,7 @@ export class WorkingDaysComponent implements OnInit, AfterViewInit {
       }
     }
     workingDays.recurrence = recurrence;
-    this.organizationService.updateWorkingDays(workingDays).subscribe(response => {
+    this.organizationService.update8(workingDays).subscribe(response => {
       if (this.configurationWizardService.showDefineWorkingDays === true) {
         this.configurationWizardService.showDefineWorkingDays = false;
         this.openNextStepDialog();

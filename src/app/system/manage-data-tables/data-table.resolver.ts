@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
+import { DataTablesService } from 'openapi/typescript_files';
 
 /**
  * Data Table data resolver.
@@ -17,7 +18,7 @@ export class DataTableResolver implements Resolve<Object> {
   /**
    * @param {SystemService} systemService System service.
    */
-  constructor(private systemService: SystemService) {}
+  constructor(private dataTablesService: DataTablesService) {}
 
   /**
    * Returns the Data Table data.
@@ -26,7 +27,7 @@ export class DataTableResolver implements Resolve<Object> {
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const dataTableName = route.paramMap.get('datatableName');
-    return this.systemService.getDataTable(dataTableName);
+    return this.dataTablesService.getDatatable(dataTableName);
   }
 
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
+import { AccountNumberFormatService } from 'openapi/typescript_files';
 
 /**
  * Edit Account Number Preference Component.
@@ -34,7 +35,7 @@ export class EditAccountNumberPreferenceComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private systemService: SystemService,
+              private accountNumberFormatService: AccountNumberFormatService,
               private router: Router) {
     this.route.data.subscribe((data: { accountNumberPreference: any, accountNumberPreferencesTemplate: any }) => {
       this.accountNumberPreferenceData = data.accountNumberPreference;
@@ -70,7 +71,7 @@ export class EditAccountNumberPreferenceComponent implements OnInit {
     if (accountNumberPreferenceValue.prefixType === '') {
       accountNumberPreferenceValue.prefixType = undefined;
     }
-    this.systemService.updateAccountNumberPreference(this.accountNumberPreferenceData.id, accountNumberPreferenceValue)
+    this.accountNumberFormatService.update1(this.accountNumberPreferenceData.id, accountNumberPreferenceValue)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

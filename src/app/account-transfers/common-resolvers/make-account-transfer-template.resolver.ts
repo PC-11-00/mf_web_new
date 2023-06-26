@@ -6,7 +6,8 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { AccountTransfersService } from '../account-transfers.service';
+// import { AccountTransfersService } from '../account-transfers.service';
+import { AccountTransfersService } from 'openapi/typescript_files';
 
 /**
  * View Standing Instructions resolver.
@@ -14,7 +15,7 @@ import { AccountTransfersService } from '../account-transfers.service';
 @Injectable()
 export class MakeAccountTransferTemplateResolver implements Resolve<Object> {
 
-    accountTypeId: string;
+    accountTypeId: any;
     id: any;
     /**
      * @param {accountTransfersService} AccountTransfersService Account Transfers service.
@@ -26,8 +27,12 @@ export class MakeAccountTransferTemplateResolver implements Resolve<Object> {
      * @param {ActivatedRouteSnapshot} route Route Snapshot
      * @returns {Observable<any>}
      */
+    officeId:any;
+    clientId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
         const accountType = route.queryParamMap.get('accountType');
+        this.officeId = route.queryParamMap.get('officeId');
+        this.clientId = route.parent.paramMap.get('clientId');
         switch (accountType) {
             case 'fromloans':
                 this.accountTypeId = '1';
@@ -40,7 +45,7 @@ export class MakeAccountTransferTemplateResolver implements Resolve<Object> {
             default:
                 this.accountTypeId = '0';
         }
-        return this.accountTransfersService.newAccountTranferResource(this.id, this.accountTypeId);
+        return this.accountTransfersService.template5( this.officeId ,this.clientId ,this.accountTypeId,this.id);
     }
 
 }

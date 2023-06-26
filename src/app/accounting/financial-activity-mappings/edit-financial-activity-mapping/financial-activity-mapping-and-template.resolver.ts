@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
+import { MappingFinancialActivitiesToAccountsService } from 'openapi/typescript_files';
 
 /**
  * Financial activity mapping and template data resolver.
@@ -17,15 +18,16 @@ export class FinancialActivityMappingAndTemplateResolver implements Resolve<Obje
   /**
    * @param {AccountingService} accountingService Accounting service.
    */
-  constructor(private accountingService: AccountingService) {}
+  constructor(private accountingService: MappingFinancialActivitiesToAccountsService) {}
 
   /**
    * Returns the financial activity mapping and template data.
    * @returns {Observable<any>}
    */
+  financialActivityAccountId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const financialActivityAccountId = route.paramMap.get('id');
-    return this.accountingService.getFinancialActivityAccount(financialActivityAccountId, true);
+    this.financialActivityAccountId = route.paramMap.get('id');
+    return this.accountingService.retreive(this.financialActivityAccountId);
   }
 
 }

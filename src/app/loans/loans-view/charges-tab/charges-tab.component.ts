@@ -20,6 +20,7 @@ import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
 import { Dates } from 'app/core/utils/dates';
+import { LoanChargesService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-charges-tab',
@@ -49,7 +50,7 @@ export class ChargesTabComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {SettingsService} settingsService Settings Service
    */
-  constructor(private loansService: LoansService,
+  constructor(private loansService: LoanChargesService,
               private route: ActivatedRoute,
               private dateUtils: Dates,
               private router: Router,
@@ -117,7 +118,7 @@ export class ChargesTabComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.loansService.executeLoansAccountChargesCommand(this.loanDetails.id, 'pay', dataObject, chargeId)
+        this.loansService.executeLoanCharge2(this.loanDetails.id, chargeId, dataObject, 'pay')
           .subscribe(() => {
             this.reload();
           });
@@ -133,7 +134,7 @@ export class ChargesTabComponent implements OnInit {
     const waiveChargeDialogRef = this.dialog.open(ConfirmationDialogComponent, { data: { heading: 'Waive Charge', dialogContext: `Are you sure you want to waive charge with id: ${chargeId}`, type: 'Basic' } });
     waiveChargeDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
-        this.loansService.executeLoansAccountChargesCommand(this.loanDetails.id, 'waive', {}, chargeId)
+        this.loansService.executeLoanCharge2(this.loanDetails.id, chargeId, {}, 'waive')
           .subscribe(() => {
             this.reload();
           });
@@ -170,7 +171,7 @@ export class ChargesTabComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.loansService.editLoansAccountCharge(this.loanDetails.id, dataObject, charge.id)
+        this.loansService.updateLoanCharge(this.loanDetails.id, charge.id, dataObject)
           .subscribe(() => {
             this.reload();
           });
@@ -188,7 +189,7 @@ export class ChargesTabComponent implements OnInit {
     });
     deleteChargeDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.loansService.deleteLoansAccountCharge(this.loanDetails.id, chargeId)
+        this.loansService.deleteLoanCharge(this.loanDetails.id, chargeId)
           .subscribe(() => {
             this.reload();
           });

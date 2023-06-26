@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { ClientService } from 'openapi/typescript_files';
 
 /**
  * Undo Client Transfer Component
@@ -32,7 +33,7 @@ export class UndoClientTransferComponent implements OnInit {
    * @param {Router} router Router
    */
   constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
+              private clientsService: ClientService,
               private settingsService: SettingsService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
@@ -77,7 +78,7 @@ export class UndoClientTransferComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.clientsService.executeClientCommand(this.clientId, 'withdrawTransfer', data).subscribe(() => {
+    this.clientsService.activate1(this.clientId, data, 'withdrawTransfer').subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

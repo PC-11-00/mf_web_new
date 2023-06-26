@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+import { DelinquencyRangeAndBucketsManagementService } from 'openapi/typescript_files';
 
 /**
  * Delinquency Bucket Component data resolver.
@@ -17,18 +18,19 @@ export class DelinquencyBucketComponentsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: DelinquencyRangeAndBucketsManagementService) { }
 
   /**
    * Returns the delinquency buckets data.
    * @returns {Observable<any>}
    */
-   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const delinquentcyBucketId = route.paramMap.get('bucketId');
-    if (delinquentcyBucketId === null) {
+  delinquentcyBucketId: any;
+  resolve(route: ActivatedRouteSnapshot): Observable<any> {
+    this.delinquentcyBucketId = route.paramMap.get('bucketId');
+    if (this.delinquentcyBucketId === null) {
       return this.productsService.getDelinquencyBuckets();
     } else {
-      return this.productsService.getDelinquencyBucket(delinquentcyBucketId);
+      return this.productsService.getDelinquencyBucket(this.delinquentcyBucketId);
     }
   }
 

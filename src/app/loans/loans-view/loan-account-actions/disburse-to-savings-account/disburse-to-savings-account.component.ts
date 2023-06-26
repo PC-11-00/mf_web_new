@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
-import { LoansService } from 'app/loans/loans.service';
+// import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { LoansService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-disburse-to-savings-account',
@@ -73,7 +74,7 @@ export class DisburseToSavingsAccountComponent implements OnInit {
       locale
     };
     const loanId = this.route.snapshot.params['loanId'];
-    this.loanService.loanActionButtons(loanId, 'disbursetosavings', data).subscribe((response: any) => {
+    this.loanService.stateTransitions(loanId, data, 'disbursetosavings').subscribe((response: any) => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

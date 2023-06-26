@@ -8,6 +8,7 @@ import { TemplatesService } from '../templates.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
 
 /**
  * View Template Component.
@@ -30,7 +31,7 @@ export class ViewTemplateComponent {
    * @param {MatDialog} dialog Dialog reference.
    */
   constructor(private route: ActivatedRoute,
-              private templatesService: TemplatesService,
+              private userGeneratedDocumentsService: UserGeneratedDocumentsService,
               private router: Router,
               private dialog: MatDialog) {
     this.route.data.subscribe((data: { template: any }) => {
@@ -47,7 +48,7 @@ export class ViewTemplateComponent {
     });
     deleteTemplateDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.templatesService.deleteTemplate(this.templateData.id)
+        this.userGeneratedDocumentsService.deleteTemplate(this.templateData.id)
           .subscribe(() => {
             this.router.navigate(['/templates']);
           });

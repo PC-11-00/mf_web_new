@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AccountTransfersService } from '../account-transfers.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { StandingInstructionsService } from 'openapi/typescript_files';
 
 /**
  * Edit Standing Instructions
@@ -53,7 +54,7 @@ export class EditStandingInstructionsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountTransfersService: AccountTransfersService,
+    private accountTransfersService: StandingInstructionsService,
     private settingsService: SettingsService,
     private dateUtils: Dates) {
     this.route.data.subscribe((data: { standingInstructionsDataAndTemplate: any }) => {
@@ -140,10 +141,11 @@ export class EditStandingInstructionsComponent implements OnInit {
   /**
    * Submits the standing instructions form
    */
+  standingInstructionData:any;
   submit() {
     const dateFormat = this.settingsService.dateFormat;
     const locale = this.settingsService.language.code;
-    const standingInstructionData = {
+    this.standingInstructionData = {
       amount: this.editStandingInstructionsForm.value.amount,
       dateFormat,
       instructionType: this.editStandingInstructionsForm.value.instructionType,
@@ -158,7 +160,7 @@ export class EditStandingInstructionsComponent implements OnInit {
       validFrom: this.dateUtils.formatDate(this.editStandingInstructionsForm.value.validFrom, dateFormat),
       validTill: this.dateUtils.formatDate(this.editStandingInstructionsForm.value.validTill, dateFormat)
     };
-    this.accountTransfersService.updateStandingInstructionsData(this.standingInstructionsId, standingInstructionData).subscribe((response: any) => {
+    this.accountTransfersService.update9(this.standingInstructionsId,'update',this.standingInstructionData).subscribe((response: any) => {
       this.router.navigate(['../view'], { relativeTo: this.route });
     });
   }
