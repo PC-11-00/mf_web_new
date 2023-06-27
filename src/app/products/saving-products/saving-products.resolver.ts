@@ -19,14 +19,14 @@ export class SavingProductsResolver implements Resolve<Object> {
    *
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: SavingsProductService) {}
+  constructor(private savingsProductService: SavingsProductService) {}
 
   /**
    * Returns the saving products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveAll34();
+    return this.savingsProductService.retrieveAll34();
   }
 
 }

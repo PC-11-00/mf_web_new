@@ -18,7 +18,7 @@ export class TaxComponentResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: TaxComponentsService) {}
+  constructor(private taxComponentsService: TaxComponentsService) {}
 
   /**
    * Returns the tax Component data.
@@ -27,6 +27,6 @@ export class TaxComponentResolver implements Resolve<Object> {
   taxComponentId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.taxComponentId = route.paramMap.get('id');
-    return this.productsService.retrieveTaxComponent(this.taxComponentId);
+    return this.taxComponentsService.retrieveTaxComponent(this.taxComponentId);
   }
 }

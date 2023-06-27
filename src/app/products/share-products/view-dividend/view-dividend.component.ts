@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsService } from 'app/products/products.service';
+import { SelfDividendService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-view-dividend',
@@ -22,7 +23,7 @@ export class ViewDividendComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   constructor(private route: ActivatedRoute,
-              private productsService: ProductsService,
+              private selfDividendService: SelfDividendService,
               private router: Router) {
     this.route.data.subscribe((data: { dividendData: any }) => {
       this.dividendData = data.dividendData;
@@ -39,10 +40,14 @@ export class ViewDividendComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  shareProductId:any;
+  dividendId:any;
+  data:any;
   postDividends() {
-    const shareProductId = this.route.parent.parent.snapshot.paramMap.get('id');
-    const dividendId = this.route.snapshot.paramMap.get('dividendId');
-    this.productsService.approveDividend(shareProductId, dividendId, { productId: shareProductId, dividendId: dividendId}).subscribe(() => {
+    this.shareProductId = this.route.parent.parent.snapshot.paramMap.get('id');
+    this.dividendId = this.route.snapshot.paramMap.get('dividendId');
+    this.data = { productId: this.shareProductId, dividendId: this.dividendId};
+    this.selfDividendService.updateDividendDetail(this.shareProductId, this.dividendId, 'approve',this.data).subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

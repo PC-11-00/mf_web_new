@@ -19,7 +19,7 @@ export class LoanProductResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: LoanProductsService) { }
+  constructor(private loanProductsService: LoanProductsService) { }
   
   productId:any;
   /**
@@ -28,8 +28,7 @@ export class LoanProductResolver implements Resolve<Object> {
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.productId = route.parent.paramMap.get('productId');
-    console.log(this.productId);
-    return this.productsService.retrieveLoanProductDetails(this.productId);
+    return this.loanProductsService.retrieveLoanProductDetails(this.productId);
   }
 
 }

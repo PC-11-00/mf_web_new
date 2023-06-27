@@ -12,14 +12,14 @@ import { RecurringDepositProductService } from 'openapi/typescript_files';
 @Injectable()
 export class RecurringDepositProductsTemplateResolver implements Resolve<Object> {
 
-  constructor(private productsService: RecurringDepositProductService) { }
+  constructor(private recurringDepositProductService: RecurringDepositProductService) { }
 
   /**
    * Returns the recurring deposit products template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveTemplate17();
+    return this.recurringDepositProductService.retrieveTemplate17();
   }
 
 }

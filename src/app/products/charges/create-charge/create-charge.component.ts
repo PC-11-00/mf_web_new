@@ -48,7 +48,7 @@ export class CreateChargeComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: ChargesService,
+              private chargesService: ChargesService,
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
@@ -240,7 +240,7 @@ export class CreateChargeComponent implements OnInit {
     if (!data.maxCap) {
       delete data.maxCap;
     }
-    this.productsService.createCharge(data).subscribe((response: any) => {
+    this.chargesService.createCharge(data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

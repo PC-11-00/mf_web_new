@@ -12,14 +12,14 @@ import { LoanProductsService } from 'openapi/typescript_files';
 @Injectable()
 export class LoanProductsTemplateResolver implements Resolve<Object> {
 
-  constructor(private productsService: LoanProductsService) {}
+  constructor(private loanProductsService: LoanProductsService) {}
 
   /**
    * Returns the loan products template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveTemplate11();
+    return this.loanProductsService.retrieveTemplate11();
   }
 
 }

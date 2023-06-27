@@ -42,7 +42,7 @@ export class EditFixedDepositProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: FixedDepositProductService,
+              private fixedDepositProductService: FixedDepositProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { fixedDepositProductAndTemplate: any }) => {
@@ -119,7 +119,7 @@ export class EditFixedDepositProductComponent implements OnInit {
       fixedDepositProduct.description = '';
     }
     delete fixedDepositProduct.advancedAccountingRules;
-    this.productsService.update17(this.fixedDepositProductsTemplate.id, fixedDepositProduct)
+    this.fixedDepositProductService.update17(this.fixedDepositProductsTemplate.id, fixedDepositProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

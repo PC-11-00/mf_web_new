@@ -34,7 +34,7 @@ export class CreateProductMixComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: ProductMixService,
+              private productMixService: ProductMixService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe(( data: { productsMixTemplate: any }) => {
@@ -68,7 +68,7 @@ export class CreateProductMixComponent implements OnInit {
     this.productMixForm.get('productId').valueChanges.subscribe(productId => {
       this.productData = undefined;
       this.productMixForm.get('restrictedProducts').reset();
-      this.productsService.retrieveTemplate12(productId).subscribe((productMixTemplateData: any) => {
+      this.productMixService.retrieveTemplate12(productId).subscribe((productMixTemplateData: any) => {
         const restrictedProductsData = productMixTemplateData.restrictedProducts;
         this.productData = [...restrictedProductsData, ...productMixTemplateData.allowedProducts];
         this.productMixForm.get('restrictedProducts').setValue([...restrictedProductsData.map((restrictedProduct: any) => restrictedProduct.id)]);
@@ -88,7 +88,7 @@ export class CreateProductMixComponent implements OnInit {
       restrictedProducts: this.productMixForm.value.restrictedProducts
     };
     this.productMixId = this.productMixForm.value.productId;
-    this.productsService.createProductMix(this.productMixId,this.productMix).subscribe((response: any) => {
+    this.productMixService.createProductMix(this.productMixId,this.productMix).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

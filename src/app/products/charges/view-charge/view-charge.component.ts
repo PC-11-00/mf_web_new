@@ -30,7 +30,7 @@ export class ViewChargeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private productsService: ChargesService,
+  constructor(private chargesService: ChargesService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
@@ -51,7 +51,7 @@ export class ViewChargeComponent implements OnInit {
     });
     deleteChargeDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.productsService.deleteCharge(this.chargeData.id)
+        this.chargesService.deleteCharge(this.chargeData.id)
           .subscribe(() => {
             this.router.navigate(['/products/charges']);
           });

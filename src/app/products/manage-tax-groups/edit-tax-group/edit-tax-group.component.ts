@@ -54,7 +54,7 @@ export class EditTaxGroupComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service.
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: TaxGroupService,
+              private taxGroupService: TaxGroupService,
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
@@ -214,7 +214,7 @@ export class EditTaxGroupComponent implements OnInit {
       }
       delete taxComponent.isNew;
     }
-    this.productsService.updateTaxGroup(this.taxGroupData.id, taxGroup).subscribe((response: any) => {
+    this.taxGroupService.updateTaxGroup(this.taxGroupData.id, taxGroup).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

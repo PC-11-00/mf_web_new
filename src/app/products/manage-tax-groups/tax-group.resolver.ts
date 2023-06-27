@@ -18,7 +18,7 @@ export class TaxGroupResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: TaxGroupService) {}
+  constructor(private taxGroupService: TaxGroupService) {}
 
   /**
    * Returns the tax Group data.
@@ -27,6 +27,6 @@ export class TaxGroupResolver implements Resolve<Object> {
   taxGroupId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.taxGroupId = route.paramMap.get('id');
-    return this.productsService.retrieveTaxGroup(this.taxGroupId);
+    return this.taxGroupService.retrieveTaxGroup(this.taxGroupId);
   }
 }

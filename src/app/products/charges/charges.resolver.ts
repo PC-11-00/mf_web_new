@@ -18,14 +18,14 @@ export class ChargesResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ChargesService) {}
+  constructor(private chargesService: ChargesService) {}
 
   /**
    * Returns the products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveAllCharges();
+    return this.chargesService.retrieveAllCharges();
   }
 
 }

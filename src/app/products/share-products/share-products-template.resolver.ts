@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
+import { ProductsService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { ProductsService } from '../products.service';
+// import { ProductsService } from '../products.service';
 
 @Injectable()
 export class ShareProductsTemplateResolver implements Resolve<Object> {
@@ -18,7 +19,7 @@ export class ShareProductsTemplateResolver implements Resolve<Object> {
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getShareProductsTemplate();
+    return this.productsService.retrieveTemplate13('share');
   }
 
 }

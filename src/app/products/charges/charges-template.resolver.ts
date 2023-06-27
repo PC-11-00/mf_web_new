@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
+import { ChargesService } from 'openapi/typescript_files';
 
 /**
  * Charges template data resolver.
@@ -17,14 +18,14 @@ export class ChargesTemplateResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private chargesService: ChargesService) {}
 
   /**
    * Returns the charges template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.getChargesTemplate();
+    return this.chargesService.retrieveNewChargeDetails();
   }
 
 }

@@ -12,7 +12,7 @@ import { ChargesService } from 'openapi/typescript_files';
 @Injectable()
 export class ChargesTemplateAndResolver implements Resolve<Object> {
 
-    constructor(private productsService: ChargesService) { }
+    constructor(private chargesService: ChargesService) { }
 
     /**
      * Returns the changes template and data.
@@ -21,7 +21,7 @@ export class ChargesTemplateAndResolver implements Resolve<Object> {
     savingProductId:any;
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
         this.savingProductId = route.paramMap.get('id');
-        return this.productsService.retrieveNewChargeDetails(this.savingProductId, true);
+        return this.chargesService.retrieveCharge(this.savingProductId);
     }
 
 }

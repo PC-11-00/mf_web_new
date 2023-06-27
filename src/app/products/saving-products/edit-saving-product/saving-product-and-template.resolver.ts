@@ -18,7 +18,7 @@ export class SavingProductAndTemplateResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: SavingsProductService) {}
+  constructor(private savingsProductService: SavingsProductService) {}
 
   /**
    * Returns the saving product and template data.
@@ -28,7 +28,7 @@ export class SavingProductAndTemplateResolver implements Resolve<Object> {
   productId : any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.productId = route.paramMap.get('productId');
-    return this.productsService.retrieveOne26(this.productId);
+    return this.savingsProductService.retrieveOne26(this.productId);
   }
 
 }

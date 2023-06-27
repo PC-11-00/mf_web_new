@@ -18,14 +18,14 @@ export class TaxComponentTemplateResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: TaxComponentsService) {}
+  constructor(private taxComponentsService: TaxComponentsService) {}
 
   /**
    * Returns the tax components template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveTemplate21();
+    return this.taxComponentsService.retrieveTemplate21();
   }
 
 }

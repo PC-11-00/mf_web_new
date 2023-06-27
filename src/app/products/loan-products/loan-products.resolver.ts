@@ -19,14 +19,14 @@ export class LoanProductsResolver implements Resolve<Object> {
    *
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: LoanProductsService) {}
+  constructor(private loanProductsService: LoanProductsService) {}
 
   /**
    * Returns the loan products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveAllLoanProducts();
+    return this.loanProductsService.retrieveAllLoanProducts();
   }
 
 }

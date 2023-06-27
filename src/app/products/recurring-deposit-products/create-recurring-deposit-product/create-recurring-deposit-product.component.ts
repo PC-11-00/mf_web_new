@@ -42,7 +42,7 @@ export class CreateRecurringDepositProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: RecurringDepositProductService,
+              private recurringDepositProductService: RecurringDepositProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { recurringDepositProductsTemplate: any }) => {
@@ -111,7 +111,7 @@ export class CreateRecurringDepositProductComponent implements OnInit {
       recurringDepositProduct.description = '';
     }
     delete recurringDepositProduct.advancedAccountingRules;
-    this.productsService.create12(recurringDepositProduct)
+    this.recurringDepositProductService.create12(recurringDepositProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });

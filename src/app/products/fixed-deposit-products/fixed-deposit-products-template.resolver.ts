@@ -12,14 +12,14 @@ import { FixedDepositProductService } from 'openapi/typescript_files';
 @Injectable()
 export class FixedDepositProductsTemplateResolver implements Resolve<Object> {
 
-  constructor(private productsService: FixedDepositProductService) {}
+  constructor(private fixedDepositProductService: FixedDepositProductService) {}
 
   /**
    * Returns the fixed deposit products template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveTemplate15();
+    return this.fixedDepositProductService.retrieveTemplate15();
   }
 
 }

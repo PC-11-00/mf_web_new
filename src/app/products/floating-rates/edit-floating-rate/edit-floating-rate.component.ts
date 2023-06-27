@@ -62,7 +62,7 @@ export class EditFloatingRateComponent implements OnInit {
    */
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private productsService: FloatingRatesService,
+              private floatingRatesService: FloatingRatesService,
               private route: ActivatedRoute,
               private dateUtils: Dates,
               private dialog: MatDialog,
@@ -186,7 +186,7 @@ export class EditFloatingRateComponent implements OnInit {
     });
     this.floatingRateForm.value.ratePeriods = this.floatingRatePeriodsData.length > 0 ? this.floatingRatePeriodsData : undefined;
     this.floatingRateId =this.route.snapshot.paramMap.get('id');
-    this.productsService.updateFloatingRate(this.floatingRateId,this.floatingRateForm.value)
+    this.floatingRatesService.updateFloatingRate(this.floatingRateId,this.floatingRateForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
       });

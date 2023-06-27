@@ -47,7 +47,7 @@ export class ViewProductMixComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
-              private productsService: ProductMixService,
+              private productMixService: ProductMixService,
               private router: Router ) {
     this.route.data.subscribe((data: { productMix: any }) => {
       this.productMixData = data.productMix;
@@ -89,7 +89,7 @@ export class ViewProductMixComponent implements OnInit {
     });
     deleteProductMixDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.productsService.deleteProductMix(this.productMixData.productId)
+        this.productMixService.deleteProductMix(this.productMixData.productId)
           .subscribe(() => {
             this.router.navigate(['../'], { relativeTo: this.route });
           });

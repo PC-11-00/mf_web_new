@@ -18,7 +18,7 @@ export class CollateralResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: CollateralManagementService) {}
+  constructor(private collateralManagementService: CollateralManagementService) {}
 
   /**
    * Returns the products data.
@@ -27,7 +27,7 @@ export class CollateralResolver implements Resolve<Object> {
   collateralId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.collateralId = route.paramMap.get('id');
-    return this.productsService.getCollateral(this.collateralId);
+    return this.collateralManagementService.getCollateral(this.collateralId);
   }
 
 }

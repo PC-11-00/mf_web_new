@@ -18,7 +18,7 @@ export class FixedDepositProductResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: FixedDepositProductService) { }
+  constructor(private fixedDepositProductService: FixedDepositProductService) { }
 
   /**
    * Returns the fixed deposit product data.
@@ -27,7 +27,7 @@ export class FixedDepositProductResolver implements Resolve<Object> {
   productId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.productId = route.parent.paramMap.get('productId');
-    return this.productsService.retrieveOne20(this.productId);
+    return this.fixedDepositProductService.retrieveOne20(this.productId);
   }
 
 }

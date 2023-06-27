@@ -18,7 +18,7 @@ export class DelinquencyRangeComponentsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: DelinquencyRangeAndBucketsManagementService) {}
+  constructor(private delinquencyRangeAndBucketsManagementService: DelinquencyRangeAndBucketsManagementService) {}
 
   /**
    * Returns the delinquency ranges data.
@@ -28,9 +28,9 @@ export class DelinquencyRangeComponentsResolver implements Resolve<Object> {
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.delinquentcyRangeId = route.paramMap.get('rangeId');
     if (this.delinquentcyRangeId === null) {
-      return this.productsService.getDelinquencyRanges();
+      return this.delinquencyRangeAndBucketsManagementService.getDelinquencyRanges();
     } else {
-      return this.productsService.getDelinquencyRange(this.delinquentcyRangeId);
+      return this.delinquencyRangeAndBucketsManagementService.getDelinquencyRange(this.delinquentcyRangeId);
     }
   }
 

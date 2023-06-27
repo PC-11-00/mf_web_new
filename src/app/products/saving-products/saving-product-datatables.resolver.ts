@@ -16,13 +16,13 @@ export class SavingProductDatatablesResolver implements Resolve<boolean> {
   /**
    * @param {SystemService} systemService Products service.
    */
-  constructor(private systemService: DataTablesService) { }
+  constructor(private dataTablesService: DataTablesService) { }
 
   /**
    * Returns the loan product data.
    * @returns {Observable<any>}
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.systemService.getDatatable('m_savings_product');
+    return this.dataTablesService.getDatatables('m_savings_product');
   }
 }

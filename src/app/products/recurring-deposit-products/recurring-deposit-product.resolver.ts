@@ -18,7 +18,7 @@ export class RecurringDepositProductResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: RecurringDepositProductService) { }
+  constructor(private recurringDepositProductService: RecurringDepositProductService) { }
 
   /**
    * Returns the recurring deposit product data.
@@ -27,7 +27,7 @@ export class RecurringDepositProductResolver implements Resolve<Object> {
   productId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.productId = route.parent.paramMap.get('productId');
-    return this.productsService.retrieveOne23(this.productId);
+    return this.recurringDepositProductService.retrieveOne23(this.productId);
   }
 
 }

@@ -18,7 +18,7 @@ export class EditRangeComponent implements OnInit {
   delinquencyRangeForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private productsService: DelinquencyRangeAndBucketsManagementService,
+    private delinquencyRangeAndBucketsManagementService: DelinquencyRangeAndBucketsManagementService,
     private route: ActivatedRoute,
     private router: Router,
     private settingsService: SettingsService) {
@@ -49,7 +49,7 @@ export class EditRangeComponent implements OnInit {
       ...delinquencyRangeFormData,
       locale
     };
-    this.productsService.updateDelinquencyRange(this.delinquencyRangeData.id, data).subscribe((response: any) => {
+    this.delinquencyRangeAndBucketsManagementService.updateDelinquencyRange(this.delinquencyRangeData.id, data).subscribe((response: any) => {
       this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
     });
   }

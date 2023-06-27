@@ -38,7 +38,7 @@ export class EditTaxComponentComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service.
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: TaxComponentsService,
+              private taxComponentsService: TaxComponentsService,
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
@@ -87,7 +87,7 @@ export class EditTaxComponentComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.productsService.updateTaxCompoent(this.taxComponentData.id, data).subscribe((response: any) => {
+    this.taxComponentsService.updateTaxCompoent(this.taxComponentData.id, data).subscribe((response: any) => {
       this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
     });
   }

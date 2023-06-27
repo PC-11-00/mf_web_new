@@ -18,7 +18,7 @@ export class ChargeResolver implements Resolve<Object> {
   /**
    * @param {productsService} productsService Products service.
    */
-  constructor(private productsService: ChargesService) {}
+  constructor(private chargesService: ChargesService) {}
 
   /**
    * Returns the charge data.
@@ -27,7 +27,7 @@ export class ChargeResolver implements Resolve<Object> {
   chargeId : any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.chargeId = route.paramMap.get('id');
-    return this.productsService.retrieveCharge(this.chargeId);
+    return this.chargesService.retrieveCharge(this.chargeId);
   }
 
 }

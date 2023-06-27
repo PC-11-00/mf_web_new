@@ -54,7 +54,7 @@ export class CreateTaxGroupComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service.
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: TaxGroupService,
+              private taxGroupService: TaxGroupService,
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
@@ -179,7 +179,7 @@ export class CreateTaxGroupComponent implements OnInit {
     for (const taxComponent of taxGroup.taxComponents) {
       taxComponent.startDate = this.dateUtils.formatDate(taxComponent.startDate, dateFormat) || '';
     }
-    this.productsService.createTaxGroup(taxGroup).subscribe((response: any) => {
+    this.taxGroupService.createTaxGroup(taxGroup).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

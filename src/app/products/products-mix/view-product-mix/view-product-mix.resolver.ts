@@ -18,7 +18,7 @@ export class ViewProductMixResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductMixService) {}
+  constructor(private productMixService: ProductMixService) {}
 
   /**
    * Returns the product mix.
@@ -27,6 +27,6 @@ export class ViewProductMixResolver implements Resolve<Object> {
   id:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.id = route.paramMap.get('id');
-    return this.productsService.retrieveTemplate12(this.id);
+    return this.productMixService.retrieveTemplate12(this.id);
   }
 }

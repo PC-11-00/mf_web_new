@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
+import { SelfDividendService } from 'openapi/typescript_files';
 
 /**
  * Share products data resolver.
@@ -17,15 +18,16 @@ export class DividendsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(private selfDividendService: SelfDividendService) {}
 
   /**
    * Returns the share products data.
    * @returns {Observable<any>}
    */
+  id:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const id = route.paramMap.get('id');
-    return this.productsService.getDividends(id);
+    this.id = route.paramMap.get('id');
+    return this.selfDividendService.retrieveAll39(this.id);
   }
 
 }

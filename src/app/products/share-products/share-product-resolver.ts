@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { ProductsService } from 'openapi/typescript_files';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { ProductsService } from '../products.service';
+// import { ProductsService } from '../products.service';
 
 /**
  * Share Product data resolver.
@@ -23,9 +24,10 @@ export class ShareProductResolver implements Resolve<Object> {
    * Returns the share product data.
    * @returns {Observable<any>}
    */
+  productId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const productId = route.parent.paramMap.get('productId');
-    return this.productsService.getShareProduct(productId);
+    this.productId = route.parent.paramMap.get('productId');
+    return this.productsService.retrieveProduct(this.productId,'share');
   }
 
 }

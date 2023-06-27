@@ -18,14 +18,14 @@ export class ManageTaxGroupsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: TaxGroupService) {}
+  constructor(private taxGroupService: TaxGroupService) {}
 
   /**
    * Returns the tax groups data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveAllTaxGroups();
+    return this.taxGroupService.retrieveAllTaxGroups();
   }
 
 }

@@ -17,13 +17,13 @@ export class CollateralsResolver implements Resolve<Object> {
     /**
      * @param {ProductsService} productsService Products service
      */
-    constructor(private productsService: CollateralManagementService) {}
+    constructor(private collateralManagementService: CollateralManagementService) {}
 
     /**
      * Returns the All Collaterals Data
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.productsService.getAllCollaterals();
+        return this.collateralManagementService.getAllCollaterals();
     }
 }

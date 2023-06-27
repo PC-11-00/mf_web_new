@@ -33,7 +33,7 @@ export class CreateCollateralComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
   constructor(private formBuilder: FormBuilder,
-              private productsService: CollateralManagementService,
+              private collateralManagementService: CollateralManagementService,
               private route:  ActivatedRoute,
               private router: Router,
               private settingsService: SettingsService) {
@@ -73,7 +73,7 @@ export class CreateCollateralComponent implements OnInit {
       ...collateralFormData,
       locale
     };
-    this.productsService.createCollateral1(data).subscribe((response: any) => {
+    this.collateralManagementService.createCollateral1(data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

@@ -12,14 +12,14 @@ import { SavingsProductService } from 'openapi/typescript_files';
 @Injectable()
 export class SavingProductsTemplateResolver implements Resolve<Object> {
 
-  constructor(private productsService: SavingsProductService) {}
+  constructor(private savingsProductService: SavingsProductService) {}
 
   /**
    * Returns the saving products template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveTemplate20();
+    return this.savingsProductService.retrieveTemplate20();
   }
 
 }

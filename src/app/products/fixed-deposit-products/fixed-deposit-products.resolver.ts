@@ -18,14 +18,14 @@ export class FixedDepositProductsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: FixedDepositProductService) {}
+  constructor(private fixedDepositProductService: FixedDepositProductService) {}
 
   /**
    * Returns the fixed deposit products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveAll30();
+    return this.fixedDepositProductService.retrieveAll30();
   }
 
 }

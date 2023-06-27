@@ -18,7 +18,7 @@ export class ViewBucketComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private productsService: DelinquencyRangeAndBucketsManagementService) {
+    private delinquencyRangeAndBucketsManagementService: DelinquencyRangeAndBucketsManagementService) {
     this.route.data.subscribe((data: { delinquencyBucket: any }) => {
       this.delinquencyBucketData = data.delinquencyBucket;
       this.delinquencyBucketData.ranges = this.delinquencyBucketData.ranges.sort(
@@ -36,7 +36,7 @@ export class ViewBucketComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.productsService.deleteDelinquencyBucket(this.delinquencyBucketData.id,this.delinquencyBucketData.name).subscribe(() => {
+        this.delinquencyRangeAndBucketsManagementService.deleteDelinquencyBucket(this.delinquencyBucketData.id,this.delinquencyBucketData).subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }

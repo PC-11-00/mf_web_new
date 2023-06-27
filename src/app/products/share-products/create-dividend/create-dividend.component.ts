@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SelfDividendService } from 'openapi/typescript_files';
 
 
 /**
@@ -40,7 +41,7 @@ export class CreateDividendComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dateUtils: Dates,
-              private productService: ProductsService,
+              private selfDividendService: SelfDividendService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { shareProduct: any }) => {
@@ -84,7 +85,7 @@ export class CreateDividendComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.productService.createDividend(this.shareProductData.id, data).subscribe((response: any) => {
+    this.selfDividendService.createDividendDetail(this.shareProductData.id, data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

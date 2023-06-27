@@ -42,7 +42,7 @@ export class CreateLoanProductComponent implements OnInit {
     */
 
   constructor(private route: ActivatedRoute,
-              private productsService: LoanProductsService,
+              private loanProductsService: LoanProductsService,
               private settingsService: SettingsService,
               private router: Router) {
     this.route.data.subscribe((data: { loanProductsTemplate: any }) => {
@@ -108,7 +108,7 @@ export class CreateLoanProductComponent implements OnInit {
     delete loanProduct.allowAttributeConfiguration;
     delete loanProduct.advancedAccountingRules;
 
-    this.productsService.createLoanProduct(loanProduct)
+    this.loanProductsService.createLoanProduct(loanProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });

@@ -54,7 +54,7 @@ export class EditChargeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {SettingsService} settingsService Settings Service
    */
-  constructor(private productsService: ChargesService,
+  constructor(private chargesService: ChargesService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -153,7 +153,7 @@ export class EditChargeComponent implements OnInit {
     if (charges.taxGroupId.value === '') {
       delete charges.taxGroupId;
     }
-    this.productsService.updateCharge(this.chargeData.id.toString(), charges)
+    this.chargesService.updateCharge(this.chargeData.id, charges)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

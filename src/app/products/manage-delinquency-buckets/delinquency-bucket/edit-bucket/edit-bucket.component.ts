@@ -35,7 +35,7 @@ export class EditBucketComponent implements OnInit {
   displayedColumns: string[] = ['classification', 'minimumAgeDays', 'maximumAgeDays', 'actions'];
 
   constructor(private formBuilder: FormBuilder,
-    private productsService: DelinquencyRangeAndBucketsManagementService,
+    private delinquencyRangeAndBucketsManagementService: DelinquencyRangeAndBucketsManagementService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog) {
@@ -135,7 +135,7 @@ export class EditBucketComponent implements OnInit {
         ranges: ranges
       };
 
-      this.productsService.updateDelinquencyBucket(this.delinquencyBucketId, data).subscribe(() => {
+      this.delinquencyRangeAndBucketsManagementService.updateDelinquencyBucket(this.delinquencyBucketId, data).subscribe(() => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
     }

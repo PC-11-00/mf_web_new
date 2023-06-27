@@ -18,14 +18,14 @@ export class RecurringDepositProductsResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: RecurringDepositProductService) {}
+  constructor(private recurringDepositProductService: RecurringDepositProductService) {}
 
   /**
    * Returns the recurring deposit products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveAll32();
+    return this.recurringDepositProductService.retrieveAll32();
   }
 
 }

@@ -18,7 +18,7 @@ export class ViewRangeComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private productsService: DelinquencyRangeAndBucketsManagementService) {
+    private delinquencyRangeAndBucketsManagementService: DelinquencyRangeAndBucketsManagementService) {
     this.route.data.subscribe((data: { delinquencyRange: any }) => {
       this.delinquencyRangeData = data.delinquencyRange;
     });
@@ -33,7 +33,7 @@ export class ViewRangeComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.productsService.deleteDelinquencyRange(this.delinquencyRangeData.id,this.delinquencyRangeData.name).subscribe(() => {
+        this.delinquencyRangeAndBucketsManagementService.deleteDelinquencyRange(this.delinquencyRangeData.id,this.delinquencyRangeData).subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }

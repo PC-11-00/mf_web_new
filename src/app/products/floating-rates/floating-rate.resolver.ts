@@ -18,7 +18,7 @@ export class FloatingRateResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: FloatingRatesService) {}
+  constructor(private floatingRatesService: FloatingRatesService) {}
 
   /**
    * Returns the floating rate data.
@@ -27,7 +27,7 @@ export class FloatingRateResolver implements Resolve<Object> {
   floatingRateId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.floatingRateId = route.paramMap.get('id');
-    return this.productsService.retrieveOne13(this.floatingRateId);
+    return this.floatingRatesService.retrieveOne13(this.floatingRateId);
   }
 
 }

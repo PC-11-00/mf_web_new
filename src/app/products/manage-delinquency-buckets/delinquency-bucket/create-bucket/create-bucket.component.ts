@@ -29,7 +29,7 @@ export class CreateBucketComponent implements OnInit {
   displayedColumns: string[] = ['classification', 'minimumAgeDays', 'maximumAgeDays', 'actions'];
 
   constructor(private formBuilder: FormBuilder,
-    private productsService: DelinquencyRangeAndBucketsManagementService,
+    private delinquencyRangeAndBucketsManagementService: DelinquencyRangeAndBucketsManagementService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog) {
@@ -117,7 +117,7 @@ export class CreateBucketComponent implements OnInit {
         ranges: ranges
       };
 
-      this.productsService.createDelinquencyBucket(data).subscribe((response: any) => {
+      this.delinquencyRangeAndBucketsManagementService.createDelinquencyBucket(data).subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });
     }

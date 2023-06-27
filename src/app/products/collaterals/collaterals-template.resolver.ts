@@ -17,13 +17,13 @@ export class CollateralTemplateResolver implements Resolve<Object> {
     /**
      * @param {ProductsService} productsService products Service
      */
-    constructor(private productsService: CollateralManagementService) {}
+    constructor(private collateralManagementService: CollateralManagementService) {}
 
     /**
      * Returns the product Data.
      * @returns {Observable<any>}
      */
     resolve(): Observable<any> {
-        return this.productsService.getCollateralTemplate();
+        return this.collateralManagementService.getCollateralTemplate();
     }
 }

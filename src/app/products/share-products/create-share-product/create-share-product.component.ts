@@ -12,8 +12,9 @@ import { ShareProductChargesStepComponent } from '../share-product-stepper/share
 import { ShareProductAccountingStepComponent } from '../share-product-stepper/share-product-accounting-step/share-product-accounting-step.component';
 
 /** Custom Services */
-import { ProductsService } from 'app/products/products.service';
+// import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { ProductsService } from 'openapi/typescript_files';
 
 @Component({
   selector: 'mifosx-create-share-product',
@@ -106,7 +107,7 @@ export class CreateShareProductComponent implements OnInit {
       chargesSelected: this.shareProduct.chargesSelected.map((charge: any) => ({ id: charge.id })),
       locale: this.settingsService.language.code // locale required for digitsAfterDecimal
     };
-    this.productsService.createShareProduct(shareProduct)
+    this.productsService.createProduct('share',shareProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });

@@ -18,14 +18,14 @@ export class FloatingRatesResolver implements Resolve<Object> {
   /**
    * @param {ProductsService} productsService Products service.
    */
-  constructor(private productsService: FloatingRatesService) {}
+  constructor(private floatingRatesService: FloatingRatesService) {}
 
   /**
    * Returns the floating rates data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.productsService.retrieveAll22();
+    return this.floatingRatesService.retrieveAll22();
   }
 
 }

@@ -29,7 +29,7 @@ export class ViewCollateralComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private productsService: CollateralManagementService,
+  constructor(private collateralManagementService: CollateralManagementService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
@@ -50,7 +50,7 @@ export class ViewCollateralComponent implements OnInit {
     });
     deleteCollateralDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.productsService.deleteCollateral2(this.collateralData.id)
+        this.collateralManagementService.deleteCollateral2(this.collateralData.id)
           .subscribe(() => {
             this.router.navigate(['/products/collaterals']);
           });

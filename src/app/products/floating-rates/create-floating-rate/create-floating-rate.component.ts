@@ -57,7 +57,7 @@ export class CreateFloatingRateComponent implements OnInit {
    */
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private productsService: FloatingRatesService,
+              private floatingRatesService: FloatingRatesService,
               private route: ActivatedRoute,
               private dateUtils: Dates,
               private dialog: MatDialog,
@@ -175,7 +175,7 @@ export class CreateFloatingRateComponent implements OnInit {
    */
   submit() {
     this.floatingRateForm.value.ratePeriods = this.floatingRatePeriodsData;
-    this.productsService.createFloatingRate(this.floatingRateForm.value)
+    this.floatingRatesService.createFloatingRate(this.floatingRateForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });

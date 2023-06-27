@@ -41,7 +41,7 @@ export class EditSavingProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: SavingsProductService,
+              private savingsProductService: SavingsProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { savingProductAndTemplate: any }) => {
@@ -109,7 +109,7 @@ export class EditSavingProductComponent implements OnInit {
       locale: this.settingsService.language.code // locale required for nominalAnnualInterestRate
     };
     delete savingProduct.advancedAccountingRules;
-    this.productsService.update21(this.savingProductAndTemplate.id, savingProduct)
+    this.savingsProductService.update21(this.savingProductAndTemplate.id, savingProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
       });

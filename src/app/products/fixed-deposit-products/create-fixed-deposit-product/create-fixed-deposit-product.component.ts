@@ -42,7 +42,7 @@ export class CreateFixedDepositProductComponent implements OnInit {
    */
 
   constructor(private route: ActivatedRoute,
-              private productsService: FixedDepositProductService,
+              private fixedDepositProductService: FixedDepositProductService,
               private router: Router,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { fixedDepositProductsTemplate: any }) => {
@@ -108,7 +108,7 @@ export class CreateFixedDepositProductComponent implements OnInit {
       locale: this.settingsService.language.code // locale required for depositAmount
     };
     delete fixedDepositProduct.advancedAccountingRules;
-    this.productsService.create11(fixedDepositProduct)
+    this.fixedDepositProductService.create11(fixedDepositProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
       });
