@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services. */
 import { LoansService } from 'app/loans/loans.service';
-import { LoanCollateralService } from 'openapi/typescript_files';
+import { LoanCollateralService } from '@fineract/client';
 
 /**
  * Add Collateral component.

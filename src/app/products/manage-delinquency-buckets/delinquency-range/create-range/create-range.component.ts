@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { DelinquencyRangeAndBucketsManagementService } from 'openapi/typescript_files';
+import { DelinquencyRangeAndBucketsManagementService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-create-range',

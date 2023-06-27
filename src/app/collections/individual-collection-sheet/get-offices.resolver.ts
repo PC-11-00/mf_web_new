@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CollectionsService } from '../collections.service';
-import { OfficesService } from 'openapi/typescript_files';
+import { OfficesService } from '@fineract/client';
 
 /**
  * Returns all the offices data.

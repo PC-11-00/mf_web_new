@@ -13,7 +13,7 @@ import { SettingsService } from 'app/settings/settings.service';
 /** Dialog Components */
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
 import { Dates } from 'app/core/utils/dates';
-import { MakerCheckerOr4EyeFunctionalityService } from 'openapi/typescript_files';
+import { MakerCheckerOr4EyeFunctionalityService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-checker-inbox',

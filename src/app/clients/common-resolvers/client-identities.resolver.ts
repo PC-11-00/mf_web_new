@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
-import { ClientIdentifierService, DocumentsService } from 'openapi/typescript_files';
+import { ClientIdentifierService, DocumentsService } from '@fineract/client';
 
 /**
  * Client Identities resolver.

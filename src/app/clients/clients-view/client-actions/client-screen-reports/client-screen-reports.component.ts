@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
+import { UserGeneratedDocumentsService } from '@fineract/client';
 
 /**
  * Client Screen Reports Component.

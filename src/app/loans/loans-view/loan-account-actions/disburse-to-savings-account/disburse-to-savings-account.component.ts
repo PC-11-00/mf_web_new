@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
 // import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { LoansService } from 'openapi/typescript_files';
+import { LoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-disburse-to-savings-account',

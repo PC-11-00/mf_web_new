@@ -13,7 +13,7 @@ import { ApproveShareDialogComponent } from './approve-share-dialog/approve-shar
 /** Custom Serices */
 import { SharesService } from 'app/shares/shares.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { ShareAccountService } from 'openapi/typescript_files';
+import { ShareAccountService } from '@fineract/client';
 
 /**
  * Approve shares component.

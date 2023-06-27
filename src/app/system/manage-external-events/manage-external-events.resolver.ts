@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { SystemService } from '../system.service';
-import { ExternalEventConfigurationService } from 'openapi/typescript_files';
+import { ExternalEventConfigurationService } from '@fineract/client';
 
 @Injectable({
   providedIn: 'root'

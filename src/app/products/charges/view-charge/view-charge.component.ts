@@ -8,7 +8,7 @@ import { ProductsService } from 'app/products/products.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { ChargesService } from 'openapi/typescript_files';
+import { ChargesService } from '@fineract/client';
 
 /**
  * View Charge Component.

@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
 
-import { CentersService } from 'openapi/typescript_files';
+import { CentersService } from '@fineract/client';
 /**
  * Activate Center Component
  */

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
-import { AuditsService } from 'openapi/typescript_files';
+import { AuditsService } from '@fineract/client';
 
 /**
  * Audit Trail data resolver.

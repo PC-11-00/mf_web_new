@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { LoansService } from 'openapi/typescript_files';
+import { LoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-glim-details-step',

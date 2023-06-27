@@ -13,7 +13,7 @@ import { RejectShareDialogComponent } from './reject-share-dialog/reject-share-d
 /** Custom Serices */
 import { SharesService } from 'app/shares/shares.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { ShareAccountService } from 'openapi/typescript_files';
+import { ShareAccountService } from '@fineract/client';
 
 /**
  * Reject shares component.

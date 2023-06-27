@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 // import { GroupsService } from 'app/groups/groups.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { CalendarService } from 'openapi/typescript_files';
+import { CalendarService } from '@fineract/client';
 
 /**
  * Edit Group Meetings Component

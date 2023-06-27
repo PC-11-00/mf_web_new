@@ -13,7 +13,7 @@ import { ToggleWithholdTaxDialogComponent } from './custom-dialogs/toggle-withho
 import { SavingsButtonsConfiguration } from './savings-buttons.config';
 import { SavingsService } from '../savings.service';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
-import { SavingsAccountService } from 'openapi/typescript_files';
+import { SavingsAccountService } from '@fineract/client';
 
 /**
  * Savings Account View Component

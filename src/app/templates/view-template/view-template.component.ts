@@ -8,7 +8,7 @@ import { TemplatesService } from '../templates.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
+import { UserGeneratedDocumentsService } from '@fineract/client';
 
 /**
  * View Template Component.

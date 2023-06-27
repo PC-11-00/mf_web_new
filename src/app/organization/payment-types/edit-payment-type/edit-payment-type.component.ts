@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
-import { PaymentTypeService } from 'openapi/typescript_files';
+import { PaymentTypeService } from '@fineract/client';
 
 /**
  * Edit Payment Type component.

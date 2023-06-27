@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
-import { TellerCashManagementService } from 'openapi/typescript_files';
+import { TellerCashManagementService } from '@fineract/client';
 
 /**
  * Cashiers data resolver.

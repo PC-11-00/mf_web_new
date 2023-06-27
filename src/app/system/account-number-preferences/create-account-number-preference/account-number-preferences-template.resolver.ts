@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
-import { AccountNumberFormatService } from 'openapi/typescript_files';
+import { AccountNumberFormatService } from '@fineract/client';
 
 /**
  * Account Number Preferences Template data resolver.

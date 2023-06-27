@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccountingService } from '../accounting.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { JournalEntriesService } from 'openapi/typescript_files';
+import { JournalEntriesService } from '@fineract/client';
 /**
  * Frequent Postings component.
  */

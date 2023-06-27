@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ClientsService } from '../../../clients.service';
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
-import { ScoreCardService } from 'openapi/typescript_files';
+import { ScoreCardService } from '@fineract/client';
 
 /**
  * Take Survey Component

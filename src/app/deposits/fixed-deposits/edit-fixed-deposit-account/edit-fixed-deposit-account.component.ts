@@ -13,7 +13,7 @@ import { FixedDepositAccountTermsStepComponent } from '../fixed-deposit-account-
 import { FixedDepositAccountSettingsStepComponent } from '../fixed-deposit-account-stepper/fixed-deposit-account-settings-step/fixed-deposit-account-settings-step.component';
 import { FixedDepositAccountChargesStepComponent } from '../fixed-deposit-account-stepper/fixed-deposit-account-charges-step/fixed-deposit-account-charges-step.component';
 import { Dates } from 'app/core/utils/dates';
-import { FixedDepositAccountService } from 'openapi/typescript_files';
+import { FixedDepositAccountService } from '@fineract/client';
 
 /**
  * Edit Fixed Deposit Account Component

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CollateralsService } from '../collaterals.service';
-import { ClientCollateralManagementService } from 'openapi/typescript_files';
+import { ClientCollateralManagementService } from '@fineract/client';
 
 /**
  * Client Collateral data resolver.

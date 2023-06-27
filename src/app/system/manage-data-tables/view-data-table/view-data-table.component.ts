@@ -11,7 +11,7 @@ import { SystemService } from '../../system.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { DataTablesService } from 'openapi/typescript_files';
+import { DataTablesService } from '@fineract/client';
 
 /**
  * View Data Table Component

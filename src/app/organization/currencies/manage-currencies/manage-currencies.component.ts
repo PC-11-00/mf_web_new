@@ -14,7 +14,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
-import { CurrencyService } from 'openapi/typescript_files';
+import { CurrencyService } from '@fineract/client';
 
 /**
  * Manage Currencies component.

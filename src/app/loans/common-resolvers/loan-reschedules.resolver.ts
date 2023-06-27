@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 // import { LoansService } from '../loans.service';
-import { RescheduleLoansService } from 'openapi/typescript_files';
+import { RescheduleLoansService } from '@fineract/client';
 
 @Injectable({
   providedIn: 'root'

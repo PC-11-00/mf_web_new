@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // import { ClientsService } from '../../clients/clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { ClientService, GroupsService } from 'openapi/typescript_files';
+import { ClientService, GroupsService } from '@fineract/client';
 
 /**
  * Create Group component.

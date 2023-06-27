@@ -9,7 +9,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-base';
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
-import { LoanReschedulingService, LoansService } from 'openapi/typescript_files';
+import { LoanReschedulingService, LoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-edit-repayment-schedule',

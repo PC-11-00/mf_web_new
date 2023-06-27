@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 // import { LoansService } from '../loans.service';
-import { LoanTransactionsService } from 'openapi/typescript_files';
+import { LoanTransactionsService } from '@fineract/client';
 
 /**
  * Loans Account Transaction data resolver.

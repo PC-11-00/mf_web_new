@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
-import { RolesService } from 'openapi/typescript_files';
+import { RolesService } from '@fineract/client';
 
 /**
  * Roles and Permissions data resolver.

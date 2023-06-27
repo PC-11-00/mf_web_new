@@ -13,7 +13,7 @@ import { SystemService } from '../../system.service';
 /** Custom Components */
 import { AddEventDialogComponent } from '../add-event-dialog/add-event-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { HooksService } from 'openapi/typescript_files';
+import { HooksService } from '@fineract/client';
 
 /**
  * Create Hook Component.

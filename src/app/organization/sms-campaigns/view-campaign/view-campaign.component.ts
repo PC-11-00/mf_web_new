@@ -17,7 +17,7 @@ import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicke
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { DefaultService, SMSService } from 'openapi/typescript_files';
+import { DefaultService, SMSService } from '@fineract/client';
 
 /**
  * View SMS Campaign Component

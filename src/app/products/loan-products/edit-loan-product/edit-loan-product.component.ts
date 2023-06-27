@@ -15,7 +15,7 @@ import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 
 /* OpenApi Transcirpt Service*/
-import { LoanProductsService } from 'openapi/typescript_files';
+import { LoanProductsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-edit-loan-product',

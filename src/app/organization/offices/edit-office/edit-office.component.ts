@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { OfficesService } from 'openapi/typescript_files';
+import { OfficesService } from '@fineract/client';
 
 /**
  * Edit Office component.

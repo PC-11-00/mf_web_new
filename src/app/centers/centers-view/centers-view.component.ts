@@ -9,7 +9,7 @@ import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/conf
 /** Custom Services */
 // import { CentersService } from '../centers.service';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { CentersService, GroupsService } from 'openapi/typescript_files';
+import { CentersService, GroupsService } from '@fineract/client';
 
 /**
  * Create Center View

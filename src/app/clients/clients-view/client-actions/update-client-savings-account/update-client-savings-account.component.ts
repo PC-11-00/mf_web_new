@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
-import { ClientService } from 'openapi/typescript_files';
+import { ClientService } from '@fineract/client';
 
 /**
  * Clients Update Savings Account Component

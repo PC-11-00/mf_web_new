@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { PasswordPreferencesService } from 'openapi/typescript_files';
+import { PasswordPreferencesService } from '@fineract/client';
 
 /**
  * Password preferences component.

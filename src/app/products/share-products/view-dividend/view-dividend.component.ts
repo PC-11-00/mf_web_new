@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsService } from 'app/products/products.service';
-import { SelfDividendService } from 'openapi/typescript_files';
+import { SelfDividendService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-view-dividend',

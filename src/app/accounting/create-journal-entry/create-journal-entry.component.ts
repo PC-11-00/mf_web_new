@@ -13,7 +13,7 @@ import { ConfigurationWizardService } from '../../configuration-wizard/configura
 
 /** Custom Dialog Component */
 import { NextStepDialogComponent } from '../../configuration-wizard/next-step-dialog/next-step-dialog.component';
-import { JournalEntriesService } from 'openapi/typescript_files';
+import { JournalEntriesService } from '@fineract/client';
 /**
  * Create Journal Entry component.
  */

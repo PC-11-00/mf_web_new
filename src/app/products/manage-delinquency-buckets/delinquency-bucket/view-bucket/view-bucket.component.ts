@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'app/products/products.service';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { DelinquencyRangeAndBucketsManagementService } from 'openapi/typescript_files';
+import { DelinquencyRangeAndBucketsManagementService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-view-bucket',

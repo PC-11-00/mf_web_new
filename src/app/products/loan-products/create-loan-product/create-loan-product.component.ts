@@ -15,7 +15,7 @@ import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 
 /*OpenApi Generated Service*/
-import { LoanProduct, LoanProductsService } from 'openapi/typescript_files';
+import { LoanProduct, LoanProductsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-create-loan-product',

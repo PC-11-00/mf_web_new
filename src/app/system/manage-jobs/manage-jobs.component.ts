@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SystemService } from '../system.service';
-import { LoanCOBCatchUpService } from 'openapi/typescript_files';
+import { LoanCOBCatchUpService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-manage-jobs',

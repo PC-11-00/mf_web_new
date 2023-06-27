@@ -22,7 +22,7 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
 import { DatatableColumn } from '../datatable-column.model';
-import { DataTablesService } from 'openapi/typescript_files';
+import { DataTablesService } from '@fineract/client';
 
 /**
  * Create Data Table Component.

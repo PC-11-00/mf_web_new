@@ -9,7 +9,7 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
-import { ProductMixService } from 'openapi/typescript_files';
+import { ProductMixService } from '@fineract/client';
 
 /**
  * View product mix component.

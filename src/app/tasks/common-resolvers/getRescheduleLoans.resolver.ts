@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TasksService } from '../tasks.service';
-import { RescheduleLoansService } from 'openapi/typescript_files';
+import { RescheduleLoansService } from '@fineract/client';
 
 /**
  * Pending Reschedule Loans data resolver.

@@ -9,7 +9,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 /** Custom Components. */
 import { ConfirmationDialogComponent } from '../../../shared/confirmation-dialog/confirmation-dialog.component';
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { HolidaysService } from 'openapi/typescript_files';
+import { HolidaysService } from '@fineract/client';
 
 /**
  * View Holidays component.

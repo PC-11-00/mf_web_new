@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
-import { ClientChargesService, ClientTransactionService } from 'openapi/typescript_files';
+import { ClientChargesService, ClientTransactionService } from '@fineract/client';
 
 /**
  * View Charge component.

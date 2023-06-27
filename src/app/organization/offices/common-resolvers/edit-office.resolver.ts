@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
-import { OfficesService } from 'openapi/typescript_files';
+import { OfficesService } from '@fineract/client';
 
 /**
  * Office and template data resolver.

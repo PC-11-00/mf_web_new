@@ -8,7 +8,7 @@ import { LoansService } from 'app/loans/loans.service';
 import { ClientsService } from 'app/clients/clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { GuarantorsService } from 'openapi/typescript_files';
+import { GuarantorsService } from '@fineract/client';
 
 /**
  * Create Guarantor Action

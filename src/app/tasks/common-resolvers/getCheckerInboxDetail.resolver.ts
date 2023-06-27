@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TasksService } from '../tasks.service';
-import { AuditsService } from 'openapi/typescript_files';
+import { AuditsService } from '@fineract/client';
 
 /**
  * Checker Inbox Detail resolver.

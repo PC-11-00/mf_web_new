@@ -5,7 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
-import { SCHEDULERJOBService, SchedulerService } from 'openapi/typescript_files';
+import { SCHEDULERJOBService, SchedulerService } from '@fineract/client';
 
 /**
  * Edit scheduler job component.

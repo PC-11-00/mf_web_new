@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
-import { DelinquencyRangeAndBucketsManagementService } from 'openapi/typescript_files';
+import { DelinquencyRangeAndBucketsManagementService } from '@fineract/client';
 
 /**
  * Delinquency Range Component data resolver.

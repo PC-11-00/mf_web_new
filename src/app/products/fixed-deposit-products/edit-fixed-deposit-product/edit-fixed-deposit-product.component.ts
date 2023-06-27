@@ -14,7 +14,7 @@ import { FixedDepositProductAccountingStepComponent } from '../fixed-deposit-pro
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { FixedDepositProductService } from 'openapi/typescript_files';
+import { FixedDepositProductService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-edit-fixed-deposit-product',

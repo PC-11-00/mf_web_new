@@ -13,7 +13,7 @@ import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/conf
 import { TasksService } from '../../tasks.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { BatchAPIService, LoansService } from 'openapi/typescript_files';
+import { BatchAPIService, LoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-loan-approval',

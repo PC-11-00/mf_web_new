@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationService } from '../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { BulkLoansService } from 'openapi/typescript_files';
+import { BulkLoansService } from '@fineract/client';
 
 /**
  * Bulk Loan Reassignment component.

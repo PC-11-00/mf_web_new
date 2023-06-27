@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { RescheduleLoansService } from 'openapi/typescript_files';
+import { RescheduleLoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-loan-reschedule',

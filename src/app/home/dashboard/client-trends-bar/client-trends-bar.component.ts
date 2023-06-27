@@ -13,7 +13,7 @@ import { HomeService } from '../../home.service';
 /** Charting Imports */
 import Chart from 'chart.js';
 import { Dates } from 'app/core/utils/dates';
-import { RunReportsService } from 'openapi/typescript_files';
+import { RunReportsService } from '@fineract/client';
 
 /**
  * Client Trends Bar Chart Component.

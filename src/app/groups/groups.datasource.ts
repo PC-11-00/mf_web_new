@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 /** Custom Services */
 // import { GroupsService } from './groups.service';
-import { GroupsService } from 'openapi/typescript_files';
+import { GroupsService } from '@fineract/client';
 /**
  * Groups custom data source to implement server side filtering, pagination and sorting.
  */

@@ -6,7 +6,7 @@ import { MatTable } from '@angular/material/table';
 
 /** Custom Dialogs */
 import { UnassignRoleDialogComponent } from '../custom-dialogs/unassign-role-dialog/unassign-role-dialog.component';
-import { GroupsService } from 'openapi/typescript_files';
+import { GroupsService } from '@fineract/client';
 
 /** Custom Services */
 // import { GroupsService } from 'app/groups/groups.service';

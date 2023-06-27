@@ -21,7 +21,7 @@ import { ContinueSetupDialogComponent } from '../../configuration-wizard/continu
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FundsService } from 'openapi/typescript_files';
+import { FundsService } from '@fineract/client';
 
 /**
  * Manage Funds component.

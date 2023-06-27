@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 // import { LoansService } from '../loans.service';
-import { DocumentsService } from 'openapi/typescript_files';
+import { DocumentsService } from '@fineract/client';
 
 /**
  * Loans notes resolver.

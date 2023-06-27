@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FixedDepositsService } from '../../fixed-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { FixedDepositAccountService } from 'openapi/typescript_files';
+import { FixedDepositAccountService } from '@fineract/client';
 
 /**
  * Premature Close Fixed Deposits Account Component

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
-import { AccountNumberFormatService } from 'openapi/typescript_files';
+import { AccountNumberFormatService } from '@fineract/client';
 
 /**
  * Edit Account Number Preference Component.

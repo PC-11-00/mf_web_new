@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { WorkingDaysService } from 'openapi/typescript_files';
+import { WorkingDaysService } from '@fineract/client';
 
 /**
  * Working Days data resolver.

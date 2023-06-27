@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { FixedDepositsService } from '../fixed-deposits.service';
-import { FixedDepositAccountTransactionsService } from 'openapi/typescript_files';
+import { FixedDepositAccountTransactionsService } from '@fineract/client';
 
 /**
  * Fixed Deposits Account Transaction data resolver.

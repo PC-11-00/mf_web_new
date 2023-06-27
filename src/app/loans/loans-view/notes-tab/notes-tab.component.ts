@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 /** Custom Services */
 import { LoansService } from '../../loans.service';
 import { AuthenticationService } from '../../../core/authentication/authentication.service';
-import { NotesService } from 'openapi/typescript_files';
+import { NotesService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-notes-tab',

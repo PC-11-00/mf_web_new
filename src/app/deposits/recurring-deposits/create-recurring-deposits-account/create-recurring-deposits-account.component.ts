@@ -13,7 +13,7 @@ import { RecurringDepositsAccountCurrencyStepComponent } from '../recurring-depo
 import { RecurringDepositsAccountSettingsStepComponent } from '../recurring-deposits-account-stepper/recurring-deposits-account-settings-step/recurring-deposits-account-settings-step.component';
 import { RecurringDepositsAccountChargesStepComponent } from '../recurring-deposits-account-stepper/recurring-deposits-account-charges-step/recurring-deposits-account-charges-step.component';
 import { Dates } from 'app/core/utils/dates';
-import { RecurringDepositAccountService } from 'openapi/typescript_files';
+import { RecurringDepositAccountService } from '@fineract/client';
 
 /**
  * Create new recurring deposit account

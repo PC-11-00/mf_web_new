@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
-import { SelfDividendService } from 'openapi/typescript_files';
+import { SelfDividendService } from '@fineract/client';
 
 /**
  * Share products data resolver.

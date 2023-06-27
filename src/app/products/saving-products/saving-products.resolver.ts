@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
-import { SavingsProductService } from 'openapi/typescript_files';
+import { SavingsProductService } from '@fineract/client';
 
 /**
  * Saving products data resolver.

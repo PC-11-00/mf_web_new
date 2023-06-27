@@ -16,7 +16,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { ProvisioningCriteriaService } from 'openapi/typescript_files';
+import { ProvisioningCriteriaService } from '@fineract/client';
 
 /**
  * Create Loan Provisioning Criteria Component.

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
-import { FloatingRatesService } from 'openapi/typescript_files';
+import { FloatingRatesService } from '@fineract/client';
 
 /**
  * Floating Rates data resolver.

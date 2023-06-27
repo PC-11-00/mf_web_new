@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { HolidaysService } from 'openapi/typescript_files';
+import { HolidaysService } from '@fineract/client';
 
 /**
  * Edit Holiday component.

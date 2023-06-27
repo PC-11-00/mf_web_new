@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
-import { SavingsAccountService } from 'openapi/typescript_files';
+import { SavingsAccountService } from '@fineract/client';
 
 /**
  * Undo Approval Savings Account Component

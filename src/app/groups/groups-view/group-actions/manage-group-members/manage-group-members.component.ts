@@ -10,7 +10,7 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 // import { GroupsService } from 'app/groups/groups.service';
 import { ClientsService } from 'app/clients/clients.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ClientService, GroupsService } from 'openapi/typescript_files';
+import { ClientService, GroupsService } from '@fineract/client';
 
 /**
  * Manage Group Members Component

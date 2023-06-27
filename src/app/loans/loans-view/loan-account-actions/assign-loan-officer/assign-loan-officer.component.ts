@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { LoansService } from 'openapi/typescript_files';
+import { LoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-assign-loan-officer',

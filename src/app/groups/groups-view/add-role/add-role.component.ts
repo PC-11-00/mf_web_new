@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 // import { GroupsService } from '../../groups.service';
-import { GroupsService } from 'openapi/typescript_files';
+import { GroupsService } from '@fineract/client';
 
 /**
  * Groups Add Role Component

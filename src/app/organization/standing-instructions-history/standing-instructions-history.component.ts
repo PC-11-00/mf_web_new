@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OrganizationService } from '../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { StandingInstructionsHistoryService } from 'openapi/typescript_files';
+import { StandingInstructionsHistoryService } from '@fineract/client';
 
 /**
  * View Standing Instructions History Component.

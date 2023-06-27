@@ -8,7 +8,7 @@ import { AccountingService } from '../../accounting.service';
 
 /** Custom Validators */
 import { oneOfTheFieldsIsRequiredValidator } from '../one-of-the-fields-is-required.validator';
-import { AccountingRulesService } from 'openapi/typescript_files';
+import { AccountingRulesService } from '@fineract/client';
 
 /**
  * Create accounting rule component.

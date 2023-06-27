@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 /** Client Services. */
 import { ClientsService } from 'app/clients/clients.service';
-import { UsersService } from 'openapi/typescript_files';
+import { UsersService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-create-self-service-user',

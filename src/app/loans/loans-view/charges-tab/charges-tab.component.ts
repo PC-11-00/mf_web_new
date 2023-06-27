@@ -20,7 +20,7 @@ import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
 import { Dates } from 'app/core/utils/dates';
-import { LoanChargesService } from 'openapi/typescript_files';
+import { LoanChargesService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-charges-tab',

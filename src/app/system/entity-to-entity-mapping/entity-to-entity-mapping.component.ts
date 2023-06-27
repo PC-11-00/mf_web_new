@@ -18,7 +18,7 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { Dates } from 'app/core/utils/dates';
-import { ChargesService, FineractEntityService, LoanProductsService, OfficesService, RolesService, SavingsProductService } from 'openapi/typescript_files';
+import { ChargesService, FineractEntityService, LoanProductsService, OfficesService, RolesService, SavingsProductService } from '@fineract/client';
 
 /**
  * Entity to Entity Mapping Component

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TasksService } from '../tasks.service';
-import { MakerCheckerOr4EyeFunctionalityService } from 'openapi/typescript_files';
+import { MakerCheckerOr4EyeFunctionalityService } from '@fineract/client';
 
 /**
  * Maker Checker Template resolver.

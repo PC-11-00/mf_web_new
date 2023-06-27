@@ -10,7 +10,7 @@ import { OrganizationService } from '../organization.service';
 
 /** Custom Imports */
 import { BulkImports } from './view-bulk-import/bulk-imports';
-import { BulkImportService } from 'openapi/typescript_files';
+import { BulkImportService } from '@fineract/client';
 
 /**
  * Bulk Imports data resolver.

@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { TaxComponentsService } from 'openapi/typescript_files';
+import { TaxComponentsService } from '@fineract/client';
 
 /**
  * Edit tax component.

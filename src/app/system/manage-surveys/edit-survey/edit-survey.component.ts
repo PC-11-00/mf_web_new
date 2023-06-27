@@ -13,7 +13,7 @@ import { CancelDialogComponent } from '../../../shared/cancel-dialog/cancel-dial
 
 /** Survey Models */
 import { Survey, QuestionData, ResponseData } from './../survey.model';
-import { SpmSurveysService } from 'openapi/typescript_files';
+import { SpmSurveysService } from '@fineract/client';
 
 /**
  * Edit survey component.

@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { FixedDepositsService } from 'app/deposits/fixed-deposits/fixed-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { FixedDepositAccountService } from 'openapi/typescript_files';
+import { FixedDepositAccountService } from '@fineract/client';
 
 /**
  * Approve Fixed Deposits Account Component

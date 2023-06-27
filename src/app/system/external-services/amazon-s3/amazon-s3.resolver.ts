@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
-import { ExternalServicesService } from 'openapi/typescript_files';
+import { ExternalServicesService } from '@fineract/client';
 
 /**
  * Amazon S3 Configuration data resolver.

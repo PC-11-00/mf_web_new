@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StaffService, UsersService } from 'openapi/typescript_files';
+import { StaffService, UsersService } from '@fineract/client';
 
 /** Custom Services */
 // import { UsersService } from '../users.service';

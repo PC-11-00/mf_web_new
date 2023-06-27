@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
-import { ClientCollateralManagementService } from 'openapi/typescript_files';
+import { ClientCollateralManagementService } from '@fineract/client';
 
 
 @Component({

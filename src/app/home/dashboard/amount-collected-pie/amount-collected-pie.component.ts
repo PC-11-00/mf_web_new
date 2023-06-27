@@ -8,7 +8,7 @@ import { HomeService } from '../../home.service';
 
 /** Charting Imports */
 import Chart from 'chart.js';
-import { RunReportsService } from 'openapi/typescript_files';
+import { RunReportsService } from '@fineract/client';
 
 /**
  * Amount Collected Pie Chart Component

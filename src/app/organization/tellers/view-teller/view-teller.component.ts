@@ -8,7 +8,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { TellerCashManagementService } from 'openapi/typescript_files';
+import { TellerCashManagementService } from '@fineract/client';
 
 /**
  * View Teller Component.

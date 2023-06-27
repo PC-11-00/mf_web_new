@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountTransfersService } from '../account-transfers.service';
-import { StandingInstructionsService } from 'openapi/typescript_files';
+import { StandingInstructionsService } from '@fineract/client';
 
 /**
  * View Standing Instructions resolver.

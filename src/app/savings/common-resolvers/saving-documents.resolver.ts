@@ -5,7 +5,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SavingsService } from '../savings.service';
-import { DocumentsService } from 'openapi/typescript_files';
+import { DocumentsService } from '@fineract/client';
 
 @Injectable({
   providedIn: 'root'

@@ -16,7 +16,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { merge } from 'rxjs';
 import { tap, debounceTime, distinctUntilChanged, startWith, map } from 'rxjs/operators';
 import { Dates } from 'app/core/utils/dates';
-import { AuditsService } from 'openapi/typescript_files';
+import { AuditsService } from '@fineract/client';
 
 /**
  * Audit Trails Component.

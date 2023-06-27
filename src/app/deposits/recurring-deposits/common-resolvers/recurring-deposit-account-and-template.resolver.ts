@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { RecurringDepositsService } from '../recurring-deposits.service';
-import { RecurringDepositAccountService } from 'openapi/typescript_files';
+import { RecurringDepositAccountService } from '@fineract/client';
 
 /**
  * Recurring Deposits Account Template resolver.

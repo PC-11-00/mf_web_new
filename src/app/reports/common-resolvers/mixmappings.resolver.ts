@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ReportsService } from '../reports.service';
-import { MixMappingService } from 'openapi/typescript_files';
+import { MixMappingService } from '@fineract/client';
 
 /**
  * Mix Mappings data resolver.

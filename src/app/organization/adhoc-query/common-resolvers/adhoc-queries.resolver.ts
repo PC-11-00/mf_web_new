@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
-import { AdhocQueryApiService } from 'openapi/typescript_files';
+import { AdhocQueryApiService } from '@fineract/client';
 
 /**
  * Adhoc Queries data resolver.

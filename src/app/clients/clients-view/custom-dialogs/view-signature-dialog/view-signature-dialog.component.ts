@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
-import { DocumentsService } from 'openapi/typescript_files';
+import { DocumentsService } from '@fineract/client';
 
 /**
  * View signature dialog component.

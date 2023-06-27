@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { CalendarService, CentersService, GroupsService, RunReportsService } from 'openapi/typescript_files';
+import { CalendarService, CentersService, GroupsService, RunReportsService } from '@fineract/client';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';

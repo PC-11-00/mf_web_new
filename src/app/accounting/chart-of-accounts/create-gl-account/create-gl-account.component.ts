@@ -11,7 +11,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
-import { GeneralLedgerAccountService } from 'openapi/typescript_files';
+import { GeneralLedgerAccountService } from '@fineract/client';
 
 /**
  * Create gl account component.

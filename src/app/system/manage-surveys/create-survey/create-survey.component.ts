@@ -10,7 +10,7 @@ import { SystemService } from '../../system.service';
 
 /** Custom Components */
 import { CancelDialogComponent } from '../../../shared/cancel-dialog/cancel-dialog.component';
-import { SpmSurveysService, SurveyService } from 'openapi/typescript_files';
+import { SpmSurveysService, SurveyService } from '@fineract/client';
 
 /**
  * Create survey component.

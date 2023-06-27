@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { ProductsService } from '../../products.service';
 
 /* OpenApi Transcirpt Service*/
-import { LoanProductsService } from 'openapi/typescript_files';
+import { LoanProductsService } from '@fineract/client';
 
 /**
  * Loan product and template data resolver.

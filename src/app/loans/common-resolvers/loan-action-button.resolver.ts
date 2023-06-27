@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 // import { LoansService } from '../loans.service';
-import { GuarantorsService, LoanChargesService, LoanCollateralService, LoanTransactionsService, LoansService, RescheduleLoansService, UserGeneratedDocumentsService } from 'openapi/typescript_files';
+import { GuarantorsService, LoanChargesService, LoanCollateralService, LoanTransactionsService, LoansService, RescheduleLoansService, UserGeneratedDocumentsService } from '@fineract/client';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
 /**

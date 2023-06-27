@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
-import { GeneralLedgerAccountService } from 'openapi/typescript_files';
+import { GeneralLedgerAccountService } from '@fineract/client';
 
 /**
  * GL accounts data resolver.

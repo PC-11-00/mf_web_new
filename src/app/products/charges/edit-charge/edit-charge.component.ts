@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { ChargesService } from 'openapi/typescript_files';
+import { ChargesService } from '@fineract/client';
 
 
 /**

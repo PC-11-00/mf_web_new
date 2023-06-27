@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Customer Services. */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { TellerCashManagementService } from 'openapi/typescript_files';
+import { TellerCashManagementService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-settle-cash',

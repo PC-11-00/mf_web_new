@@ -11,7 +11,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
-import { ClientsAddressService } from 'openapi/typescript_files';
+import { ClientsAddressService } from '@fineract/client';
 
 /**
  * Clients Address Tab Component

@@ -11,7 +11,7 @@ import { SharesAccountChargesStepComponent } from '../shares-account-stepper/sha
 import { SharesService } from '../shares.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { ShareAccountService } from 'openapi/typescript_files';
+import { ShareAccountService } from '@fineract/client';
 
 /**
  * Create Shares Account Component

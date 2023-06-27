@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecurringDepositsService } from '../../recurring-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { RecurringDepositAccountService } from 'openapi/typescript_files';
+import { RecurringDepositAccountService } from '@fineract/client';
 
 /**
  * Deposits Recurring Deposits Account Component

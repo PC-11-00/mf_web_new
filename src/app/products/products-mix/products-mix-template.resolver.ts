@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
-import { LoanProductsService } from 'openapi/typescript_files';
+import { LoanProductsService } from '@fineract/client';
 
 /**
  * Products mix template data resolver.

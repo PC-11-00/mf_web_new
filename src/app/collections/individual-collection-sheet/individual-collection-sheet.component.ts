@@ -21,7 +21,7 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { CollectionSheetService, StaffService } from 'openapi/typescript_files';
+import { CollectionSheetService, StaffService } from '@fineract/client';
 
 /**
  * Individual Collection Sheet

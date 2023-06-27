@@ -15,7 +15,7 @@ import { tap, startWith, map, distinctUntilChanged, debounceTime} from 'rxjs/ope
 
 /** Custom Data Source */
 import { CentersDataSource } from './centers.datasource';
-import { CentersService } from 'openapi/typescript_files';
+import { CentersService } from '@fineract/client';
 
 /**
  * Centers component.

@@ -5,7 +5,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Custom Services */
 import { FixedDepositsService } from '../../fixed-deposits.service';
-import { FixedDepositAccountService } from 'openapi/typescript_files';
+import { FixedDepositAccountService } from '@fineract/client';
 
 /**
  * Fixed Deposits Account Details Step

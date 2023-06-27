@@ -14,7 +14,7 @@ import { ShareProductAccountingStepComponent } from '../share-product-stepper/sh
 /** Custom Services */
 // import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { ProductsService } from 'openapi/typescript_files';
+import { ProductsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-edit-share-product',

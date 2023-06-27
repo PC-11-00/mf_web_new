@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { ChangePasswordDialogComponent } from 'app/shared/change-password-dialog/change-password-dialog.component';
-import { UsersService } from 'openapi/typescript_files';
+import { UsersService } from '@fineract/client';
 
 /**
  * View user component.

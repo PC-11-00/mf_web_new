@@ -8,7 +8,7 @@ import { LoansAccountChargesStepComponent } from '../loans-account-stepper/loans
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { LoansService } from 'openapi/typescript_files';
+import { LoansService } from '@fineract/client';
 
 /**
  * Edit Loans

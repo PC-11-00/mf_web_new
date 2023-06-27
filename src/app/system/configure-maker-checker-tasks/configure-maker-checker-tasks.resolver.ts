@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
-import { PermissionsService } from 'openapi/typescript_files';
+import { PermissionsService } from '@fineract/client';
 
 /**
  * Maker Checker Tasks resolver.

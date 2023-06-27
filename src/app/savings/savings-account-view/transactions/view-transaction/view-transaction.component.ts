@@ -11,7 +11,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { UndoTransactionDialogComponent } from '../../custom-dialogs/undo-transaction-dialog/undo-transaction-dialog.component';
 import { Dates } from 'app/core/utils/dates';
 import { ReleaseAmountDialogComponent } from '../../custom-dialogs/release-amount-dialog/release-amount-dialog.component';
-import { SavingsAccountTransactionsService } from 'openapi/typescript_files';
+import { SavingsAccountTransactionsService } from '@fineract/client';
 
 /**
  * View Transaction Component.

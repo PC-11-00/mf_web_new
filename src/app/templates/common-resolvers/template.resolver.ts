@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
-import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
+import { UserGeneratedDocumentsService } from '@fineract/client';
 
 /**
  * Template data resolver.

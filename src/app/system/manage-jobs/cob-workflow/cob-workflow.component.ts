@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SystemService } from 'app/system/system.service';
-import { LoanCOBCatchUpService } from 'openapi/typescript_files';
+import { LoanCOBCatchUpService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-cob-workflow',

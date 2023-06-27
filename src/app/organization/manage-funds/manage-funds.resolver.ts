@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { FundsService } from 'openapi/typescript_files';
+import { FundsService } from '@fineract/client';
 
 /**
  * Manage Funds data resolver.

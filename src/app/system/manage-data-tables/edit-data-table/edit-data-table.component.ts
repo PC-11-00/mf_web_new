@@ -17,7 +17,7 @@ import { appTableData, entitySubTypeData } from '../app-table-data';
 import { ColumnDialogComponent } from '../column-dialog/column-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { DatatableColumn } from '../datatable-column.model';
-import { DataTablesService } from 'openapi/typescript_files';
+import { DataTablesService } from '@fineract/client';
 
 /**
  * Edit Data Table Component.

@@ -11,7 +11,7 @@ import { startWith, map, debounceTime, distinctUntilChanged, tap } from 'rxjs/op
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
-import { ProvisioningEntriesService } from 'openapi/typescript_files';
+import { ProvisioningEntriesService } from '@fineract/client';
 
 /**
  * View provisioning entry component.

@@ -8,7 +8,7 @@ import { AccountingService } from '../../accounting.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { AccountingClosureService } from 'openapi/typescript_files';
+import { AccountingClosureService } from '@fineract/client';
 
 /**
  * View closure component.

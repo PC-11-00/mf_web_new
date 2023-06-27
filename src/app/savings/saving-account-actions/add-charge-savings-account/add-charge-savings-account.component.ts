@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SavingsService } from '../../savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { ChargesService, SavingsChargesService } from 'openapi/typescript_files';
+import { ChargesService, SavingsChargesService } from '@fineract/client';
 
 /**
  * Add Savings Charge component.

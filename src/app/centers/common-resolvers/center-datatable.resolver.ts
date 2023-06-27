@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { CentersService } from '../centers.service';
-import { DataTablesService } from 'openapi/typescript_files';
+import { DataTablesService } from '@fineract/client';
 
 /**
  * Centers notes data resolver.

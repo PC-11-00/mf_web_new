@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SharesService } from 'app/shares/shares.service';
-import { ShareAccountService } from 'openapi/typescript_files';
+import { ShareAccountService } from '@fineract/client';
 
 /**
  * Undo Approval Shares Account Component

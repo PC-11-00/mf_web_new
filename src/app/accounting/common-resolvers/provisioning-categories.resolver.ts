@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
-import { ProvisioningCategoryService } from 'openapi/typescript_files';
+import { ProvisioningCategoryService } from '@fineract/client';
 
 /**
  * Provisioning categories data resolver.

@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { TasksService } from 'app/tasks/tasks.service';
-import { LoanAccountLockService } from 'openapi/typescript_files';
+import { LoanAccountLockService } from '@fineract/client';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

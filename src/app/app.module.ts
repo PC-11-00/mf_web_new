@@ -35,8 +35,9 @@ import { CollectionsModule } from './collections/collections.module';
 import { ProfileModule } from './profile/profile.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ConfigurationWizardModule } from './configuration-wizard/configuration-wizard.module';
-import {PortalModule} from '@angular/cdk/portal';
-import { ApiModule, Configuration, ConfigurationParameters } from 'openapi/typescript_files/index';
+import { PortalModule } from '@angular/cdk/portal';
+// import { ApiModule, Configuration, ConfigurationParameters } from '@fineract/client/index';
+import { ApiModule, Configuration, ConfigurationParameters } from '@fineract/client';
 /** Main Routing Module */
 import { AppRoutingModule } from './app-routing.module';
 import { DatePipe, LocationStrategy } from '@angular/common';
@@ -47,7 +48,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 /* Configuration Factory to make the api base URL */
 
-const configurationFactory = () =>{
+const configurationFactory = () => {
   const configParams: ConfigurationParameters = {
     basePath: 'https://webapp.ps.mifos.io/fineract-provider/api/v1',
   };
@@ -65,7 +66,7 @@ const configurationFactory = () =>{
       loader: {
         provide: TranslateLoader,
         useFactory: (http: HttpClient, locationStrategy: LocationStrategy) => {
-          return new TranslateHttpLoader(http, `${ window.location.protocol }//${ window.location.host }${locationStrategy.getBaseHref()}/assets/translations/`, '.json');
+          return new TranslateHttpLoader(http, `${window.location.protocol}//${window.location.host}${locationStrategy.getBaseHref()}/assets/translations/`, '.json');
         },
         deps: [HttpClient, LocationStrategy]
       }
@@ -83,7 +84,7 @@ const configurationFactory = () =>{
     ClientsModule,
     ReportsModule,
     GroupsModule,
-    ApiModule.forRoot(configurationFactory),
+    ApiModule,
     CentersModule,
     AccountingModule,
     SelfServiceModule,

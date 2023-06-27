@@ -2,7 +2,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoansService } from 'openapi/typescript_files';
+import { LoansService } from '@fineract/client';
 
 /** Custom Services */
 // import { LoansService } from '../../../loans.service';

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
-import { DocumentsService } from 'openapi/typescript_files';
+import { DocumentsService } from '@fineract/client';
 
 /**
  * Client Documents resolver.

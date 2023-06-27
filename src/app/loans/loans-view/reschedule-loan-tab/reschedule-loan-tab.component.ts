@@ -6,7 +6,7 @@ import { LoansService } from 'app/loans/loans.service';
 import { LoanStatus } from 'app/loans/models/loan-status.nodel';
 import { SettingsService } from 'app/settings/settings.service';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
-import { RescheduleLoansService } from 'openapi/typescript_files';
+import { RescheduleLoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-reschedule-loan-tab',

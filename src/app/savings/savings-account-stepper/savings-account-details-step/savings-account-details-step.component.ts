@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { SavingsAccountService } from 'openapi/typescript_files';
+import { SavingsAccountService } from '@fineract/client';
 
 /**
  * Savings Account Details Step

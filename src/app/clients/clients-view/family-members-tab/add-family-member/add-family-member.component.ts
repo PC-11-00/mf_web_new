@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClientsService } from '../../../clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { ClientFamilyMemberService } from 'openapi/typescript_files';
+import { ClientFamilyMemberService } from '@fineract/client';
 
 /**
  * Add Family Member Component

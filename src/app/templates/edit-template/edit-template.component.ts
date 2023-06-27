@@ -11,7 +11,7 @@ import { clientParameterLabels, loanParameterLabels, repaymentParameterLabels } 
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
-import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
+import { UserGeneratedDocumentsService } from '@fineract/client';
 
 /**
  * Edit Template Component.

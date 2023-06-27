@@ -5,7 +5,7 @@ import { Dates } from 'app/core/utils/dates';
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { SystemService } from 'app/system/system.service';
-import { SavingsAccountService, SavingsAccountTransactionsService } from 'openapi/typescript_files';
+import { SavingsAccountService, SavingsAccountTransactionsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-manage-savings-account',

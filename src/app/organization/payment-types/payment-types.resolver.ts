@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { PaymentTypeService } from 'openapi/typescript_files';
+import { PaymentTypeService } from '@fineract/client';
 
 /**
  * Payment Types data resolver.

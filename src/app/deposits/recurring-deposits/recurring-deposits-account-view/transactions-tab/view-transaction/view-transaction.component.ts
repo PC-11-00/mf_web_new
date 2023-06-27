@@ -10,7 +10,7 @@ import { SettingsService } from 'app/settings/settings.service';
 /** Custom Dialogs */
 import { RecurringDepositConfirmationDialogComponent } from '../../custom-dialogs/recurring-deposit-confirmation-dialog/recurring-deposit-confirmation-dialog.component';
 import { Dates } from 'app/core/utils/dates';
-import { RecurringDepositAccountTransactionsService } from 'openapi/typescript_files';
+import { RecurringDepositAccountTransactionsService } from '@fineract/client';
 
 /**
  * View Transaction Component.

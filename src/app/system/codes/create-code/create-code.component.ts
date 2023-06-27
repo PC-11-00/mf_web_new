@@ -8,7 +8,7 @@ import { SystemService } from '../../system.service';
 import { PopoverService } from '../../../configuration-wizard/popover/popover.service';
 import { PopoverRef } from '../../../configuration-wizard/popover/popover-ref';
 import { ConfigurationWizardService } from '../../../configuration-wizard/configuration-wizard.service';
-import { CodesService } from 'openapi/typescript_files';
+import { CodesService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-create-code',

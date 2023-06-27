@@ -5,7 +5,7 @@ import { UploadDocumentDialogComponent } from 'app/clients/clients-view/custom-d
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { environment } from 'environments/environment';
-import { DocumentsService } from 'openapi/typescript_files';
+import { DocumentsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-savings-documents-tab',

@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { SavingsChargesService } from 'openapi/typescript_files';
+import { SavingsChargesService } from '@fineract/client';
 
 /**
  * Add Fixed Deposits Charge component.

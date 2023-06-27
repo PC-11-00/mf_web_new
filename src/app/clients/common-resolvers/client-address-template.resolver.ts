@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
-import { ClientsAddressService } from 'openapi/typescript_files';
+import { ClientsAddressService } from '@fineract/client';
 
 /**
  * Client Address Field Configuration resolver.

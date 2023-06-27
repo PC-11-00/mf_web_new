@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { SystemService } from '../system.service';
-import { ExternalEventConfigurationService } from 'openapi/typescript_files';
+import { ExternalEventConfigurationService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-manage-external-events',

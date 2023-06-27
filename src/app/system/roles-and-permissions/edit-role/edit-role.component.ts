@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
-import { RolesService } from 'openapi/typescript_files';
+import { RolesService } from '@fineract/client';
 
 /**
  * Edit Role Description Component.

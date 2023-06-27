@@ -15,7 +15,7 @@ import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicke
 import { TasksService } from '../../tasks.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { BatchAPIService } from 'openapi/typescript_files';
+import { BatchAPIService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-client-approval',

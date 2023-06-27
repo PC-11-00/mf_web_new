@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
-import { AccountingRulesService } from 'openapi/typescript_files';
+import { AccountingRulesService } from '@fineract/client';
 
 /**
  * Accounting rules data resolver.

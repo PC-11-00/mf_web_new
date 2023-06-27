@@ -13,7 +13,7 @@ import { AccountingService } from '../accounting.service';
 import { RevertTransactionComponent } from '../revert-transaction/revert-transaction.component';
 import { ViewJournalEntryComponent } from '../view-journal-entry/view-journal-entry.component';
 import { Location } from '@angular/common';
-import { JournalEntriesService } from 'openapi/typescript_files';
+import { JournalEntriesService } from '@fineract/client';
 
 /**
  * View transaction component.

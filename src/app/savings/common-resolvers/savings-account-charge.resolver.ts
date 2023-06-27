@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SavingsService } from '../savings.service';
-import { SavingsChargesService } from 'openapi/typescript_files';
+import { SavingsChargesService } from '@fineract/client';
 
 /**
  * Savings Account Charge data resolver.

@@ -8,7 +8,7 @@ import { AccountingService } from '../../accounting.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { MappingFinancialActivitiesToAccountsService } from 'openapi/typescript_files';
+import { MappingFinancialActivitiesToAccountsService } from '@fineract/client';
 
 /**
  * View financial activity mapping component.

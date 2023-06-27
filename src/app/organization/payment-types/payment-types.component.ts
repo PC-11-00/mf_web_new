@@ -11,7 +11,7 @@ import { OrganizationService } from '../organization.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
-import { PaymentTypeService } from 'openapi/typescript_files';
+import { PaymentTypeService } from '@fineract/client';
 
 /**
  * Payment Types component.

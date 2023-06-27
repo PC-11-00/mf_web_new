@@ -9,7 +9,7 @@ import { SystemService } from 'app/system/system.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { CodeValuesService, CodesService } from 'openapi/typescript_files';
+import { CodeValuesService, CodesService } from '@fineract/client';
 
 /**
  * View Code Component.

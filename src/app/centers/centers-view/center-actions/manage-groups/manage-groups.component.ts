@@ -11,7 +11,7 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 // import { GroupsService } from 'app/groups/groups.service';
 import { MatDialog } from '@angular/material/dialog';
 
-import { CentersService, GroupsService } from 'openapi/typescript_files';
+import { CentersService, GroupsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-manage-groups',

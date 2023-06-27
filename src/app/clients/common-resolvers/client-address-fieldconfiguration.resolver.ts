@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
-import { EntityFieldConfigurationService } from 'openapi/typescript_files';
+import { EntityFieldConfigurationService } from '@fineract/client';
 
 /**
  * Client Address Field Configuration resolver.

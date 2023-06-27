@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 // import { CentersService } from 'app/centers/centers.service';
-import { CentersService, GroupsService } from 'openapi/typescript_files';
+import { CentersService, GroupsService } from '@fineract/client';
 /**
  * Centers Assign Staff Component
  */

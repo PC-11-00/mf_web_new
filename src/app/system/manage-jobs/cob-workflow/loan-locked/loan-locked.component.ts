@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorDialogComponent } from 'app/shared/error-dialog/error-dialog.component';
 import { SystemService } from 'app/system/system.service';
 import { TasksService } from 'app/tasks/tasks.service';
-import { InlineJobService, LoanAccountLockService, LoansService } from 'openapi/typescript_files';
+import { InlineJobService, LoanAccountLockService, LoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-loan-locked',

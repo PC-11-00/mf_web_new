@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
-import { SpmSurveysService } from 'openapi/typescript_files';
+import { SpmSurveysService } from '@fineract/client';
 
 /**
  * System data resolver.

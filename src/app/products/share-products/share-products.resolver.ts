@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { ProductsService } from 'openapi/typescript_files';
+import { ProductsService } from '@fineract/client';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';

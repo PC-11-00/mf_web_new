@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
-import { DataTablesService } from 'openapi/typescript_files';
+import { DataTablesService } from '@fineract/client';
 
 /**
  * Data Table data resolver.

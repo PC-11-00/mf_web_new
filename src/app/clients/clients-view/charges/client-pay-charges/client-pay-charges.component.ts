@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
-import { ClientChargesService } from 'openapi/typescript_files';
+import { ClientChargesService } from '@fineract/client';
 
 /**
  * Client Pay Charge component.

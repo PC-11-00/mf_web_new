@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { CentersService } from 'openapi/typescript_files';
+import { CentersService } from '@fineract/client';
 
 /** rxjs Imports */
 import { Observable, BehaviorSubject } from 'rxjs';

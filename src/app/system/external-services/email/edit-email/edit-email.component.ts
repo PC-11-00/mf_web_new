@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
-import { ExternalServicesService } from 'openapi/typescript_files';
+import { ExternalServicesService } from '@fineract/client';
 
 /**
  * Edit Email Configuration Component.

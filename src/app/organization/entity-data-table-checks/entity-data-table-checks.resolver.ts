@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { EntityDataTableService } from 'openapi/typescript_files';
+import { EntityDataTableService } from '@fineract/client';
 
 /**
  * Entity Data Table Checks data resolver.

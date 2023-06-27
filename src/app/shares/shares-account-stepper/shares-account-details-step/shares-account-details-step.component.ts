@@ -5,7 +5,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Custom Services */
 import { SharesService } from 'app/shares/shares.service';
-import { ShareAccountService } from 'openapi/typescript_files';
+import { ShareAccountService } from '@fineract/client';
 
 /**
  * Shares Account Details Step

@@ -14,7 +14,7 @@ import { RecurringDepositProductAccountingStepComponent } from '../recurring-dep
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { RecurringDepositProductService } from 'openapi/typescript_files';
+import { RecurringDepositProductService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-create-recurring-deposit-product',

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
-import { DocumentsService } from 'openapi/typescript_files';
+import { DocumentsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-documents-tab',

@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { RecurringDepositsService } from 'app/deposits/recurring-deposits/recurring-deposits.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { RecurringDepositAccountService } from 'openapi/typescript_files';
+import { RecurringDepositAccountService } from '@fineract/client';
 /**
  * Withdraw By Client Recurring Deposits Account Component
  */

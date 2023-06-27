@@ -7,7 +7,7 @@ import { Observable, forkJoin } from 'rxjs';
 
 /** Custom Services */
 import { SavingsService } from '../savings.service';
-import { SavingsAccountService, SavingsAccountTransactionsService, SavingsChargesService } from 'openapi/typescript_files';
+import { SavingsAccountService, SavingsAccountTransactionsService, SavingsChargesService } from '@fineract/client';
 
 /**
  * Savings Account Actions data resolver.

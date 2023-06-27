@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { CollateralManagementService } from 'openapi/typescript_files';
+import { CollateralManagementService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-edit-collateral',

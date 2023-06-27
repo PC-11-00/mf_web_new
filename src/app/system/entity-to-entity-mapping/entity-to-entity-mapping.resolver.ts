@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
-import { FineractEntityService } from 'openapi/typescript_files';
+import { FineractEntityService } from '@fineract/client';
 
 /**
  * Entity to entity mapping data resolver.

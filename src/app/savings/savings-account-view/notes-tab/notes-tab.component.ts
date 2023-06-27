@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
 import { SavingsService } from 'app/savings/savings.service';
-import { NotesService } from 'openapi/typescript_files';
+import { NotesService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-notes-tab',

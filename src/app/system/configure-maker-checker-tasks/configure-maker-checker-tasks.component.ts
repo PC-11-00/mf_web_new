@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { PopoverService } from '../../configuration-wizard/popover/popover.service';
 import { ConfigurationWizardService } from '../../configuration-wizard/configuration-wizard.service';
 import { SystemService } from '../system.service';
-import { PermissionsService } from 'openapi/typescript_files';
+import { PermissionsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-configure-maker-checker-tasks',

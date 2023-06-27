@@ -10,7 +10,7 @@ import { LoansService } from 'app/loans/loans.service';
 /** Dialog Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { LoansAccountViewGuarantorDetailsDialogComponent } from 'app/loans/custom-dialog/loans-account-view-guarantor-details-dialog/loans-account-view-guarantor-details-dialog.component';
-import { GuarantorsService } from 'openapi/typescript_files';
+import { GuarantorsService } from '@fineract/client';
 
 /**
  * View Guarantors Action

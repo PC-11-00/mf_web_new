@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoansService } from '../../../loans.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { LoanChargesService } from 'openapi/typescript_files';
+import { LoanChargesService } from '@fineract/client';
 
 /**
  * Create Add Loan Charge component.

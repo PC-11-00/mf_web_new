@@ -8,7 +8,7 @@ import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dial
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
-import { HooksService } from 'openapi/typescript_files';
+import { HooksService } from '@fineract/client';
 
 /**
  * View Hook Component.

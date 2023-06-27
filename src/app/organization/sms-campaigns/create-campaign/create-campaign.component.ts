@@ -10,7 +10,7 @@ import { CampaignMessageStepComponent } from '../sms-campaign-stepper/campaign-m
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { DefaultService } from 'openapi/typescript_files';
+import { DefaultService } from '@fineract/client';
 
 /**
  * Create SMS Campaign Component

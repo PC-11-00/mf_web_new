@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { LoansService } from 'app/loans/loans.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { UserGeneratedDocumentsService } from 'openapi/typescript_files';
+import { UserGeneratedDocumentsService } from '@fineract/client';
 
 /**
  * Loans Screen Reports Component.

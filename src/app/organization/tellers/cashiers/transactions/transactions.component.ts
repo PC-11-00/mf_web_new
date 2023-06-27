@@ -8,7 +8,7 @@ import { FormControl } from '@angular/forms';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
-import { TellerCashManagementService } from 'openapi/typescript_files';
+import { TellerCashManagementService } from '@fineract/client';
 
 /**
  * Cashier Transactions Component.

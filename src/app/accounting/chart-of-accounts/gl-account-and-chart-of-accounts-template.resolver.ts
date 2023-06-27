@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
-import { GeneralLedgerAccountService } from 'openapi/typescript_files';
+import { GeneralLedgerAccountService } from '@fineract/client';
 
 /**
  * GL Account and chart of accounts template data resolver.

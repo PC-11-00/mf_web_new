@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { SavingsService } from 'app/savings/savings.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { SavingsAccountTransactionsService } from 'openapi/typescript_files';
+import { SavingsAccountTransactionsService } from '@fineract/client';
 
 /**
  * Post Interest Savings Account Component

@@ -7,7 +7,7 @@ import { Observable} from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
-import { SCHEDULERJOBService } from 'openapi/typescript_files';
+import { SCHEDULERJOBService } from '@fineract/client';
 
 /**
  * Edit Scheduler Job data resolver.

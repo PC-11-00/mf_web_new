@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoansService } from 'app/loans/loans.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
-import { LoanTransactionsService } from 'openapi/typescript_files';
+import { LoanTransactionsService } from '@fineract/client';
 
 /**
  * Waive Interest component.

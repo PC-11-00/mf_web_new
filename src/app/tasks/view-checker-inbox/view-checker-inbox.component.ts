@@ -9,7 +9,7 @@ import { TasksService } from '../tasks.service';
 
 /** Dialog Components */
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
-import { MakerCheckerOr4EyeFunctionalityService } from 'openapi/typescript_files';
+import { MakerCheckerOr4EyeFunctionalityService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-view-checker-inbox',

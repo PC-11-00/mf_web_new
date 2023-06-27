@@ -7,7 +7,7 @@ import { ProductsService } from 'app/products/products.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { CollateralManagementService } from 'openapi/typescript_files';
+import { CollateralManagementService } from '@fineract/client';
 
 /**
  * View Collateral Component

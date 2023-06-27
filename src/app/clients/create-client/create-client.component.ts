@@ -13,7 +13,7 @@ import { ClientDatatableStepComponent } from '../client-stepper/client-datatable
 
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
-import { ClientService } from 'openapi/typescript_files';
+import { ClientService } from '@fineract/client';
 
 /**
  * Create Client Component.

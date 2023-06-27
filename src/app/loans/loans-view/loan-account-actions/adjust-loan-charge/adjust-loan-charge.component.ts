@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoansService } from 'app/loans/loans.service';
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { LoanChargesService, PaymentTypeService } from 'openapi/typescript_files';
+import { LoanChargesService, PaymentTypeService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-adjust-loan-charge',

@@ -16,7 +16,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { FloatingRatePeriodDialogComponent } from '../floating-rate-period-dialog/floating-rate-period-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { Dates } from 'app/core/utils/dates';
-import { FloatingRatesService } from 'openapi/typescript_files';
+import { FloatingRatesService } from '@fineract/client';
 
 /**
  * Create Floating Rate Component.

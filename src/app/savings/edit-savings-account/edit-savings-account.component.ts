@@ -11,7 +11,7 @@ import { SavingsAccountChargesStepComponent } from '../savings-account-stepper/s
 import { SavingsService } from '../savings.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { SavingsAccountService } from 'openapi/typescript_files';
+import { SavingsAccountService } from '@fineract/client';
 
 /**
  * Edit Savings Account Component

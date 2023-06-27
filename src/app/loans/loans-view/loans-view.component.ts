@@ -13,7 +13,7 @@ import { LoansAccountButtonConfiguration } from './loan-accounts-button-config';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { LoanStatus } from '../models/loan-status.nodel';
-import { LoansService } from 'openapi/typescript_files';
+import { LoansService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-loans-view',

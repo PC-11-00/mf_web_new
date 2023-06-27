@@ -9,7 +9,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 
 /** Dialog Component */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { ProvisioningCriteriaService } from 'openapi/typescript_files';
+import { ProvisioningCriteriaService } from '@fineract/client';
 
 /**
  * View Loan Provisioning

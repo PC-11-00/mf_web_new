@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
-import { ChargesService } from 'openapi/typescript_files';
+import { ChargesService } from '@fineract/client';
 
 /**
  * Charge data resolver.

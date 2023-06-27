@@ -13,7 +13,7 @@ import { RecurringDepositsButtonsConfiguration } from './recurring-deposits-butt
 /** Custom Dialogs */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { RecurringDepositConfirmationDialogComponent } from './custom-dialogs/recurring-deposit-confirmation-dialog/recurring-deposit-confirmation-dialog.component';
-import { RecurringDepositAccountService, SavingsAccountService } from 'openapi/typescript_files';
+import { RecurringDepositAccountService, SavingsAccountService } from '@fineract/client';
 
 
 /**

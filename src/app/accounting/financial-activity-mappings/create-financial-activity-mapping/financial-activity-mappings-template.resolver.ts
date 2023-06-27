@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
-import { MappingFinancialActivitiesToAccountsService } from 'openapi/typescript_files';
+import { MappingFinancialActivitiesToAccountsService } from '@fineract/client';
 
 /**
  * Financial activity mappings template data resolver.

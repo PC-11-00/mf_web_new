@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
-import { NotesService } from 'openapi/typescript_files';
+import { NotesService } from '@fineract/client';
 
 /**
  * Notes Tab Component

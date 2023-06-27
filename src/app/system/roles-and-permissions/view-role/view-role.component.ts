@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
 import { DisableDialogComponent } from '../../../shared/disable-dialog/disable-dialog.component';
 import { EnableDialogComponent } from '../../../shared/enable-dialog/enable-dialog.component';
-import { RolesService } from 'openapi/typescript_files';
+import { RolesService } from '@fineract/client';
 
 /**
  * View Role and Permissions Component

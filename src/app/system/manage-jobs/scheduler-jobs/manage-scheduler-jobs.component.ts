@@ -16,7 +16,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { NextStepDialogComponent } from '../../../configuration-wizard/next-step-dialog/next-step-dialog.component';
-import { SCHEDULERJOBService, SchedulerService } from 'openapi/typescript_files';
+import { SCHEDULERJOBService, SchedulerService } from '@fineract/client';
 
 /**
  * Manage scheduler jobs component.

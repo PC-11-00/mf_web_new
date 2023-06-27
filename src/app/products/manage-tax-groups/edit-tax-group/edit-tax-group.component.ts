@@ -15,7 +15,7 @@ import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicke
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { Dates } from 'app/core/utils/dates';
-import { TaxGroupService } from 'openapi/typescript_files';
+import { TaxGroupService } from '@fineract/client';
 
 /**
  * Edit Tax Group component.

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ReportsService } from '../reports.service';
-import { MixTaxonomyService } from 'openapi/typescript_files';
+import { MixTaxonomyService } from '@fineract/client';
 
 /**
  * Mix Taxononmy data resolver.

@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CentersService } from 'app/centers/centers.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
-import { CalendarService, MeetingsService } from 'openapi/typescript_files';
+import { CalendarService, MeetingsService } from '@fineract/client';
 
 /**
  * Edit Center Meetings Schedule Component

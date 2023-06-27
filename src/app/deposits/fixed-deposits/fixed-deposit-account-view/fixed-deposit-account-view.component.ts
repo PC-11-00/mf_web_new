@@ -15,7 +15,7 @@ import { FixedDepositsButtonsConfiguration } from './fixed-deposits-buttons.conf
 /** Custom Services */
 import { FixedDepositsService } from '../fixed-deposits.service';
 import { SavingsService } from 'app/savings/savings.service';
-import { FixedDepositAccountService, SavingsAccountService } from 'openapi/typescript_files';
+import { FixedDepositAccountService, SavingsAccountService } from '@fineract/client';
 
 /**
  * Fixed Deposits Account View Component

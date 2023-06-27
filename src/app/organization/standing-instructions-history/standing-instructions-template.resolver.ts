@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { StandingInstructionsService } from 'openapi/typescript_files';
+import { StandingInstructionsService } from '@fineract/client';
 
 /**
  * Standing Instructions Template resolver.

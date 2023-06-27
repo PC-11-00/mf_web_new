@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { ClientsService } from '../clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { ClientService } from 'openapi/typescript_files';
+import { ClientService } from '@fineract/client';
 
 /**
  * Edit Client Component

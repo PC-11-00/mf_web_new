@@ -8,7 +8,7 @@ import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dial
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
-import { GeneralLedgerAccountService } from 'openapi/typescript_files';
+import { GeneralLedgerAccountService } from '@fineract/client';
 
 /**
  * View gl account component.

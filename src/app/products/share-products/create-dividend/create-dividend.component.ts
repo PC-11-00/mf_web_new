@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { SelfDividendService } from 'openapi/typescript_files';
+import { SelfDividendService } from '@fineract/client';
 
 
 /**

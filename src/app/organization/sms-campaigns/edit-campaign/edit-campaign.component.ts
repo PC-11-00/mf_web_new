@@ -9,7 +9,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Custom Components */
 import { CampaignMessageStepComponent } from '../sms-campaign-stepper/campaign-message-step/campaign-message-step.component';
-import { DefaultService } from 'openapi/typescript_files';
+import { DefaultService } from '@fineract/client';
 
 /**
  * Edit Campaign Component

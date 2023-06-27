@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
-import { MappingFinancialActivitiesToAccountsService } from 'openapi/typescript_files';
+import { MappingFinancialActivitiesToAccountsService } from '@fineract/client';
 
 /**
  * Edit financial activity mapping component.

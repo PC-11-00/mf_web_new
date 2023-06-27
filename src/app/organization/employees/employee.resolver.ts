@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
-import { StaffService } from 'openapi/typescript_files';
+import { StaffService } from '@fineract/client';
 
 /**
  * Employee data resolver.

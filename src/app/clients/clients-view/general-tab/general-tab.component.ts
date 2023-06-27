@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services. */
 import { ClientsService } from 'app/clients/clients.service';
-import { ClientChargesService } from 'openapi/typescript_files';
+import { ClientChargesService } from '@fineract/client';
 
 /**
  * General Tab component.

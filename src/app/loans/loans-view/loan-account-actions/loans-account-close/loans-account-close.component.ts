@@ -7,7 +7,7 @@ import { LoansService } from 'app/loans/loans.service';
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { LoanTransactionsService } from 'openapi/typescript_files';
+import { LoanTransactionsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-loans-account-close',

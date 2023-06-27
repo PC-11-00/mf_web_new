@@ -14,7 +14,7 @@ import { OfficeItemNode } from './office-item.class';
 import { OfficeItemFlatNode } from './office-flat-item.class';
 import { ChecklistDatabase } from './checklist-db.class';
 import { CreateHoliday } from './create-holiday.service';
-import { HolidaysService } from 'openapi/typescript_files';
+import { HolidaysService } from '@fineract/client';
 
 /**
  * Create Holiday component.

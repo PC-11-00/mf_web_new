@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 // import { AccountTransfersService } from '../account-transfers.service';
-import { AccountTransfersService } from 'openapi/typescript_files';
+import { AccountTransfersService } from '@fineract/client';
 /**
  * View Account Transfer data resolver.
  */

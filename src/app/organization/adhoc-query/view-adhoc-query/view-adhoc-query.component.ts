@@ -8,7 +8,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { AdhocQueryApiService } from 'openapi/typescript_files';
+import { AdhocQueryApiService } from '@fineract/client';
 
 /**
  * View Adhoc Query Component.

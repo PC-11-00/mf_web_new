@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { PasswordPreferencesService } from 'openapi/typescript_files';
+import { PasswordPreferencesService } from '@fineract/client';
 
 /**
  * Password Preferences Template data resolver.

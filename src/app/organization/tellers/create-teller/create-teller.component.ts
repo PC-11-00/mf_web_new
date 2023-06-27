@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { TellerCashManagementService } from 'openapi/typescript_files';
+import { TellerCashManagementService } from '@fineract/client';
 
 /**
  * Create teller component.

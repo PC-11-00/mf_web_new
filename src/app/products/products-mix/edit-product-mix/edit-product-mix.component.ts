@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { ProductsService } from '../../products.service';
-import { ProductMixService } from 'openapi/typescript_files';
+import { ProductMixService } from '@fineract/client';
 
 /**
  * Edit Product mix component.

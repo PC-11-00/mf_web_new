@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
-import { SearchAPIService } from 'openapi/typescript_files';
+import { SearchAPIService } from '@fineract/client';
 
 /**
  * Advance Search Template resolver.

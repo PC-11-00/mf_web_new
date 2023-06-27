@@ -9,7 +9,7 @@ import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-
 import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { SystemService } from 'app/system/system.service';
 import { JobStep } from './workflow-diagram/workflow-diagram.component';
-import { BusinessStepConfigurationService } from 'openapi/typescript_files';
+import { BusinessStepConfigurationService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-workflow-jobs',

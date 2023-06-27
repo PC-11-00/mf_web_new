@@ -15,7 +15,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-base';
 import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { Dates } from 'app/core/utils/dates';
-import { MeetingsService } from 'openapi/typescript_files';
+import { MeetingsService } from '@fineract/client';
 
 /**
  * Center Attendance component.

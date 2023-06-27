@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
-import { SpmSurveysService } from 'openapi/typescript_files';
+import { SpmSurveysService } from '@fineract/client';
 
 /**
  * View Survey Component.

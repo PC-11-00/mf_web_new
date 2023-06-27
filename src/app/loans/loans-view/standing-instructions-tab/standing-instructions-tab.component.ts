@@ -11,7 +11,7 @@ import { SettingsService } from 'app/settings/settings.service';
 
 /** Dialog Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { StandingInstructionsService } from 'openapi/typescript_files';
+import { StandingInstructionsService } from '@fineract/client';
 
 /**
  * Loans Standing Instructions Tab

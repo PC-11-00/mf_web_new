@@ -8,7 +8,7 @@ import { SystemService } from '../../system.service';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { AccountNumberFormatService } from 'openapi/typescript_files';
+import { AccountNumberFormatService } from '@fineract/client';
 
 /**
  * View Account Number Preference Component.

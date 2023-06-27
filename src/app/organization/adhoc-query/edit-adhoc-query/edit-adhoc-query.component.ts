@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
-import { AdhocQueryApiService } from 'openapi/typescript_files';
+import { AdhocQueryApiService } from '@fineract/client';
 
 /**
  * Edit Adhoc Query component.

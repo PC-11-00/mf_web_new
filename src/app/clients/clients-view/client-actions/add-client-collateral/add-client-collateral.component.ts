@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from 'app/clients/clients.service';
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { ClientCollateralManagement, ClientCollateralManagementService, CollateralManagementService } from 'openapi/typescript_files';
+import { ClientCollateralManagement, ClientCollateralManagementService, CollateralManagementService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-add-client-collateral',

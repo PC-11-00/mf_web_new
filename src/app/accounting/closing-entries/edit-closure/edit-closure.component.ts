@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services */
 import { AccountingService } from '../../accounting.service';
-import { AccountingClosureService } from 'openapi/typescript_files';
+import { AccountingClosureService } from '@fineract/client';
 
 /**
  * Edit closure component.

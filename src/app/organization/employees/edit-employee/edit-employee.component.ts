@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OrganizationService } from '../../organization.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { StaffService } from 'openapi/typescript_files';
+import { StaffService } from '@fineract/client';
 
 /**
  * Edit Employee Component.

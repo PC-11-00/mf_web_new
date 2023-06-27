@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
-import { ClientService, ClientsAddressService } from 'openapi/typescript_files';
+import { ClientService, ClientsAddressService } from '@fineract/client';
 
 /**
  * Clients Assign Staff Component

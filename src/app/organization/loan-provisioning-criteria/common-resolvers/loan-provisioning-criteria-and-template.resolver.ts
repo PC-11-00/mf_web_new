@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
-import { ProvisioningCriteriaService } from 'openapi/typescript_files';
+import { ProvisioningCriteriaService } from '@fineract/client';
 
 /**
  * Provisioning criteria and template resolver.

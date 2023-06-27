@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
-import { AuditsService } from 'openapi/typescript_files';
+import { AuditsService } from '@fineract/client';
 
 /**
  * Audit Trails custom data source to implement server side filtering, pagination and sorting.

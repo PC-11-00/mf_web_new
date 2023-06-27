@@ -15,7 +15,7 @@ import { confirmPasswordValidator } from '../../login/reset-password/confirm-pas
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
-import { StaffService, UsersService } from 'openapi/typescript_files';
+import { StaffService, UsersService } from '@fineract/client';
 
 /**
  * Create user component.

@@ -13,7 +13,7 @@ import { SavingProductAccountingStepComponent } from '../saving-product-stepper/
 /** Custom Services */
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { SavingsProductService } from 'openapi/typescript_files';
+import { SavingsProductService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-create-saving-product',

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../../organization.service';
-import { DefaultService } from 'openapi/typescript_files';
+import { DefaultService } from '@fineract/client';
 
 /**
  * SMS Campaign Template resolver.

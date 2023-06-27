@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { CollateralManagementService } from 'openapi/typescript_files';
+import { CollateralManagementService } from '@fineract/client';
 
 /**
  * Create Collateral component.

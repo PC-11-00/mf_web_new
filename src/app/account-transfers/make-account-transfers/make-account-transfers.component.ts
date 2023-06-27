@@ -9,7 +9,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 
-import { AccountTransfersService } from 'openapi/typescript_files';
+import { AccountTransfersService } from '@fineract/client';
 /**
  * Create account transfers
  */

@@ -16,7 +16,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
-import { ClientIdentifierService, DocumentsService } from 'openapi/typescript_files';
+import { ClientIdentifierService, DocumentsService } from '@fineract/client';
 
 /**
  * Identities Tab Component

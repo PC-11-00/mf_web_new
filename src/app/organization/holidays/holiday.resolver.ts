@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
-import { HolidaysService } from 'openapi/typescript_files';
+import { HolidaysService } from '@fineract/client';
 
 /**
  * Holiday data resolver.

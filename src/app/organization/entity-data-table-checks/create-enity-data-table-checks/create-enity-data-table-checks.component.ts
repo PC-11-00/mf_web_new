@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services. */
 import { OrganizationService } from 'app/organization/organization.service';
-import { EntityDataTableService } from 'openapi/typescript_files';
+import { EntityDataTableService } from '@fineract/client';
 
 /**
  * Create Entity Data Table Checks component.

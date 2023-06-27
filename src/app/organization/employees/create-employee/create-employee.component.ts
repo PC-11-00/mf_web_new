@@ -13,7 +13,7 @@ import { ConfigurationWizardService } from '../../../configuration-wizard/config
 
 /** Custom Dialog Component */
 import { ContinueSetupDialogComponent } from '../../../configuration-wizard/continue-setup-dialog/continue-setup-dialog.component';
-import { StaffService } from 'openapi/typescript_files';
+import { StaffService } from '@fineract/client';
 
 /**
  * Create employee component.

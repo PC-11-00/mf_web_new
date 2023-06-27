@@ -7,7 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services. */
 import { LoansService } from 'app/loans/loans.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { LoanTransactionsService } from 'openapi/typescript_files';
+import { LoanTransactionsService } from '@fineract/client';
 
 /**
  * Write Off component.

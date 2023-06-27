@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AccountTransfersService } from '../account-transfers.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { StandingInstructionsService } from 'openapi/typescript_files';
+import { StandingInstructionsService } from '@fineract/client';
 
 /**
  * Create Standing Instructions

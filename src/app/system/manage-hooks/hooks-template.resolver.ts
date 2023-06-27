@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SystemService } from '../system.service';
-import { HooksService } from 'openapi/typescript_files';
+import { HooksService } from '@fineract/client';
 
 /**
  * Hooks template data resolver.

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
-import { TaxGroupService } from 'openapi/typescript_files';
+import { TaxGroupService } from '@fineract/client';
 
 /**
  * Manage Tax Groups data resolver.

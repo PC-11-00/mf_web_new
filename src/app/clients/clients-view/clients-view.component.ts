@@ -15,7 +15,7 @@ import { CaptureImageDialogComponent } from './custom-dialogs/capture-image-dial
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
-import { ClientService, DefaultService, DocumentsService } from 'openapi/typescript_files';
+import { ClientService, DefaultService, DocumentsService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-clients-view',

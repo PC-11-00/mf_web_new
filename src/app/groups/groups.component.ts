@@ -14,7 +14,7 @@ import { tap, startWith, map, distinctUntilChanged, debounceTime} from 'rxjs/ope
 
 /** Custom Data Source */
 import { GroupsDataSource } from './groups.datasource';
-import { GroupsService } from 'openapi/typescript_files';
+import { GroupsService } from '@fineract/client';
 
 /**
  * Groups component.

@@ -14,7 +14,7 @@ import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { GlimChargesStepComponent } from './glim-account-stepper/glim-charges-step/glim-charges-step.component';
 import { GlimDetailsStepComponent } from './glim-account-stepper/glim-details-step/glim-details-step.component';
 import { GlimTermsStepComponent } from './glim-account-stepper/glim-terms-step/glim-terms-step.component';
-import { BatchAPIService } from 'openapi/typescript_files';
+import { BatchAPIService } from '@fineract/client';
 
 @Component({
   selector: 'mifosx-create-glim-account',

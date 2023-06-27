@@ -7,7 +7,7 @@ import { FormControl } from '@angular/forms';
 /** Custom Services */
 // import { GroupsService } from 'app/groups/groups.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { MeetingsService } from 'openapi/typescript_files';
+import { MeetingsService } from '@fineract/client';
 
 /** Custom Dialogs */
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';

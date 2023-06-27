@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
-import { CurrencyService } from 'openapi/typescript_files';
+import { CurrencyService } from '@fineract/client';
 
 /**
  * Currencies data resolver.

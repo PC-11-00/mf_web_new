@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 /** Custom Services */
 import { ClientsService } from '../clients.service';
 import { ProductsService } from 'app/products/products.service';
-import { ClientChargesService, ClientService, CollateralManagementService, OfficesService, ScoreCardService, SpmSurveysService, UserGeneratedDocumentsService } from 'openapi/typescript_files';
+import { ClientChargesService, ClientService, CollateralManagementService, OfficesService, ScoreCardService, SpmSurveysService, UserGeneratedDocumentsService } from '@fineract/client';
 
 /**
  * Client Actions data resolver.

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
-import { CodesService } from 'openapi/typescript_files';
+import { CodesService } from '@fineract/client';
 
 /**
  * Edit Code Component.

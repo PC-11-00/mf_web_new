@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SavingsService } from '../savings.service';
-import { GroupsService, SavingsAccountService } from 'openapi/typescript_files';
+import { GroupsService, SavingsAccountService } from '@fineract/client';
 
 /**
  * GSIM Account data resolver.

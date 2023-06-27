@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { AccountingService } from '../accounting.service';
-import { AccountingClosureService } from 'openapi/typescript_files';
+import { AccountingClosureService } from '@fineract/client';
 
 /**
  * Closing entry data resolver.
