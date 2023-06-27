@@ -84,7 +84,7 @@ const configurationFactory = () => {
     ClientsModule,
     ReportsModule,
     GroupsModule,
-    ApiModule,
+    ApiModule.forRoot(configurationFactory),
     CentersModule,
     AccountingModule,
     SelfServiceModule,
