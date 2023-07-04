@@ -18,14 +18,14 @@ export class AdhocQueriesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: AdhocQueryApiService) {}
+  constructor(private adhocQueryApiService: AdhocQueryApiService) {}
 
   /**
    * Returns the adhoc queries data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveAll2();
+    return this.adhocQueryApiService.retrieveAll2();
   }
 
 }

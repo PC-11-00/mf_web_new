@@ -18,7 +18,7 @@ export class AdhocQueryAndTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: AdhocQueryApiService) {}
+  constructor(private adhocQueryApiService: AdhocQueryApiService) {}
 
   /**
    * Returns the adhoc query and template data.
@@ -27,7 +27,7 @@ export class AdhocQueryAndTemplateResolver implements Resolve<Object> {
   adhocQueryId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.adhocQueryId = route.paramMap.get('id');
-    return this.organizationService.template(this.adhocQueryId);
+    return this.adhocQueryApiService.template(this.adhocQueryId);
   }
 
 }

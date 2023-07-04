@@ -30,7 +30,7 @@ export class ViewAdhocQueryComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: AdhocQueryApiService,
+  constructor(private adhocQueryApiService: AdhocQueryApiService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
@@ -63,7 +63,7 @@ export class ViewAdhocQueryComponent implements OnInit {
     });
     deleteAdhocQueryDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteAdHocQuery(this.adhocQueryData.id)
+        this.adhocQueryApiService.deleteAdHocQuery(this.adhocQueryData.id)
         .subscribe(() => {
           this.router.navigate(['/organization/adhoc-query']);
         });

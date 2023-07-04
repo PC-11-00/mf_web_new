@@ -32,7 +32,7 @@ export class EditAdhocQueryComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: AdhocQueryApiService,
+              private adhocQueryApiService: AdhocQueryApiService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { adhocQueryAndTemplate: any }) => {
@@ -84,7 +84,7 @@ export class EditAdhocQueryComponent implements OnInit {
    * if successful redirects to view adhoc query.
    */
   submit() {
-    this.organizationService.update(this.adhocQueryTemplateData.id, this.editAdhocQueryForm.value).subscribe(() => {
+    this.adhocQueryApiService.update(this.adhocQueryTemplateData.id, this.editAdhocQueryForm.value).subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
