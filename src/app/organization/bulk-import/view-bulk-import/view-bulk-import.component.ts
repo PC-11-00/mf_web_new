@@ -4,11 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { FormGroup, FormBuilder} from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 /** Custom Imports */
 import { OrganizationService } from '../../organization.service';
 import { BulkImports } from './bulk-imports';
+import { BulkImportService, CentersService, ClientService, FixedDepositAccountService, GeneralLedgerAccountService, GroupsService, GuarantorsService, JournalEntriesService, LoansService, OfficesService, RecurringDepositAccountService, SavingsAccountService, ShareAccountService, StaffService, UsersService } from '@fineract/client';
+import { SettingsService } from 'app/settings/settings.service';
 
 /**
  * View Bulk Imports Component
@@ -38,16 +40,16 @@ export class ViewBulkImportComponent implements OnInit {
   dataSource = new MatTableDataSource();
   /** Columns to be displayed in imports table. */
   displayedColumns: string[] =
-  [
-    'name',
-    'importTime',
-    'endTime',
-    'completed',
-    'totalRecords',
-    'successCount',
-    'failureCount',
-    'download'
-  ];
+    [
+      'name',
+      'importTime',
+      'endTime',
+      'completed',
+      'totalRecords',
+      'successCount',
+      'failureCount',
+      'download'
+    ];
 
   /** Paginator for imports table. */
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -63,11 +65,26 @@ export class ViewBulkImportComponent implements OnInit {
    * @param {OrganizationService} organizationService OrganizationService
    */
   constructor(private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private organizationService: OrganizationService,
-              ) {
+    private formBuilder: FormBuilder,
+    private staffService: StaffService,
+    private usersService: UsersService,
+    private centersService: CentersService,
+    private clientService: ClientService,
+    private fixedDepositAccountService: FixedDepositAccountService,
+    private generalLedgerAccountService: GeneralLedgerAccountService,
+    private groupsService: GroupsService,
+    private guarantorsService: GuarantorsService,
+    private journalEntriesService: JournalEntriesService,
+    private loansService: LoansService,
+    private officesService: OfficesService,
+    private recurringDepositAccountService: RecurringDepositAccountService,
+    private savingsAccountService: SavingsAccountService,
+    private shareAccountService: ShareAccountService,
+    private settingsService: SettingsService,
+    private bulkImportService:BulkImportService
+  ) {
     this.bulkImport.name = this.route.snapshot.params['import-name'];
-    this.route.data.subscribe( (data: any) => {
+    this.route.data.subscribe((data: any) => {
       this.officeData = data.offices;
       this.importsData = data.imports;
     });
@@ -77,7 +94,7 @@ export class ViewBulkImportComponent implements OnInit {
    * Gets bulk import's properties.
    */
   ngOnInit() {
-    this.bulkImport = this.bulkImportsArray.find( (entry) => entry.name === this.bulkImport.name);
+    this.bulkImport = this.bulkImportsArray.find((entry) => entry.name === this.bulkImport.name);
     this.createBulkImportForm();
     this.buildDependencies();
     this.setImports();
@@ -100,7 +117,7 @@ export class ViewBulkImportComponent implements OnInit {
   buildDependencies() {
     this.bulkImportForm.get('officeId').valueChanges.subscribe((value: any) => {
       if (this.bulkImport.formFields >= 2) {
-         this.organizationService.getStaff(value).subscribe( (data: any) => {
+        this.staffService.retrieveAll16(value).subscribe((data: any) => {
           this.staffData = data;
         });
       }
@@ -126,18 +143,133 @@ export class ViewBulkImportComponent implements OnInit {
     /** Only for Client Bulk Imports */
     switch (this.bulkImportForm.get('legalForm').value) {
       case 'Person':
-          legalFormType = 'CLIENTS_PERSON';
+        legalFormType = 'CLIENTS_PERSON';
         break;
       case 'Entity':
-          legalFormType = 'CLIENTS_ENTITY';
+        legalFormType = 'CLIENTS_ENTITY';
         break;
     }
-    this.organizationService.getImportTemplate(this.bulkImport.urlSuffix, officeId, staffId, legalFormType).subscribe( (res: any) => {
-      const contentType = res.headers.get('Content-Type');
-      const blob = new Blob([res.body], { type: contentType });
-      const fileOfBlob = new File([blob], 'template.xls', { type: contentType });
-      window.open(window.URL.createObjectURL(fileOfBlob));
-    });
+    console.log(this.bulkImport.urlSuffix);
+
+    if (this.bulkImport.urlSuffix === '/offices') {
+      this.officesService.getOfficeTemplate(this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === '/users') {
+      this.usersService.getUserTemplate(officeId, staffId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/groups") {
+      this.groupsService.getGroupsTemplate(officeId, staffId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/loans") {
+      this.loansService.getLoansTemplate(officeId, staffId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/savingsaccounts") {
+      this.savingsAccountService.getSavingsTemplate(officeId, staffId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/fixeddepositaccounts") {
+      this.fixedDepositAccountService.getFixedDepositTemplate(officeId, staffId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/glaccounts") {
+      this.generalLedgerAccountService.getGlAccountsTemplate(this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/accounts/share") {
+      this.shareAccountService.getSharedAccountsTemplate('share', officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/staff") {
+      this.staffService.getTemplate1(officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/clients") {
+      this.clientService.getClientTemplate(legalFormType, officeId, staffId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/centers") {
+      this.centersService.getCentersTemplate(officeId, staffId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/loans/repayments") {
+      this.loansService.getLoanRepaymentTemplate(officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/savingsaccounts/transactions") {
+      this.savingsAccountService.getSavingsTransactionTemplate(officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/fixeddepositaccounts/transaction") {
+      this.fixedDepositAccountService.getFixedDepositTransactionTemplate(officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/recurringdepositaccounts/transactions") {
+      this.recurringDepositAccountService.getRecurringDepositTransactionTemplate(officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/journalentries") {
+      this.journalEntriesService.getJournalEntriesTemplate(officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
+    else if (this.bulkImport.urlSuffix === "/loans/1/guarantors") {
+      this.guarantorsService.getGuarantorTemplate(1, officeId, this.settingsService.dateFormat).subscribe((res: any) => {
+        const contentType = res.type;
+        const fileOfBlob = new File([res], 'template.xls', { type: contentType });
+        window.open(window.URL.createObjectURL(fileOfBlob));
+      });
+    }
   }
 
   /**
@@ -163,15 +295,66 @@ export class ViewBulkImportComponent implements OnInit {
         legalFormType = 'CLIENTS_PERSON';
       }
     }
-    this.organizationService.uploadImportDocument(this.template, this.bulkImport.urlSuffix, legalFormType).subscribe(() => {});
+    // this.organizationService.uploadImportDocument(this.template, this.bulkImport.urlSuffix, legalFormType).subscribe(() => { });
+    if (this.bulkImport.urlSuffix === '/offices') {
+      this.officesService.postOfficeTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === '/users') {
+      this.usersService.postUsersTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/groups") {
+      this.groupsService.postGroupTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/loans") {
+      this.loansService.postLoanTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/savingsaccounts") {
+      this.savingsAccountService.postSavingsTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/fixeddepositaccounts") {
+      this.fixedDepositAccountService.postFixedDepositTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/glaccounts") {
+      this.generalLedgerAccountService.postGlAccountsTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/accounts/share") {
+      this.shareAccountService.postSharedAccountsTemplate('share', this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/staff") {
+      this.staffService.postTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/clients") {
+      this.clientService.postClientTemplate(legalFormType, this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/centers") {
+      this.centersService.postCentersTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/loans/repayments") {
+      this.loansService.postLoanRepaymentTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/savingsaccounts/transactions") {
+      this.savingsAccountService.postSavingsTransactionTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/fixeddepositaccounts/transaction") {
+      this.fixedDepositAccountService.postFixedDepositTransactionTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/recurringdepositaccounts/transactions") {
+      this.recurringDepositAccountService.postRecurringDepositTransactionsTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/journalentries") {
+      this.journalEntriesService.postJournalEntriesTemplate(this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
+    else if (this.bulkImport.urlSuffix === "/loans/1/guarantors") {
+      this.guarantorsService.postGuarantorTemplate(1, this.settingsService.dateFormat, this.settingsService.language.code, this.template).subscribe(() => { });
+    }
   }
 
   /**
    * Reloads imports data table.
    */
   refreshDocuments() {
-    this.organizationService.getImports(this.bulkImport.entityType).subscribe( (data: any) => {
-      this.dataSource =  new MatTableDataSource(data);
+    this.bulkImportService.retrieveImportDocuments(this.bulkImport.entityType).subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data);
       this.importsTableRef.renderRows();
     });
   }
@@ -182,10 +365,9 @@ export class ViewBulkImportComponent implements OnInit {
    * @param {any} id ImportID
    */
   downloadDocument(name: string, id: any) {
-    this.organizationService.getImportDocument(id).subscribe( (res: any) => {
-      const contentType = res.headers.get('Content-Type');
-      const blob = new Blob([res.body], { type: contentType });
-      const fileOfBlob = new File([blob], name, { type: contentType });
+    this.bulkImportService.getOutputTemplate(id).subscribe((res: any) => {
+      const contentType = res.type;
+      const fileOfBlob = new File([res], name, { type: contentType });
       window.open(window.URL.createObjectURL(fileOfBlob));
     });
   }
