@@ -43,7 +43,7 @@ export class EditTellerComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: TellerCashManagementService,
+              private tellerCashManagementService: TellerCashManagementService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -108,7 +108,7 @@ export class EditTellerComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.updateTeller(this.tellerData.id, data).subscribe((response: any) => {
+    this.tellerCashManagementService.updateTeller(this.tellerData.id, data).subscribe((response: any) => {
       this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
     });
   }

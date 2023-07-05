@@ -18,7 +18,7 @@ export class SmsCampaignResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: DefaultService) {}
+  constructor(private defaultService: DefaultService) {}
 
   /**
    * Returns the SMS Campaign data.
@@ -27,7 +27,7 @@ export class SmsCampaignResolver implements Resolve<Object> {
   smsCampaignId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.smsCampaignId  = route.paramMap.get('id');
-    return this.organizationService.retrieveCampaign(this.smsCampaignId);
+    return this.defaultService.retrieveCampaign(this.smsCampaignId);
   }
 
 }

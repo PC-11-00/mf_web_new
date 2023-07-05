@@ -18,14 +18,14 @@ export class AdvanceSearchTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: SearchAPIService) {}
+  constructor(private searchAPIService: SearchAPIService) {}
 
   /**
    * Returns the Advance Search template.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveAdHocSearchQueryTemplate();
+    return this.searchAPIService.retrieveAdHocSearchQueryTemplate();
   }
 
 }

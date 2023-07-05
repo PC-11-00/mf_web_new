@@ -27,7 +27,7 @@ export class CreatePaymentTypeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: PaymentTypeService,
+              private paymentTypeService: PaymentTypeService,
               private router: Router,
               private route: ActivatedRoute) {}
 
@@ -56,7 +56,7 @@ export class CreatePaymentTypeComponent implements OnInit {
    */
   submit() {
     const paymentType = this.paymentTypeForm.value;
-    this.organizationService.createPaymentType(paymentType).subscribe(response => {
+    this.paymentTypeService.createPaymentType(paymentType).subscribe(response => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

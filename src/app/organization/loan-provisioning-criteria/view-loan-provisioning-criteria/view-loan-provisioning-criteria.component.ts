@@ -37,7 +37,7 @@ export class ViewLoanProvisioningCriteriaComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: ProvisioningCriteriaService,
+  constructor(private provisioningCriteriaService: ProvisioningCriteriaService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {
@@ -71,7 +71,7 @@ export class ViewLoanProvisioningCriteriaComponent implements OnInit {
     });
     deleteCriteriaDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteProvisioningCriteria(this.provisioningData.criteriaId)
+        this.provisioningCriteriaService.deleteProvisioningCriteria(this.provisioningData.criteriaId)
           .subscribe(() => {
             this.router.navigate(['/organization/provisioningcriteria']);
           });

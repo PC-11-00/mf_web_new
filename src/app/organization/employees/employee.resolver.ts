@@ -18,7 +18,7 @@ export class EmployeeResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: StaffService) {}
+  constructor(private staffService: StaffService) {}
 
   /**
    * Returns the employee data.
@@ -27,7 +27,7 @@ export class EmployeeResolver implements Resolve<Object> {
   employeeId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
      this.employeeId  = route.paramMap.get('id');
-    return this.organizationService.retrieveOne8(this.employeeId);
+    return this.staffService.retrieveOne8(this.employeeId);
   }
 
 }

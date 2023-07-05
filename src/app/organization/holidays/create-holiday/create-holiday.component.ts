@@ -77,7 +77,7 @@ export class CreateHolidayComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dateUtils: Dates,
-              private organizationService: HolidaysService,
+              private holidaysService: HolidaysService,
               private settings: SettingsService,
               private router: Router,
               private _database: ChecklistDatabase,
@@ -303,7 +303,7 @@ export class CreateHolidayComponent implements OnInit {
       locale,
       offices
     };
-    this.organizationService.createNewHoliday(data).subscribe((response: any) => {
+    this.holidaysService.createNewHoliday(data).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

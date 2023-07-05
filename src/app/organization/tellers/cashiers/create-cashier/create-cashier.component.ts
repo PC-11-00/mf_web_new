@@ -41,7 +41,7 @@ export class CreateCashierComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private organizationService: TellerCashManagementService,
+              private tellerCashManagementService: TellerCashManagementService,
               private settingsService: SettingsService ) {
     this.route.data.subscribe((data: { cashierTemplate: any }) => {
       this.cashierTemplate = data.cashierTemplate;
@@ -86,7 +86,7 @@ export class CreateCashierComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.createCashier(this.cashierTemplate.tellerId, data).subscribe((response: any) => {
+    this.tellerCashManagementService.createCashier(this.cashierTemplate.tellerId, data).subscribe((response: any) => {
       this.router.navigate(['../'], {relativeTo: this.route});
     });
   }

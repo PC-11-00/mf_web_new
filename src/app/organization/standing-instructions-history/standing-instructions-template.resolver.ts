@@ -18,14 +18,14 @@ export class StandingInstructionsTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: StandingInstructionsService) {}
+  constructor(private standingInstructionsService: StandingInstructionsService) {}
 
   /**
    * Returns the Standing Instruction template.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.template6();
+    return this.standingInstructionsService.template6();
   }
 
 }

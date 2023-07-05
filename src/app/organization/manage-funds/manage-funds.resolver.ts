@@ -18,14 +18,14 @@ export class ManageFundsResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: FundsService) {}
+  constructor(private fundsService: FundsService) {}
 
   /**
    * Returns the manage funds data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveFunds();
+    return this.fundsService.retrieveFunds();
   }
 
 }

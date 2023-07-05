@@ -59,7 +59,7 @@ export class HolidaysComponent implements OnInit, AfterViewInit {
    * @param {ConfigurationWizardService} configurationWizardService ConfigurationWizard Service.
    * @param {PopoverService} popoverService PopoverService.
    */
-  constructor(private organizationService: HolidaysService,
+  constructor(private holidaysService: HolidaysService,
               private route: ActivatedRoute,
               private router: Router,
               private configurationWizardService: ConfigurationWizardService,
@@ -90,7 +90,7 @@ export class HolidaysComponent implements OnInit, AfterViewInit {
   onChangeOffice() {
     this.officeSelector.valueChanges.subscribe((officeId = this.officeSelector.value) => {
       this.holidaysData = [];
-      this.organizationService.retrieveAllHolidays(officeId).subscribe((holidays: any) => {
+      this.holidaysService.retrieveAllHolidays(officeId).subscribe((holidays: any) => {
         this.holidaysData = holidays.filter((holiday: any) => holiday.status.value !== 'Deleted');
         this.setHolidays();
       });

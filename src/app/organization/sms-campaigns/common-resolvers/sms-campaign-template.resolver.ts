@@ -18,14 +18,14 @@ export class SmsCampaignTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: DefaultService) {}
+  constructor(private defaultService: DefaultService) {}
 
   /**
    * Returns the SMS Campaign Template.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.template2();
+    return this.defaultService.template2();
   }
 
 }

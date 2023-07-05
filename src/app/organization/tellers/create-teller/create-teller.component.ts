@@ -40,7 +40,7 @@ export class CreateTellerComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: TellerCashManagementService,
+              private tellerCashManagementService: TellerCashManagementService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -95,7 +95,7 @@ export class CreateTellerComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.createTeller(data).subscribe((response: any) => {
+    this.tellerCashManagementService.createTeller(data).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

@@ -52,7 +52,7 @@ export class CreateEmployeeComponent implements OnInit, AfterViewInit {
    * @param {MatDialog} dialog MatDialog.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: StaffService,
+              private staffService: StaffService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -104,7 +104,7 @@ export class CreateEmployeeComponent implements OnInit, AfterViewInit {
       dateFormat,
       locale
     };
-    this.organizationService.create3(data).subscribe((response: any) => {
+    this.staffService.create3(data).subscribe((response: any) => {
       if (this.configurationWizardService.showEmployeeForm === true) {
         this.configurationWizardService.showEmployeeForm = false;
         this.openDialog();

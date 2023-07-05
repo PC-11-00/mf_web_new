@@ -39,7 +39,7 @@ export class CreateEnityDataTableChecksComponent implements OnInit {
    */
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private organizationService: EntityDataTableService,
+              private entityDataTableService: EntityDataTableService,
               private router: Router) {
     this.route.data.subscribe((data: {dataTableEntity: any}) => {
       this.createEntityData = data.dataTableEntity;
@@ -111,7 +111,7 @@ export class CreateEnityDataTableChecksComponent implements OnInit {
    * Submits Entity Datble Form.
    */
   submit() {
-    this.organizationService.createEntityDatatableCheck(this.createEntityForm.value).subscribe((response: any) => {
+    this.entityDataTableService.createEntityDatatableCheck(this.createEntityForm.value).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

@@ -52,7 +52,7 @@ export class FundMappingComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: SearchAPIService,
+              private searchAPIService: SearchAPIService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private dateUtils: Dates) {
@@ -167,7 +167,7 @@ export class FundMappingComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.advancedSearch(data).subscribe((response: any) => {
+    this.searchAPIService.advancedSearch(data).subscribe((response: any) => {
       this.setLoans(response);
     });
   }

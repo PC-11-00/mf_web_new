@@ -53,7 +53,7 @@ export class StandingInstructionsHistoryComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: StandingInstructionsHistoryService,
+              private standingInstructionsHistoryService: StandingInstructionsHistoryService,
               private settingsService: SettingsService,
               private router: Router,
               private route: ActivatedRoute,
@@ -123,7 +123,7 @@ export class StandingInstructionsHistoryComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.retrieveAll20(data).subscribe((response: any) => {
+    this.standingInstructionsHistoryService.retrieveAll20(data).subscribe((response: any) => {
       this.setInstructions(response.pageItems);
     });
   }

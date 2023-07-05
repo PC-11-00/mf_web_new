@@ -18,7 +18,7 @@ export class OfficeResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OfficesService) {}
+  constructor(private officesService: OfficesService) {}
 
   /**
    * Returns the office data.
@@ -27,7 +27,7 @@ export class OfficeResolver implements Resolve<Object> {
   officeId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.officeId = route.parent.paramMap.get('officeId');
-    return this.organizationService.retrieveOffice(this.officeId);
+    return this.officesService.retrieveOffice(this.officeId);
   }
 
 }

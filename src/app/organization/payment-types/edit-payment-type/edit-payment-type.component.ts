@@ -30,7 +30,7 @@ export class EditPaymentTypeComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: PaymentTypeService,
+              private paymentTypeService: PaymentTypeService,
               private router: Router,
               private route: ActivatedRoute) {
     this.route.data.subscribe(( data: { paymentType: any }) => {
@@ -63,7 +63,7 @@ export class EditPaymentTypeComponent implements OnInit {
    */
   submit() {
     const paymentType = this.paymentTypeForm.value;
-    this.organizationService.updatePaymentType(this.paymentTypeData.id, paymentType).subscribe(response => {
+    this.paymentTypeService.updatePaymentType(this.paymentTypeData.id, paymentType).subscribe(response => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }

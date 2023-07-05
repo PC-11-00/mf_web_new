@@ -18,14 +18,14 @@ export class WorkingDaysResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: WorkingDaysService) {}
+  constructor(private workingDaysService: WorkingDaysService) {}
 
   /**
    * Returns the working days data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveAll17();
+    return this.workingDaysService.retrieveAll17();
   }
 
 }

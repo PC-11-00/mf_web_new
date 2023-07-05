@@ -47,12 +47,12 @@ export class BulkLoanReassignmnetComponent implements OnInit {
    * @param {Router} router Router.
    */
   constructor(private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
-              private organizationSevice: BulkLoansService,
-              private settingsService: SettingsService,
-              private dateUtils: Dates,
-              private router: Router) {
-    this.route.data.subscribe((data: { offices: any} ) => {
+    private route: ActivatedRoute,
+    private bulkLoansService: BulkLoansService,
+    private settingsService: SettingsService,
+    private dateUtils: Dates,
+    private router: Router) {
+    this.route.data.subscribe((data: { offices: any }) => {
       this.offices = data.offices;
     });
   }
@@ -76,9 +76,9 @@ export class BulkLoanReassignmnetComponent implements OnInit {
    * Get Office template.
    * @param officeId Office Id.
    */
-  
+
   getOffice(officeId: any) {
-    this.organizationSevice.loanReassignmentTemplate(officeId).subscribe((response: any) => {
+    this.bulkLoansService.loanReassignmentTemplate(officeId).subscribe((response: any) => {
       this.officeTemplate = response;
       this.fromLoanOfficers = this.officeTemplate.loanOfficerOptions;
       this.bulkLoanForm.addControl('fromLoanOfficerId', new FormControl('', Validators.required));
@@ -90,8 +90,8 @@ export class BulkLoanReassignmnetComponent implements OnInit {
    * @param officerId Office Id.
    */
   getFromOfficers(officerId: any) {
-    this.toLoanOfficers = this.fromLoanOfficers.filter((officer: any) => officer.id !== officerId );
-    this.organizationSevice.loanReassignmentTemplate(officerId, this.officeTemplate.id).subscribe((response: any) => {
+    this.toLoanOfficers = this.fromLoanOfficers.filter((officer: any) => officer.id !== officerId);
+    this.bulkLoansService.loanReassignmentTemplate(this.officeTemplate.id, officerId).subscribe((response: any) => {
       this.officerTemplate = response;
     });
   }
@@ -128,7 +128,7 @@ export class BulkLoanReassignmnetComponent implements OnInit {
       locale
     };
     data.loans = this.loans;
-    this.organizationSevice.loanReassignment(data).subscribe((response: any) => {
+    this.bulkLoansService.loanReassignment(data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

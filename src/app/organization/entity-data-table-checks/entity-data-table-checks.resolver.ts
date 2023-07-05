@@ -18,14 +18,14 @@ export class EntityDataTableChecksResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: EntityDataTableService) {}
+  constructor(private entityDataTableService: EntityDataTableService) {}
 
   /**
    * Returns the Entity Data Table Checks data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveAll6();
+    return this.entityDataTableService.retrieveAll6();
   }
 
 }

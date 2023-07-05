@@ -18,14 +18,14 @@ export class HolidayTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: HolidaysService) {}
+  constructor(private holidaysService: HolidaysService) {}
 
   /**
    * Returns the holiday data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveRepaymentScheduleUpdationTyeOptions();
+    return this.holidaysService.retrieveRepaymentScheduleUpdationTyeOptions();
   }
 
 }

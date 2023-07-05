@@ -18,14 +18,14 @@ export class SmsCampaignsResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: DefaultService) {}
+  constructor(private defaultService: DefaultService) {}
 
   /**
    * Returns the SMS Campaigns data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveAllEmails1();
+    return this.defaultService.retrieveAllEmails1();
   }
 
 }

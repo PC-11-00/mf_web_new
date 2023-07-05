@@ -32,7 +32,7 @@ export class ViewCashierComponent {
    */
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private organizationService: TellerCashManagementService,
+              private tellerCashManagementService: TellerCashManagementService,
               public dialog: MatDialog) {
     this.route.data.subscribe((data: { cashier: any }) => {
       this.cashierData = data.cashier;
@@ -48,7 +48,7 @@ export class ViewCashierComponent {
     });
     deleteCashierDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteCashier(this.cashierData.tellerId, this.cashierData.id).subscribe(() => {
+        this.tellerCashManagementService.deleteCashier(this.cashierData.tellerId, this.cashierData.id).subscribe(() => {
           this.router.navigate(['../'], {relativeTo: this.route});
         });
       }

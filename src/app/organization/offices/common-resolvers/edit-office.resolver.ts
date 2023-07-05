@@ -18,7 +18,7 @@ export class EditOfficeResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OfficesService) {}
+  constructor(private officesService: OfficesService) {}
 
   /**
    * Returns the office and template data.
@@ -27,7 +27,7 @@ export class EditOfficeResolver implements Resolve<Object> {
   officeId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.officeId = route.paramMap.get('officeId');
-    return this.organizationService.retrieveOfficeTemplate1(this.officeId, true);
+    return this.officesService.retrieveOfficeTemplate1(this.officeId, true);
   }
 
 }

@@ -62,7 +62,7 @@ export class WorkingDaysComponent implements OnInit, AfterViewInit {
    */
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private organizationService: WorkingDaysService,
+              private workingDaysService: WorkingDaysService,
               private settingsService: SettingsService,
               private router: Router,
               private dialog: MatDialog,
@@ -132,7 +132,7 @@ export class WorkingDaysComponent implements OnInit, AfterViewInit {
       }
     }
     workingDays.recurrence = recurrence;
-    this.organizationService.update8(workingDays).subscribe(response => {
+    this.workingDaysService.update8(workingDays).subscribe(response => {
       if (this.configurationWizardService.showDefineWorkingDays === true) {
         this.configurationWizardService.showDefineWorkingDays = false;
         this.openNextStepDialog();

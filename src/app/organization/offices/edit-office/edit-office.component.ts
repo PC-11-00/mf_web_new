@@ -38,7 +38,7 @@ export class EditOfficeComponent implements OnInit {
      * @param {MatDialog} dialog Dialog reference.
      * @param {Dates} dateUtils Date Utils
      */
-    constructor(private organizationService: OfficesService,
+    constructor(private officesService: OfficesService,
                 private settingsService: SettingsService,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
@@ -84,7 +84,7 @@ export class EditOfficeComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.updateOffice(this.officeData.id, data).subscribe((response: any) => {
+    this.officesService.updateOffice(this.officeData.id, data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

@@ -40,7 +40,7 @@ export class EditEmployeeComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: StaffService,
+              private staffService: StaffService,
               private settingsService: SettingsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -91,7 +91,7 @@ export class EditEmployeeComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.update7(this.employeeData.id, data).subscribe((response: any) => {
+    this.staffService.update7(this.employeeData.id, data).subscribe((response: any) => {
       this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
     });
   }

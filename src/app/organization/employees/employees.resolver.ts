@@ -18,14 +18,14 @@ export class EmployeesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: StaffService) {}
+  constructor(private staffService: StaffService) {}
 
   /**
    * Returns the employees data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveAll16();
+    return this.staffService.retrieveAll16();
   }
 
 }

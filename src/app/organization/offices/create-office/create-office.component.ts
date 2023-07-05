@@ -53,7 +53,7 @@ export class CreateOfficeComponent implements OnInit, AfterViewInit {
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: OfficesService,
+              private officesService: OfficesService,
               private settingsService: SettingsService,
               private router: Router,
               private route: ActivatedRoute,
@@ -100,7 +100,7 @@ export class CreateOfficeComponent implements OnInit, AfterViewInit {
       dateFormat,
       locale
     };
-    this.organizationService.createOffice(data).subscribe(response => {
+    this.officesService.createOffice(data).subscribe(response => {
       if (this.configurationWizardService.showOfficeForm === true) {
         this.configurationWizardService.showOfficeForm = false;
         this.openDialog();

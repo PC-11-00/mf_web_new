@@ -18,14 +18,14 @@ export class CurrenciesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: CurrencyService) {}
+  constructor(private currencyService: CurrencyService) {}
 
   /**
    * Returns the currencies data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveCurrencies();
+    return this.currencyService.retrieveCurrencies();
   }
 
 }

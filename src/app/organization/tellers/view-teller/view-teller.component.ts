@@ -30,7 +30,7 @@ export class ViewTellerComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: TellerCashManagementService,
+  constructor(private tellerCashManagementService: TellerCashManagementService,
               private route: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog) {
@@ -51,7 +51,7 @@ export class ViewTellerComponent implements OnInit {
     });
     deleteTellerDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteTeller(this.tellerData.id)
+        this.tellerCashManagementService.deleteTeller(this.tellerData.id)
           .subscribe(() => {
             this.router.navigate(['/organization/tellers']);
           });

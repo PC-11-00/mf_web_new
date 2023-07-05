@@ -47,7 +47,7 @@ export class ManageCurrenciesComponent implements OnInit, AfterViewInit {
    */
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private organizationservice: CurrencyService,
+              private currencyService: CurrencyService,
               public dialog: MatDialog,
               private router: Router,
               private configurationWizardService: ConfigurationWizardService,
@@ -80,7 +80,7 @@ export class ManageCurrenciesComponent implements OnInit, AfterViewInit {
     this.selectedCurrencyCodes= this.selectedCurrencies.map(currency => currency.code);
     if (!this.selectedCurrencyCodes.includes(newCurrency.code)) {
       this.selectedCurrencyCodes.push(newCurrency.code);
-      this.organizationservice.updateCurrencies(this.selectedCurrencyCodes)
+      this.currencyService.updateCurrencies(this.selectedCurrencyCodes)
         .subscribe((response: any) => {
           this.selectedCurrencies.push(newCurrency);
           this.formRef.resetForm();
@@ -105,7 +105,7 @@ export class ManageCurrenciesComponent implements OnInit, AfterViewInit {
     });
     deleteCurrencyDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationservice.updateCurrencies(this.selectedCurrencyCodes)
+        this.currencyService.updateCurrencies(this.selectedCurrencyCodes)
           .subscribe(() => {
             this.selectedCurrencies.splice(index, 1);
             this.formRef.resetForm();

@@ -23,7 +23,7 @@ export class BulkImportResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: BulkImportService) {
+  constructor(private bulkImportService: BulkImportService) {
   }
 
   /**
@@ -41,7 +41,7 @@ export class BulkImportResolver implements Resolve<Object> {
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const entity = this.getEntityName(route.params['import-name']);
-    return this.organizationService.retrieveImportDocuments(entity);
+    return this.bulkImportService.retrieveImportDocuments(entity);
   }
 
 }

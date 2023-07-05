@@ -18,7 +18,7 @@ export class PaymentTypesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: PaymentTypeService) {}
+  constructor(private paymentTypeService: PaymentTypeService) {}
 
   /**
    * Returns the payment types data.
@@ -28,9 +28,9 @@ export class PaymentTypesResolver implements Resolve<Object> {
    resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.paymentTypeId = route.paramMap.get('id');
     if (this.paymentTypeId) {
-      return this.organizationService.retrieveOnePaymentType(this.paymentTypeId);
+      return this.paymentTypeService.retrieveOnePaymentType(this.paymentTypeId);
     } else {
-      return this.organizationService.getAllPaymentTypes();
+      return this.paymentTypeService.getAllPaymentTypes();
     }
   }
 

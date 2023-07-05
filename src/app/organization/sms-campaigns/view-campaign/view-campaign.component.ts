@@ -86,7 +86,7 @@ export class ViewCampaignComponent implements OnInit {
               public dialog: MatDialog,
               private formBuilder: FormBuilder,
               private dateUtils: Dates,
-              private organizationService: DefaultService,
+              private defaultService: DefaultService,
               private smsService: SMSService,
               private settingsService: SettingsService) {
     this.route.data.subscribe((data: { smsCampaign: any }) => {
@@ -153,7 +153,7 @@ export class ViewCampaignComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.organizationService.handleCommands(this.smsCampaignData.id,'close',this.dataObject).subscribe(() => {
+        this.defaultService.handleCommands(this.smsCampaignData.id,'close').subscribe(() => {
           this.reload();
         });
       }
@@ -188,7 +188,7 @@ export class ViewCampaignComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.organizationService.handleCommands(this.smsCampaignData.id,'activate',this.dataObject).subscribe(() => {
+        this.defaultService.handleCommands(this.smsCampaignData.id,'activate').subscribe(() => {
           this.reload();
         });
       }
@@ -223,7 +223,7 @@ export class ViewCampaignComponent implements OnInit {
           dateFormat,
           locale
         };
-        this.organizationService.handleCommands(this.smsCampaignData.id, 'reactivate', this.dataObject).subscribe(() => {
+        this.defaultService.handleCommands(this.smsCampaignData.id, 'reactivate').subscribe(() => {
           this.reload();
         });
       }
@@ -239,7 +239,7 @@ export class ViewCampaignComponent implements OnInit {
     });
     deleteSmsCampaignDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.delete3(this.smsCampaignData.id).subscribe(() => {
+        this.defaultService.delete3(this.smsCampaignData.id).subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }

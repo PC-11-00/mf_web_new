@@ -18,7 +18,7 @@ export class LoanProvisioningCriteriaResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService:ProvisioningCriteriaService) {}
+  constructor(private provisioningCriteriaService:ProvisioningCriteriaService) {}
 
   /**
    * Returns the loan provisioning criteria data.
@@ -27,7 +27,7 @@ export class LoanProvisioningCriteriaResolver implements Resolve<Object> {
   provisioningId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.provisioningId = route.paramMap.get('id');
-    return this.organizationService.retrieveProvisioningCriteria(this.provisioningId);
+    return this.provisioningCriteriaService.retrieveProvisioningCriteria(this.provisioningId);
   }
 
 }

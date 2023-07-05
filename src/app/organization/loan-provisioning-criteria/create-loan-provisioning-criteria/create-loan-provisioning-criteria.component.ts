@@ -61,7 +61,7 @@ export class CreateLoanProvisioningCriteriaComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: ProvisioningCriteriaService,
+              private provisioningCriteriaService: ProvisioningCriteriaService,
               private settingsService: SettingsService,
               private router: Router,
               public dialog: MatDialog,
@@ -186,7 +186,7 @@ export class CreateLoanProvisioningCriteriaComponent implements OnInit {
       definitions: this.definitions,
       locale
     };
-    this.organizationService.createProvisioningCriteria(loanProvisioningCriteria).subscribe((response: any) => {
+    this.provisioningCriteriaService.createProvisioningCriteria(loanProvisioningCriteria).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

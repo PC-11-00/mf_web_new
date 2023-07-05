@@ -42,7 +42,7 @@ export class CreateCampaignComponent {
    */
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private organizationService: DefaultService,
+              private defaultService: DefaultService,
               private settingsService: SettingsService,
               private dateUtils: Dates) {
     this.route.data.subscribe((data: { smsCampaignTemplate: any }) => {
@@ -95,7 +95,7 @@ export class CreateCampaignComponent {
       const prevRecurrenceDate: Date = smsCampaign.recurrenceStartDate;
       smsCampaign.recurrenceStartDate = this.dateUtils.formatDate(prevRecurrenceDate, dateTimeFormat);
     }
-    this.organizationService.createCampaign1(smsCampaign).subscribe((response: any) => {
+    this.defaultService.createCampaign1(smsCampaign).subscribe((response: any) => {
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
   }

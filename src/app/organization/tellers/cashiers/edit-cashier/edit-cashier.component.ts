@@ -43,7 +43,7 @@ export class EditCashierComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dateUtils: Dates,
-              private organizationService: TellerCashManagementService,
+              private tellerCashManagementService: TellerCashManagementService,
               private settingsService: SettingsService ) {
     this.route.data.subscribe((data: { cashier: any, cashierTemplate: any }) => {
       this.cashierData.data = data.cashier;
@@ -91,7 +91,7 @@ export class EditCashierComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.updateCashier(this.cashierData.data.tellerId, this.cashierData.data.id, data).subscribe((response: any) => {
+    this.tellerCashManagementService.updateCashier(this.cashierData.data.tellerId, this.cashierData.data.id, data).subscribe((response: any) => {
       this.router.navigate(['../'], {relativeTo: this.route});
     });
   }

@@ -31,7 +31,7 @@ export class ViewHolidaysComponent {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private organizationService: HolidaysService) {
+    private holidaysService: HolidaysService) {
     this.route.data.subscribe((data: { holidays: any }) => {
       this.holidayData = data.holidays;
     });
@@ -46,7 +46,7 @@ export class ViewHolidaysComponent {
     });
     deleteHolidayDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.delete7(this.holidayData.id)
+        this.holidaysService.delete7(this.holidayData.id)
           .subscribe(() => {
             this.router.navigate(['../'], { relativeTo: this.route });
           });
@@ -63,7 +63,7 @@ export class ViewHolidaysComponent {
     });
     unAssignStaffDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
       if (response.confirm) {
-        this.organizationService.handleCommands1(this.holidayData.id,null)
+        this.holidaysService.handleCommands1(this.holidayData.id,this.holidayData,'activate')
           .subscribe(() => {
             this.router.navigate(['/organization/holidays']);
           });

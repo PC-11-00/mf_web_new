@@ -18,14 +18,14 @@ export class LoanProvisioningCriteriasResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Products service.
    */
-  constructor(private organizationService: ProvisioningCriteriaService) {}
+  constructor(private provisioningCriteriaService: ProvisioningCriteriaService) {}
 
   /**
    * Returns the products data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveAllProvisioningCriterias();
+    return this.provisioningCriteriaService.retrieveAllProvisioningCriterias();
   }
 
 }

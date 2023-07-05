@@ -18,7 +18,7 @@ export class CashierResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: TellerCashManagementService) {}
+  constructor(private tellerCashManagementService: TellerCashManagementService) {}
 
   /**
    * Returns the cashier data.
@@ -29,7 +29,7 @@ export class CashierResolver implements Resolve<Object> {
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.cashierId = route.paramMap.get('id');
     this.tellerId = route.parent.parent.paramMap.get('id');
-    return this.organizationService.findCashierData(this.tellerId, this.cashierId);
+    return this.tellerCashManagementService.findCashierData(this.tellerId, this.cashierId);
   }
 
 }

@@ -37,7 +37,7 @@ export class SettleCashComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dateUtils: Dates,
-              private organizationService: TellerCashManagementService,
+              private tellerCashManagementService: TellerCashManagementService,
               private settingsService: SettingsService,
               private router: Router) {
     this.route.data.subscribe((data: { cashierTemplate: any}) => {
@@ -82,7 +82,7 @@ export class SettleCashComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizationService.settleCashFromCashier(this.cashierData.tellerId, this.cashierData.cashierId, data).subscribe((response: any) => {
+    this.tellerCashManagementService.settleCashFromCashier(this.cashierData.tellerId, this.cashierData.cashierId, data).subscribe((response: any) => {
       this.router.navigate(['../'], {relativeTo: this.route});
     });
   }

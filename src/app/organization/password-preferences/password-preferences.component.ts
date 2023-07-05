@@ -30,7 +30,7 @@ export class PasswordPreferencesComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: FormBuilder,
-              private organizationService: PasswordPreferencesService,
+              private passwordPreferencesService: PasswordPreferencesService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.data.subscribe((data: { passwordPreferencesTemplate: any}) => {
@@ -72,7 +72,7 @@ export class PasswordPreferencesComponent implements OnInit {
    */
   submit() {
     const passwordPreferences = this.passwordPreferencesForm.value;
-    this.organizationService.update24(passwordPreferences).subscribe((response: any) => {
+    this.passwordPreferencesService.update24(passwordPreferences).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

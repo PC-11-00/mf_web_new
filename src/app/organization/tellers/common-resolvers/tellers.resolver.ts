@@ -18,14 +18,14 @@ export class TellersResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: TellerCashManagementService) {}
+  constructor(private tellerCashManagementService: TellerCashManagementService) {}
 
   /**
    * Returns the Tellers data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getTellerData();
+    return this.tellerCashManagementService.getTellerData();
   }
 
 }

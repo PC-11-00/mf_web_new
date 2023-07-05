@@ -66,7 +66,7 @@ export class ManageFundsComponent implements OnInit, AfterViewInit {
    */
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private organizationservice: FundsService,
+              private fundsService: FundsService,
               public dialog: MatDialog,
               private router: Router,
               private configurationWizardService: ConfigurationWizardService,
@@ -105,7 +105,7 @@ export class ManageFundsComponent implements OnInit, AfterViewInit {
    */
   addFund() {
     const newFund = this.fundForm.value;
-    this.organizationservice.createFund(newFund).subscribe((response: any) => {
+    this.fundsService.createFund(newFund).subscribe((response: any) => {
         this.fundsData.push({
           id: response.resourceId,
           name: newFund.name
@@ -142,7 +142,7 @@ export class ManageFundsComponent implements OnInit, AfterViewInit {
     const editFundDialogRef = this.dialog.open(FormDialogComponent, { data });
     editFundDialogRef.afterClosed().subscribe((response: any) => {
       if (response.data) {
-        this.organizationservice.updateFund(fundId, response.data.value).subscribe(() => {
+        this.fundsService.updateFund(fundId, response.data.value).subscribe(() => {
           this.fundsData[index].name = response.data.value.name;
         });
       }

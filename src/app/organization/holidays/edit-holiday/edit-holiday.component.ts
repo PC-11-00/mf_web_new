@@ -43,7 +43,7 @@ export class EditHolidayComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dateUtils: Dates,
-              private organizatioService: HolidaysService,
+              private holidaysService: HolidaysService,
               private settingsService: SettingsService,
               private router: Router ) {
     this.route.data.subscribe((data: { holiday: any, holidayTemplate: any }) => {
@@ -124,7 +124,7 @@ export class EditHolidayComponent implements OnInit {
       dateFormat,
       locale
     };
-    this.organizatioService.update6(this.holidayData.id, data).subscribe(response => {
+    this.holidaysService.update6(this.holidayData.id, data).subscribe(response => {
       /** TODO Add Redirects to ViewMakerCheckerTask page. */
       this.router.navigate(['../'], { relativeTo: this.route });
     });

@@ -11,7 +11,7 @@ export class ManageFundResolver implements Resolve<boolean> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: FundsService) {}
+  constructor(private fundsService: FundsService) {}
 
   /**
    * Returns the manage funds data.
@@ -20,6 +20,6 @@ export class ManageFundResolver implements Resolve<boolean> {
   fundId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.fundId = route.paramMap.get('id');
-    return this.organizationService.retrieveFund(this.fundId);
+    return this.fundsService.retrieveFund(this.fundId);
   }
 }

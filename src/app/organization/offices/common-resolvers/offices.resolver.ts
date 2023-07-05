@@ -18,14 +18,14 @@ export class OfficesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OfficesService) {}
+  constructor(private officesService: OfficesService) {}
 
   /**
    * Returns the offices data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveOffices();
+    return this.officesService.retrieveOffices();
   }
 
 }

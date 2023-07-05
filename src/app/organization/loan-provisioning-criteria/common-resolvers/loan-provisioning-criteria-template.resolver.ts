@@ -18,14 +18,14 @@ export class LoanProvisioningCriteriaTemplateResolver implements Resolve<Object>
   /**
    * @param {OrganizationService} organizationService Products service.
    */
-  constructor(private organizationService: ProvisioningCriteriaService) {}
+  constructor(private provisioningCriteriaService: ProvisioningCriteriaService) {}
 
   /**
    * Returns the Pprovisioning criteria template
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.retrieveTemplate3();
+    return this.provisioningCriteriaService.retrieveTemplate3();
   }
 
 }

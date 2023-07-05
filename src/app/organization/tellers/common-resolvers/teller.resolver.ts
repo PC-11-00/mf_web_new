@@ -18,7 +18,7 @@ export class TellerResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: TellerCashManagementService) {}
+  constructor(private tellerCashManagementService: TellerCashManagementService) {}
 
   /**
    * Returns the teller data.
@@ -27,7 +27,7 @@ export class TellerResolver implements Resolve<Object> {
   tellerId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.tellerId = route.paramMap.get('id');
-    return this.organizationService.findTeller(this.tellerId);
+    return this.tellerCashManagementService.findTeller(this.tellerId);
   }
 
 }

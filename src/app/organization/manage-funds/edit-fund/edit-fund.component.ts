@@ -23,7 +23,7 @@ export class EditFundComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {Router} router Router for navigation.
    */
-  constructor(private organizationService: FundsService,
+  constructor(private fundsService: FundsService,
               private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute) {
@@ -49,7 +49,7 @@ export class EditFundComponent implements OnInit {
 
   submit() {
     const payload = this.fundForm.getRawValue();
-    this.organizationService.updateFund(this.fundData.id.toString(), payload)
+    this.fundsService.updateFund(this.fundData.id.toString(), payload)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

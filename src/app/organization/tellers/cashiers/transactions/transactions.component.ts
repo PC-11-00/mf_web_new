@@ -45,7 +45,7 @@ export class TransactionsComponent implements OnInit {
    * @param {OrganizationService} organizationService Organization Service.
    * @param {ActivatedRoute} route Activated Route.
    */
-  constructor(private organizationService: TellerCashManagementService,
+  constructor(private tellerCashManagementService: TellerCashManagementService,
               private route: ActivatedRoute) {
     this.route.data.subscribe(( data: { currencies: any }) => {
       this.currencyData = data.currencies.selectedCurrencyOptions;
@@ -74,7 +74,7 @@ export class TransactionsComponent implements OnInit {
    */
   onChangeCurrency() {
     this.currencySelector.valueChanges.subscribe((currencyCode: any) => {
-      this.organizationService.getTransactionsWtihSummaryForCashier(this.tellerId, this.cashierId, currencyCode)
+      this.tellerCashManagementService.getTransactionsWtihSummaryForCashier(this.tellerId, this.cashierId, currencyCode)
         .subscribe((response: any) => {
           this.cashierData = response;
           this.setTransactions();

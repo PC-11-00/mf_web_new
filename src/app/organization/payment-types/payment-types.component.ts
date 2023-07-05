@@ -41,7 +41,7 @@ export class PaymentTypesComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private organizationService: PaymentTypeService,
+  constructor(private paymentTypeService: PaymentTypeService,
               private route: ActivatedRoute,
               private dialog: MatDialog) {
     this.route.data.subscribe(( data: { paymentTypes: any }) => {
@@ -83,7 +83,7 @@ export class PaymentTypesComponent implements OnInit {
     });
     deletePaymentTypeDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
-        this.organizationService.deleteCode1(paymentTypeId)
+        this.paymentTypeService.deleteCode1(paymentTypeId)
           .subscribe(() => {
             this.paymentTypesData = this.paymentTypesData.filter((paymentType: any) => paymentType.id !== paymentTypeId);
             this.setPaymentTypes();

@@ -18,7 +18,7 @@ export class HolidayResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: HolidaysService) {}
+  constructor(private holidaysService: HolidaysService) {}
 
   /**
    * Returns the holiday data.
@@ -27,7 +27,7 @@ export class HolidayResolver implements Resolve<Object> {
   holidayId:any;
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     this.holidayId  = route.paramMap.get('id');
-    return this.organizationService.retrieveOne7(this.holidayId);
+    return this.holidaysService.retrieveOne7(this.holidayId);
   }
 
 }

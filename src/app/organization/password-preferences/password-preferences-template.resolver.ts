@@ -18,14 +18,14 @@ export class PasswordPreferencesTemplateResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: PasswordPreferencesService) {}
+  constructor(private passwordPreferencesService: PasswordPreferencesService) {}
 
   /**
    * Returns the password preferences template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.template21();
+    return this.passwordPreferencesService.template21();
   }
 
 }
