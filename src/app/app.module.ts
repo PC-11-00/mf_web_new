@@ -44,13 +44,13 @@ import { DatePipe, LocationStrategy } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-
+// import { environment } from 'environments/environment';
 
 /* Configuration Factory to make the api base URL */
 
 const configurationFactory = () => {
   const configParams: ConfigurationParameters = {
-    basePath: 'https://webapp.ps.mifos.io/fineract-provider/api/v1',
+    basePath: 'https://localhost:8443/fineract-provider/api',
   };
   return new Configuration(configParams);
 }
